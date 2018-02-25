@@ -177,7 +177,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#003f69', end
   position: relative;
 }
 
-.next-button{
+.next-button-small{
   color: white;
   width:164px;
   height: 164px;
@@ -189,7 +189,28 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#003f69', end
 }
 
 
-.next-button h4{
+.next-button-small h4{
+  font-family: "ScalaSans", sans-serif;
+  font-size:36px;
+  margin: auto;
+position: relative;
+text-align: center;
+top: -40px;
+}
+
+.back-button-small{
+  color: white;
+  width:164px;
+  height: 164px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: #002843 url(./Assets/btn-back-sm.png) no-repeat;
+  border: none;
+}
+
+
+.back-button-small h4{
   font-family: "ScalaSans", sans-serif;
   font-size:36px;
   margin: auto;

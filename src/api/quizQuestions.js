@@ -135,7 +135,7 @@ var quizQuestions = [
           {
             nextQuestionId: 'record',
               type: "Nintendo",
-              content: "Has 9/11 influences your own military service or volunteerism?"
+              content: "Has 9/11 influenced your own military service or volunteerism?"
           },
           {
             nextQuestionId: 'record',

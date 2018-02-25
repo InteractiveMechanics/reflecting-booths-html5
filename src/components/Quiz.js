@@ -11,7 +11,7 @@ function Quiz(props) {
         answerType={key.type}
         answer={props.answer}
         questionId={props.questionId}
-        nextQuestionId={props.nextQuestionId}
+        nextQuestionId={key.nextQuestionId}
         onAnswerSelected={props.onAnswerSelected}
       />
     );
@@ -31,7 +31,6 @@ function Quiz(props) {
     //counter: PropTypes.number.isRequired,
     question: PropTypes.string.isRequired,
     questionId: PropTypes.number.isRequired,
-    nextQuestionId: PropTypes.number.isRequired,
     questionTotal: PropTypes.number.isRequired,
     onAnswerSelected: PropTypes.func.isRequired
   };

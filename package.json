@@ -4,11 +4,13 @@
   "private": true,
   "dependencies": {
     "immutability-helper": "^2.6.5",
+    "keymirror": "^0.1.1",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-addons-update": "^15.6.2",
     "react-dom": "^16.2.0",
-    "react-scripts": "1.1.1"
+    "react-scripts": "1.1.1",
+    "react-virtual-keyboard": "^1.0.2"
   },
   "scripts": {
     "start": "react-scripts start",

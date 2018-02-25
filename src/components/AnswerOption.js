@@ -13,7 +13,7 @@ import PropTypes from 'prop-types';
           value={props.answerType}
           disabled={props.answer}
           onChange={props.onAnswerSelected}
-          
+          nextquestionid={props.nextQuestionId}
         />
         <label className="radioCustomLabel" htmlFor={props.answerType}>
           {props.answerContent}
@@ -27,7 +27,10 @@ import PropTypes from 'prop-types';
     answerContent: PropTypes.string.isRequired,
     answer: PropTypes.string.isRequired,
     onAnswerSelected: PropTypes.func.isRequired,
-    nextQuestionId: PropTypes.number.isRequired
+    nextQuestionId: PropTypes.oneOfType([
+  PropTypes.string,
+  PropTypes.number
+])
   };
 
   export default AnswerOption;
