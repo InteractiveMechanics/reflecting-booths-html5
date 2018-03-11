@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 function Quiz(props) {
   function renderAnswerOptions(key) {
+    //const answerText = key.content[props.language];
     return (
       <AnswerOption
         key={key.content}
@@ -26,6 +27,7 @@ function Quiz(props) {
 );
 }
   Quiz.propTypes = {
+    //language: PropTypes.string.isRequired,
     answer: PropTypes.string.isRequired,
     answerOptions: PropTypes.array.isRequired,
     //counter: PropTypes.number.isRequired,

@@ -8,8 +8,13 @@
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-addons-update": "^15.6.2",
+    "react-circular-progressbar": "^0.8.0",
     "react-dom": "^16.2.0",
+    "react-progress-circle": "^0.2.3",
+    "react-progressbar.js": "^0.2.0",
+    "react-radio-button-group": "^1.2.5",
     "react-scripts": "1.1.1",
+    "react-select": "^1.2.1",
     "react-virtual-keyboard": "^1.0.2"
   },
   "scripts": {

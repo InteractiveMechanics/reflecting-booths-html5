@@ -4,22 +4,22 @@ var quizQuestions = [
       answers: [
           {
             nextQuestionId: 1,
-            type: "Microsoft",
+            type: "I was not alive",
             content: "I was not alive"
           },
           {
             nextQuestionId: 2,
-            type: "Nintendo",
+            type: "Near an attack site",
             content: "Near an attack site"
           },
           {
             nextQuestionId: 2,
-            type: "Sony",
+            type: "Elsewhere in the U.S.",
             content: "Elsewhere in the U.S."
           },
           {
             nextQuestionId: 2,
-            type: "Sony",
+            type: "Elsewhere internationally",
             content: "Elsewhere internationally"
           }
       ]
@@ -29,12 +29,12 @@ var quizQuestions = [
       answers: [
           {
             nextQuestionId: 'record',
-            type: "Microsoft",
+            type: "Yes",
             content: "Yes"
           },
           {
             nextQuestionId: 3,
-            type: "Nintendo",
+            type: "No",
             content: "No"
           }
       ]
@@ -44,12 +44,12 @@ var quizQuestions = [
       answers: [
           {
             nextQuestionId: 'record',
-            type: "Microsoft",
+            type: "Yes",
             content: "Yes"
           },
           {
             nextQuestionId: 3,
-            type: "Nintendo",
+            type: "No",
             content: "No"
           }
       ]
@@ -59,12 +59,12 @@ var quizQuestions = [
       answers: [
           {
             nextQuestionId: 'record',
-            type: "Microsoft",
+            type: "Yes",
             content: "Yes"
           },
           {
             nextQuestionId: 4,
-            type: "Nintendo",
+            type: "No",
             content: "No"
           }
       ]
@@ -74,12 +74,12 @@ var quizQuestions = [
       answers: [
           {
             nextQuestionId: 5,
-            type: "Microsoft",
+            type: "Yes",
             content: "Yes"
           },
           {
             nextQuestionId: 6,
-            type: "Nintendo",
+            type: "No",
             content: "No"
           }
       ]
@@ -89,12 +89,12 @@ var quizQuestions = [
       answers: [
           {
             nextQuestionId: 'record',
-            type: "Microsoft",
+            type: "Yes",
             content: "Yes"
           },
           {
             nextQuestionId: 7,
-            type: "Nintendo",
+            type: "No",
             content: "No"
           }
       ]
@@ -104,17 +104,17 @@ var quizQuestions = [
       answers: [
           {
             nextQuestionId: 'record',
-              type: "Microsoft",
+              type: "What does rebuilding at ground zero mean to you?",
               content: "What does rebuilding at ground zero mean to you?"
           },
           {
             nextQuestionId: 'record',
-              type: "Nintendo",
-              content: "Why is is important to remember 9/11?"
+              type: "Why is it important to remember 9/11?",
+              content: "Why is it important to remember 9/11?"
           },
           {
             nextQuestionId: 'record',
-              type: "Nintendo",
+              type: "Did you see something at the museum that impacted you?",
               content: "Did you see something at the museum that impacted you?"
           }
       ]
@@ -124,22 +124,22 @@ var quizQuestions = [
       answers: [
           {
             nextQuestionId: 'record',
-              type: "Microsoft",
+              type: "What is your experience with ongoing recovery efforts or health effects?",
               content: "What is your experience with ongoing recovery efforts or health effects?"
           },
           {
             nextQuestionId: 'record',
-              type: "Nintendo",
+              type: "Has 9/11 influenced your feelings about patriotism?",
               content: "Has 9/11 influenced your feelings about patriotism?"
           },
           {
             nextQuestionId: 'record',
-              type: "Nintendo",
+              type: "Has 9/11 influenced your own military service or volunteerism?",
               content: "Has 9/11 influenced your own military service or volunteerism?"
           },
           {
             nextQuestionId: 'record',
-              type: "Nintendo",
+              type: "How has your life been afected by 9/11?",
               content: "How has your life been afected by 9/11?"
           }
 

@@ -1,40 +1,115 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import ProgressCircle from 'react-progress-circle';
+//import ProgressBar from 'react-progressbar.js';
+import CircularProgressbar from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
 
-export class Welcome extends Component {
+
+
+class Timer extends Component {
   constructor(props) {
     super(props);
+    this.state = { time: {}, seconds: props.seconds, totalTime: props.seconds };
+    this.timer = 0;
+    this.secondTimer = false;
+    this.startTimer = this.startTimer.bind(this);
+    this.countDown = this.countDown.bind(this);
+    this.stopRecording = props.stopRecording;
+    this.time = this.time.bind(this);
   }
 
-  componentDidUpdate() {
-    var percent = parseInt(this.props.percent);
-    var deg = 360*percent/100 ;
-    var element = this.refs.progress.getDOMNode();
-    element.style.transform = 'rotate(-'+ deg +'deg)';
-  },
-  render() {
-    var percent = Math.floor(this.props.percent);
-    var classes = classSet({
-      "progress-pie-chart": true,
-      "gt-50": percent > 50
+  secondsToTime(secs){
+    let hours = Math.floor(secs / (60 * 60));
+
+    let divisor_for_minutes = secs % (60 * 60);
+    let minutes = Math.floor(divisor_for_minutes / 60);
+
+    let divisor_for_seconds = divisor_for_minutes % 60;
+    let seconds = Math.ceil(divisor_for_seconds);
+
+    seconds = ('0' + seconds).slice(-2);
+
+    let obj = {
+      "h": hours,
+      "m": minutes,
+      "s": seconds
+    };
+    return obj;
+  }
+
+  // componentWillMount(props) {
+  //   this.setState({ time: {}, seconds: props.seconds });
+  // }
+
+  componentDidMount() {
+    let timeLeftVar = this.secondsToTime(this.state.seconds);
+    this.setState({ time: timeLeftVar });
+    this.startTimer();
+  }
+
+  startTimer() {
+    if (this.timer == 0) {
+      this.timer = setInterval(this.countDown, 1000);
+    }
+  }
+
+
+  countDown(props) {
+    // Remove one second, set state so a re-render happens.
+    let seconds = this.state.seconds - 1;
+    this.setState({
+      time: this.secondsToTime(seconds),
+      seconds: seconds
     });
-    return (
-      <div className="progress clearfix">
-        <div className={classes}>
-          <div className="ppc-progress">
-            <div className="ppc-progress-fill" ref="progress"></div>
-          </div>
-          <div className="ppc-percents">
-            <div className="pcc-percents-wrapper">
-              <span>{percent + '%'}</span>
-            </div>
-          </div>
-        </div>
+
+    // Check if we're at zero.
+    if (seconds == 0) {
+      if (!this.secondTimer){
+        this.secondTimer = true;
+        clearInterval(this.timer);
+        this.setState({
+          time: {},
+          seconds: 120,
+          totalTime: 120
+
+        });
+        this.timer= 0;
+        this.startTimer();
+      } else{
+        clearInterval(this.timer);
+        this.stopRecording();
+      }
+
+    }
+  }
+
+
+time() {
+  let time = this.state.time.m+":"+this.state.time.s;
+  return time
+}
+
+
+  render() {
+    var percentage = (this.state.seconds/this.state.totalTime)*100;
+
+    return(
+      <div className="timer-progress">
+        <CircularProgressbar
+                {...this.props}
+                percentage={percentage}
+                textForPercentage={this.time}
+                strokeWidth={18}
+                
+              />
       </div>
     );
   }
-};
+}
 
-Touchscreen.propTypes = {
-  content: PropTypes.object.isRequired
+Timer.propTypes = {
+  seconds: PropTypes.number.isRequired,
+  stopRecording: PropTypes.func.isRequired
 };
+export default Timer;

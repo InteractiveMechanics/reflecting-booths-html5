@@ -6,8 +6,8 @@ const data = {
     "touchscreen": {
       "text":"<h3>welcome to the</h3><h2>Recording Booth</h2><p>Tap anywhere to begin</p>"
     },
-    "next": "welcome",
-    "back": null
+    "buttonclass": "large",
+    "welcome": "welcome"
   },
 
 
@@ -20,8 +20,8 @@ const data = {
         "touchscreen": {
           "text": ""
         },
+        "buttonclass": "large",
         "next": "about-1",
-        "back": "attract",
         "language": "language"
 
     },
@@ -30,7 +30,9 @@ const data = {
         "heading": "Select Your Language"
       },
       "touchscreen": "langage input component here",
-      "back": "welcome"
+      "back": "welcome",
+      "buttonclass": "small",
+      "languages": ["English", "French", "Spanish", "Italian", "Japanese", "Mandarin", "Portuguese", "Dutch"]
 
   },
       "about-1": {
@@ -41,6 +43,7 @@ const data = {
         "touchscreen": {
           "text": ""
         },
+        "buttonclass": "large",
         "next": "about-2",
         "back": "welcome"
 
@@ -53,23 +56,26 @@ const data = {
         "touchscreen": {
           "text": ""
         },
+        "buttonclass": "large",
         "next": "questions",
         "back": "about-1"
     },
       "questions": {
         "teleprompter": {},
         "touchscreen": {},
+        "buttonclass": "small",
         "next": "record-intro-1",
         "back": "about-2"
     },
 
       "record-intro-1": {
         "teleprompter": {
-          "heading": "video component"
+          "recordvideo": true
         },
         "touchscreen": {
           "text": ""
         },
+        "buttonclass": "large",
         "next": "record-intro-2",
         "back": "questions"
     },
@@ -82,19 +88,19 @@ const data = {
         "touchscreen": {
           "text": ""
         },
-        "next": "recording",
+        "buttonclass": "large",
+        "recording": "recording",
         "back": "record-intro-1"
     },
       "recording": {
         "teleprompter": {
-          "heading": "Recording starts in (d3 animation countdown component)",
+          "heading": "Time remaining:",
           "paragraph": "last prompt rendered in place of progress"
         },
         "touchscreen": {
           "text": ""
         },
-        "next": "review",
-        "back": "record-intro-2"
+        "stop": "review"
       },
 
     "review": {
@@ -105,6 +111,8 @@ const data = {
       "touchscreen": {
         "text": ""
       },
+      "buttonclass": "large",
+      "record-again": "record-intro-1",
       "next": "user-agreement"
     },
     "user-agreement": {
@@ -113,10 +121,13 @@ const data = {
         "paragraph": "To submit your video for use by the museum, you must agree to our terms of service and enter your information on the screen in front of you."
       },
       "touchscreen": {
-        "text": ""
+        "text": "",
+        "heading": "Usage Agreement: Terms of Service",
+        "agreement": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut semper ipsum risus, quis convallis purus pellentesque vitae. Curabitur non elit vulputate, vehicula nibh eu, consectetur risus. Suspendisse ornare, magna molestie facilisis euismod, mauris tortor laoreet tellus, quis molestie lacus lacus sed odio. Aenean libero tellus, tincidunt ut arcu sit amet, rhoncus tincidunt felis. Etiam lobortis, nibh eget dictum tristique, lacus massa lobortis quam, quis lacinia sem sem et nisi. Donec vel libero sapien. Sed id dignissim risus, et feugiat metus. Suspendisse urna nisl, maximus eu pharetra in, mattis vitae mi. Duis iaculis luctus rhoncus. Nullam sodales urna eget tristique iaculis. Vestibulum eget blandit arcu. In consectetur placerat facilisis. Curabitur elementum tellus at mi congue finibus."
       },
-      "next": "first-name",
-      "back": "user-agreement-warning"
+      "buttonclass": "small",
+      "agree": "first-name",
+      "disagree": "user-agreement-warning"
     },
     "user-agreement-warning": {
       "teleprompter": {
@@ -125,8 +136,9 @@ const data = {
       "touchscreen": {
         "text": ""
       },
-      "next": "first-name",
-      "back": "end"
+      "buttonclass": "large",
+      "delete": "welcome",
+      "save": "user-agreement"
     },
     "first-name": {
       "teleprompter": {
@@ -136,8 +148,10 @@ const data = {
         "text": ""
       },
       "keyboard": {
-        "language": "english"
+        "language": "english",
+        "input": "firstname"
       },
+      "buttonclass": "small",
       "next": "last-name",
       "back": "user-agreement"
     },
@@ -148,6 +162,11 @@ const data = {
       "touchscreen": {
         "text": ""
       },
+      "keyboard": {
+        "language": "english",
+        "input": "lastname"
+      },
+      "buttonclass": "small",
       "next": "email",
       "back": "first-name"
     },
@@ -158,6 +177,11 @@ const data = {
       "touchscreen": {
         "text": ""
       },
+      "keyboard": {
+        "language": "english",
+        "input": "email"
+      },
+      "buttonclass": "small",
       "next": "location",
       "back": "last-name"
     },
@@ -168,6 +192,11 @@ const data = {
       "touchscreen": {
         "text": ""
       },
+      "keyboard": {
+        "language": "english",
+        "input": "location"
+      },
+      "buttonclass": "small",
       "next": "age",
       "back": "last-name"
     },
@@ -177,8 +206,13 @@ const data = {
         "paragraph": "If you are not, your video will be saved but not shared publicly."
       },
       "touchscreen": {
+        "age-select":{
+          "yes": "yes",
+          "no": "no",
+        },
         "text": "age select here"
       },
+      "buttonclass": "small",
       "next": "end",
       "back": "location"
     },
@@ -190,8 +224,9 @@ const data = {
       "touchscreen": {
         "text": ""
       },
-      "next": "questions",
-      "back": "attract"
+      "buttonclass": "large",
+      "record-again": "questions",
+      "home": "attract"
     }
   }
     export default data;
