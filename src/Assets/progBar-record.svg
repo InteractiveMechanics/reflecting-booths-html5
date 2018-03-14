@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-6916 449 30 14.9">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+      }
+    </style>
+  </defs>
+  <path id="progBar-record" class="cls-1" d="M27.2,2.5,24.3,5.4H22.9V1.7A1.685,1.685,0,0,0,21.2,0H4.8A1.685,1.685,0,0,0,3.1,1.7V3H1.3V1.7H0V7.9H1.3V6.6H3.1v6.6a1.685,1.685,0,0,0,1.7,1.7H21.1a1.685,1.685,0,0,0,1.7-1.7V9.1h1.6l2.7,2.7H30V2.5Z" transform="translate(-6916 449)"/>
+</svg>

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-6738 443 24.21 27">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+      }
+    </style>
+  </defs>
+  <path id="progBar-save" class="cls-1" d="M24.21,24.39V0H0V24.39H8.64V22.14H2.79V5.4H5.94l1.8-1.8h8.64l1.8,1.8h3.15V22.23H15.84v2.25h8.37ZM6.39,15.84H9.27V27H15.3V15.84h2.88L12.33,9.9Z" transform="translate(-6738 443)"/>
+</svg>

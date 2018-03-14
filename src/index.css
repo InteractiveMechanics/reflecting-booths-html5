@@ -717,3 +717,59 @@ position: relative;
 text-align: center;
 top: -80px;
 }
+
+
+
+
+  .progressbar{
+      counter-reset: step;
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      padding: 0px 25px;
+      color: white;
+  }
+  .progressbar li {
+      list-style-type: none;
+      height: 100px;
+      width: 90px;
+      float: left;
+      font-size: 12px;
+      position: relative;
+      text-align: center;
+      text-transform: uppercase;
+      color: white;
+      opacity: 0.5;
+  }
+
+  .progressbar svg {
+      width: 25px;
+      height: 25px;
+      fill: green;
+  }
+
+  #progBar-home .path{
+    fill: green;
+  }
+
+  .progressbar li:after {
+      width:110px;
+      height: 2px;
+      content: '';
+      position: absolute;
+      background-color: white;
+      top: 58px;
+      left: -90px;
+      z-index: -1;
+  }
+  .progressbar li:first-child:after {
+      content: none;
+  }
+  .progressbar li.active {
+      color: white;
+      opacity: 1;
+  }
+
+  .progressbar li.active:after {
+      background-color: white;
+  }

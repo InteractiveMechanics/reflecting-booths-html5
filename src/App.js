@@ -25,6 +25,7 @@ import QuestionCount from './components/QuestionCount';
 import Result from './components/Result';
 import update from 'immutability-helper';
 import Timer from './components/Timer';
+import Progress from './components/Progress';
 import Home from './components/Home';
 
 
@@ -671,6 +672,14 @@ class App extends Component {
     }
   }
 
+  renderProgress(state) {
+    if(state){
+      return (
+        <Progress currentState={state}/>
+      );
+    }
+  }
+
   renderAgreement(state) {
     if(state === "user-agreement"){
       return (
@@ -862,6 +871,7 @@ class App extends Component {
           {this.renderTeleprompter(teleprompterContent)}
           {this.renderTimer(currentState)}
           {this.renderPrompt(teleprompterContent)}
+          {this.renderProgress(currentState)}
         </div>
       </div>
     );
