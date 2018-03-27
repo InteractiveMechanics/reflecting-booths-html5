@@ -15,7 +15,7 @@ import PropTypes from 'prop-types';
           onChange={props.onLanguageSelected}
         />
         <label className="radioCustomLabel" htmlFor={props.languageValue}>
-          {props.languageValue}
+          {props.content}
         </label>
       </li>
     );
@@ -23,6 +23,7 @@ import PropTypes from 'prop-types';
 
   LanguageOption.propTypes = {
     languageValue: PropTypes.string.isRequired,
+    content: PropTypes.string.isRequired,
     language: PropTypes.string.isRequired,
     onLanguageSelected: PropTypes.func.isRequired
   };

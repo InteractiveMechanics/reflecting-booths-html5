@@ -15,12 +15,12 @@ function Teleprompter(props) {
     videoFile = null;
   };
   if (props.content.heading){
-    heading = <h1 className="teleprompter">{props.content.heading}</h1>
+    heading = <h1 className="teleprompter">{props.content.heading[props.language]}</h1>
   } else{
     heading = null
   }
   if (props.content.paragraph){
-    paragraph = <p>{props.content.paragraph}</p>
+    paragraph = <p>{props.content.paragraph[props.language]}</p>
   } else{
     paragraph = null
   }
@@ -37,7 +37,8 @@ function Teleprompter(props) {
 }
 
 Teleprompter.propTypes = {
-  content: PropTypes.object.isRequired
+  content: PropTypes.object.isRequired,
+  language: PropTypes.string.isRequired
 };
 
 export default Teleprompter;

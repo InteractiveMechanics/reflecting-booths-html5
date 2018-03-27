@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 
   function Question(props) {
     return (
-      <h2 className="question">{props.content}</h2>
+      <h2 className="question">{props.content[props.language]}</h2>
     );
   }
 
   Question.propTypes = {
-    content: PropTypes.string.isRequired
+    language: PropTypes.string.isRequired,
+    content: PropTypes.object.isRequired
   };
 
   export default Question;

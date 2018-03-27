@@ -16,17 +16,19 @@ import PropTypes from 'prop-types';
           nextquestionid={props.nextQuestionId}
         />
         <label className="radioCustomLabel" htmlFor={props.answerType}>
-          {props.answerContent}
+          {props.content[props.language]}
         </label>
       </li>
     );
   }
 
   AnswerOption.propTypes = {
+    language: PropTypes.string.isRequired,
     answerType: PropTypes.string.isRequired,
     answerContent: PropTypes.string.isRequired,
     answer: PropTypes.string.isRequired,
     onAnswerSelected: PropTypes.func.isRequired,
+    content: PropTypes.object.isRequired,
     nextQuestionId: PropTypes.oneOfType([
   PropTypes.string,
   PropTypes.number

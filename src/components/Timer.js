@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ProgressCircle from 'react-progress-circle';
-//import ProgressBar from 'react-progressbar.js';
 import CircularProgressbar from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 
@@ -101,7 +100,7 @@ time() {
                 percentage={percentage}
                 textForPercentage={this.time}
                 strokeWidth={18}
-                
+
               />
       </div>
     );

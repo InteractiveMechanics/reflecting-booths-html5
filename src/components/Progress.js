@@ -1,31 +1,58 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import progHome from '../Assets/progBar-home.svg';
-import progAbout from '../Assets/progBar-about.svg';
-import progQuestions from '../Assets/progBar-questions.svg';
-import progRecord from '../Assets/progBar-record.svg';
-import progSubmit from '../Assets/progBar-save.svg';
+// import progHome from '../Assets/progBar-home.svg';
+// import progAbout from '../Assets/progBar-about.svg';
+// import progQuestions from '../Assets/progBar-questions.svg';
+// import progRecord from '../Assets/progBar-record.svg';
+// import progSubmit from '../Assets/progBar-save.svg';
 
 function Progress(props) {
 
-  // setProgress(currentState) {
-  //   switch (nextState) {
-  //     case 'attract':
-  //     return {
-  //       teleprompter: data[nextState]["teleprompter"],
-  //       touchscreen: data[nextState]["touchscreen"],
-  //       buttonClass: data[nextState]["buttonclass"]
-  //     };
-  //
-  //     case 'welcome':
-  //
-  // setprogress(props.currentState);
+  var homeFill = 'rgba(255,255,255,0.5)';
+  var aboutFill = 'rgba(255,255,255,0.5)';
+  var questionsFill = 'rgba(255,255,255,0.5)';
+  var recordFill = 'rgba(255,255,255,0.5)';
+  var submitFill = 'rgba(255,255,255,0.5)';
 
-  var homeFill = 'rgba(255,255,255,1)';
-  var aboutFill = 'rgba(255,255,255,1)';
-  var questionsFill = 'rgba(255,255,255,1)';
-  var recordFill = 'rgba(255,255,255,1)';
-  var submitFill = 'rgba(255,255,255,1)';
+  switch(props.currentState) {
+    case 'attract':
+    case 'welcome':
+    case 'language':
+        homeFill = 'rgba(255,255,255,1)';
+        break;
+    case 'about-1':
+    case 'about-2':
+        homeFill = 'rgba(255,255,255,1)';
+        aboutFill = 'rgba(255,255,255,1)';
+        break;
+    case 'questions':
+        homeFill = 'rgba(255,255,255,1)';
+        aboutFill = 'rgba(255,255,255,1)';
+        questionsFill = 'rgba(255,255,255,1)';
+        break;
+    case 'record-intro-1':
+    case 'record-intro-2':
+    case 'recording':
+    case 'review':
+        homeFill = 'rgba(255,255,255,1)';
+        aboutFill = 'rgba(255,255,255,1)';
+        questionsFill = 'rgba(255,255,255,1)';
+        recordFill = 'rgba(255,255,255,1)';
+        break;
+    case 'user-agreement':
+    case 'user-agreement-warning':
+    case 'first-name':
+    case 'last-name':
+    case 'email':
+    case 'location':
+        homeFill = 'rgba(255,255,255,1)';
+        aboutFill = 'rgba(255,255,255,1)';
+        questionsFill = 'rgba(255,255,255,1)';
+        recordFill = 'rgba(255,255,255,1)';
+        submitFill = 'rgba(255,255,255,1)';
+        break;
+    default:
+  }
 
   return (
       <ul className="progressbar">

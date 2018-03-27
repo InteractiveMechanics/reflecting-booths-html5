@@ -190,6 +190,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#003f69', end
   height: 600px;
   float: left;
   position: relative;
+  z-index: -10;
 }
 
 .next-button-small{
@@ -658,10 +659,10 @@ stroke: transparent;
 margin-top: 40px;
 }
 
-.ui-keyboard-input{
+.ui-keyboard-input, .suggestion{
   outline-style:none;
-box-shadow:none;
-border-color:transparent;
+  box-shadow:none;
+  border-color:transparent;
   width: 720px;
   font-family: "ScalaSans-Regular", sans-serif;
   font-size: 36px;
@@ -671,6 +672,13 @@ border-color:transparent;
   margin: 0px 40px 30px 40px;
   padding: 20px 0px 20px 0px;
   border-bottom: 1px solid white;
+}
+
+.suggestion{
+  font-family: "ScalaSans-Italic", sans-serif;
+  opacity: 0.5;
+  position: absolute;
+  z-index:-2;
 }
 
 .ui-keyboard{
@@ -725,9 +733,13 @@ top: -80px;
       counter-reset: step;
       display: flex;
       justify-content: space-between;
-      width: 100%;
+      width: 800px;
       padding: 0px 25px;
       color: white;
+      font-family: "ScalaSans-Bold", sans-serif;
+      font-size:21px;
+      position: fixed;
+      bottom: 30px;
   }
   .progressbar li {
       list-style-type: none;
@@ -739,17 +751,11 @@ top: -80px;
       text-align: center;
       text-transform: uppercase;
       color: white;
-      opacity: 0.5;
   }
 
   .progressbar svg {
       width: 25px;
       height: 25px;
-      fill: green;
-  }
-
-  #progBar-home .path{
-    fill: green;
   }
 
   .progressbar li:after {
@@ -760,7 +766,6 @@ top: -80px;
       background-color: white;
       top: 58px;
       left: -90px;
-      z-index: -1;
   }
   .progressbar li:first-child:after {
       content: none;
