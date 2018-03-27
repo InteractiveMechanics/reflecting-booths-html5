@@ -15,8 +15,9 @@ import axios from 'axios'
 import Sound from 'react-sound';
 import IdleTimer from 'react-idle-timer';
 import ReflectingButton from './components/ReflectingButton';
+import LanguageButton from './components/LanguageButton';
 import InputSuggestion from './components/InputSuggestion';
-
+import Fade from './components/Fade';
 
 
 
@@ -48,7 +49,8 @@ class App extends Component {
       username:"",
       sessionId: "",
       sound: "",
-      timeout: 180000
+      timeout: 180000,
+      attractFade: 0
     };
 
     this.handleLanguageSelected = this.handleLanguageSelected.bind(this);
@@ -59,7 +61,9 @@ class App extends Component {
     this.handleClick = this.handleClick.bind(this);
     this.handleEyesFreeHover = this.handleEyesFreeHover.bind(this);
     this.handleEyesFreeRelease = this.handleEyesFreeRelease.bind(this);
-
+    this.attractFadeHandler = this.attractFadeHandler.bind(this);
+    this.handleMainAudioFinish = this.handleMainAudioFinish.bind(this);
+    //this.renderMainAudio = this.renderMainAudio.bind(this);
   }
 
 
@@ -113,6 +117,7 @@ class App extends Component {
       email: '',
       location: '',
       age: '',
+      currentState: 'attract',
       teleprompter: data['steps']['attract']["teleprompter"],
       touchscreen: data['steps']['attract']["touchscreen"],
       buttonClass: data['steps']['attract']["buttonclass"],
@@ -336,7 +341,7 @@ class App extends Component {
         answerOptions: quizQuestions[questionId].answers,
         answer: '',
         teleprompter: {
-          heading: quizQuestions[0].question.content,
+          heading: quizQuestions[questionId].question.content,
         },
         nextQuestionId: null
       });
@@ -569,11 +574,28 @@ class App extends Component {
     if(state === "welcome"){
       if (!this.state.eyesFree){
         return(
-          <ReflectingButton class="language-button" language={this.state.language} buttonData={data['buttons']['language']} onClicked={() => this.transition({ type: 'language' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
+          <LanguageButton array={['Language',
+          "(sp) Language",
+          "(jp) Language",
+        "(pt) Language",
+        "(fr) Language",
+        "(it) Language",
+        "(mn) Language",
+        "(dt) Language"]}
+        class="language-button" language={this.state.language} buttonData={data['buttons']['language']} onClicked={() => this.transition({ type: 'language' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
         )
       }else if(this.state.eyesFree){
           return(
-            <ReflectingButton class="language-button-inactive" language={this.state.language} buttonData={data['buttons']['language']} onClicked={this.doNothing()} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
+            <LanguageButton
+              array={['Language',
+              "(sp) Language",
+              "(jp) Language",
+            "(pt) Language",
+            "(fr) Language",
+            "(it) Language",
+            "(mn) Language",
+            "(dt) Language"]}
+             class="language-button-inactive" language={this.state.language} buttonData={data['buttons']['language']} onClicked={this.doNothing()} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
           )
         }
 
@@ -586,6 +608,14 @@ class App extends Component {
     );
   }
 
+  attractFadeHandler(event) {
+    this.setState({ attractFade: this.state.attractFade+1 })
+    // setInterval(() => {
+    //   this.setState({ attractFade: this.state.attractFade+1 })
+    // }, 5000)
+  }
+
+
 
   renderAttract(state) {
     if(this.state.currentState == 'attract'){
@@ -593,7 +623,15 @@ class App extends Component {
         <div className="attract" onClick={() => this.transition({ type: 'welcome' })}>
         <h3> WELCOME TO THE </h3>
         <h1> RECORDING BOOTH </h1>
-        <h4> Tap anywhere to begin </h4>
+        <Fade content={this.state.attractFade}
+          array={['Tap anywhere to begin',
+          "(sp) Tap anywhere to begin",
+          "(jp) Tap anywhere to begin",
+        "(pt) Tap anywhere to begin",
+        "(fr) Tap anywhere to begin",
+        "(it) Tap anywhere to begin",
+        "(mn) Tap anywhere to begin",
+        "(dt) Tap anywhere to begin"]} />
         </div>
       );
     }
@@ -747,18 +785,37 @@ class App extends Component {
   }
 
   renderProgress(state) {
+
+    if ((state === 'attract') || (state === 'record-intro-1')){
+
+    }else{
       return (
         <Progress currentState={state}/>
       );
+    }
+
+  }
+
+  renderInstructions(state) {
+    if (state === 'record-intro-1'){
+      return (
+        <Fade loop={false}
+          class='prompt'
+          content={this.state.attractFade}
+            array={['try to look straight ahead at this screen during the entire recording', '(script-2)','(script-3)'
+          ]
+        }/>
+      )
+    }
   }
 
   renderAgreement(state) {
     if(state === "user-agreement"){
       return (
         <div className="user-agreement">
-        <h3>{this.state.touchscreen.heading}</h3>
+        <h3>{this.state.touchscreen.heading[this.state.language]}</h3>
         <div className="agreement-scroll">
-        <p>{this.state.touchscreen.agreement}</p>
+        <p>{this.state.touchscreen.agreement[this.state.language]}</p>
         </div>
         </div>
       );
@@ -769,16 +826,22 @@ class App extends Component {
     this.setState({ teleprompter:  "new Question"});
   }
 
-  renderMainAudio(audio) {
-    if (audio.length>0) {
+  handleMainAudioFinish() {
+      setTimeout(function () {
+        this.renderMainAudio();
+      }, 3000);
+    }
+
+  renderMainAudio(sound) {
+    if (this.state.currentState == 'attract' || (this.state.sound.length>0 && this.state.eyesFree)) {
       return (
         <Sound
-      url={audio}
+      url={this.state.sound}
       playStatus={Sound.status.PLAYING}
       // playFromPosition={300 /* in milliseconds */}
       // onLoading={this.handleSongLoading}
       // onPlaying={this.handleSongPlaying}
-      // onFinishedPlaying={this.handleSongFinishedPlaying}
+      //onFinishedPlaying={this.handleMainAudioFinish}
     />
       )
     }
@@ -792,7 +855,7 @@ class App extends Component {
       console.log(data['keyboards'][this.state.language][0]);
       return (
         <div>
-        <InputSuggestion content="Type to enter first name"/>
+        <InputSuggestion content="Type to enter first name"  input={this.state.firstname}/>
         <Keyboard
           value={this.state.firstname}
           name='keyboard'
@@ -825,12 +888,15 @@ class App extends Component {
   renderLastNameKeyboard(keyboardInput) {
     if(this.state.currentState === 'last-name'){
       return (
+        <div>
+        <InputSuggestion content="Type to enter last name"  input={this.state.lastname}/>
         <Keyboard
           value={this.state.lastname}
           name='keyboard'
           options={{
             type:"input",
-            layout: "qwerty",
+            layout : 'custom',
+            customLayout: data['keyboards'][this.state.language],
             alwaysOpen: true,
             usePreview: false,
             useWheel: false,
@@ -846,6 +912,7 @@ class App extends Component {
           onChange={this.onLastNameInputChanged}
           ref={k => this.keyboard = k}
         />
+      </div>
       );
     }
   }
@@ -856,12 +923,15 @@ class App extends Component {
   renderEmailKeyboard(keyboardInput) {
     if(this.state.currentState === 'email'){
       return (
+      <div>
+        <InputSuggestion content="Type to enter email"  input={this.state.email}/>
         <Keyboard
           value={this.state.email}
           name='keyboard'
           options={{
             type:"input",
-            layout: "qwerty",
+            layout : 'custom',
+            customLayout: data['keyboards'][this.state.language],
             alwaysOpen: true,
             usePreview: false,
             useWheel: false,
@@ -877,6 +947,7 @@ class App extends Component {
           onChange={this.onEmailInputChanged}
           ref={k => this.keyboard = k}
         />
+        </div>
       );
     }
   }
@@ -887,12 +958,15 @@ class App extends Component {
   renderLocationKeyboard(keyboardInput) {
     if(this.state.currentState === 'location'){
       return (
+        <div>
+        <InputSuggestion content="Type to enter city, state, country"  input={this.state.location}/>
         <Keyboard
           value={this.state.location}
           name='keyboard'
           options={{
             type:"input",
-            layout: "qwerty",
+            layout : 'custom',
+            customLayout: data['keyboards'][this.state.language],
             alwaysOpen: true,
             usePreview: false,
             useWheel: false,
@@ -908,6 +982,7 @@ class App extends Component {
           onChange={this.onLocationInputChanged}
           ref={k => this.keyboard = k}
         />
+      </div>
       );
     }
   }
@@ -950,6 +1025,7 @@ class App extends Component {
           {this.renderTimer(currentState)}
           {this.renderPrompt(teleprompterContent)}
           {this.renderProgress(this.state.currentState)}
+          {this.renderInstructions(this.state.currentState)}
         </div>
         {this.renderMainAudio(this.state.sound)}
         <IdleTimer

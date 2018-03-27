@@ -14,30 +14,50 @@ function Progress(props) {
   var recordFill = 'rgba(255,255,255,0.5)';
   var submitFill = 'rgba(255,255,255,0.5)';
 
+  function home(){
+    homeFill = 'rgba(255,255,255,1)'
+  }
+  function about(){
+    homeFill = 'rgba(255,255,255,1)';
+    aboutFill = 'rgba(255,255,255,1)';
+  }
+  function questions(){
+    homeFill = 'rgba(255,255,255,1)';
+    aboutFill = 'rgba(255,255,255,1)';
+    questionsFill = 'rgba(255,255,255,1)';
+  }
+  function record(){
+    homeFill = 'rgba(255,255,255,1)';
+    aboutFill = 'rgba(255,255,255,1)';
+    questionsFill = 'rgba(255,255,255,1)';
+    recordFill = 'rgba(255,255,255,1)';
+  }
+  function submit(){
+    homeFill = 'rgba(255,255,255,1)';
+    aboutFill = 'rgba(255,255,255,1)';
+    questionsFill = 'rgba(255,255,255,1)';
+    recordFill = 'rgba(255,255,255,1)';
+    submitFill = 'rgba(255,255,255,1)';
+  }
+
   switch(props.currentState) {
     case 'attract':
     case 'welcome':
     case 'language':
-        homeFill = 'rgba(255,255,255,1)';
+        home();
         break;
     case 'about-1':
     case 'about-2':
-        homeFill = 'rgba(255,255,255,1)';
-        aboutFill = 'rgba(255,255,255,1)';
+        about();
         break;
     case 'questions':
-        homeFill = 'rgba(255,255,255,1)';
-        aboutFill = 'rgba(255,255,255,1)';
-        questionsFill = 'rgba(255,255,255,1)';
+        questions();
         break;
     case 'record-intro-1':
     case 'record-intro-2':
     case 'recording':
     case 'review':
-        homeFill = 'rgba(255,255,255,1)';
-        aboutFill = 'rgba(255,255,255,1)';
-        questionsFill = 'rgba(255,255,255,1)';
-        recordFill = 'rgba(255,255,255,1)';
+        record();
         break;
     case 'user-agreement':
     case 'user-agreement-warning':
@@ -45,11 +65,7 @@ function Progress(props) {
     case 'last-name':
     case 'email':
     case 'location':
-        homeFill = 'rgba(255,255,255,1)';
-        aboutFill = 'rgba(255,255,255,1)';
-        questionsFill = 'rgba(255,255,255,1)';
-        recordFill = 'rgba(255,255,255,1)';
-        submitFill = 'rgba(255,255,255,1)';
+        submit();
         break;
     default:
   }
