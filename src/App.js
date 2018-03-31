@@ -78,17 +78,35 @@ class App extends Component {
     });
   }
 
+  // handleClick () {
+  // axios.put('http://10.10.0.53:3000/session')
+  //   .then(response =>
+  //     this.setState({
+  //     sessionId: response.data,
+  //   }))
+  // }
+
+  // get autocomplete suggestion
+  // handleClick () {
+  // axios.get('http://10.0.61.18/locate', { params: { name: 'philadelphia', limit: 3 }})
+  //   .then(response =>
+  //     this.setState({
+  //     questions: response.data,
+  //   }))
+  // }
+
+  //get questions
   handleClick () {
-  axios.get('http://localhost:4444/api/questions')
+  axios.get('http://10.0.61.35/api/questions')
     .then(response =>
       this.setState({
-      username: response.data.name,
+      questions: response.data,
     }))
   }
 
   getSessionId () {
     // should point to internal server address ** just for testing
-    axios.get('https://www.uuidgenerator.net/api/version4')
+    axios.put('')
       .then(response =>
         this.setState({
         sessionId: response.data
@@ -790,7 +808,7 @@ class App extends Component {
 
     }else{
       return (
-        <Progress currentState={state}/>
+        <Progress currentState={this.state.currentState}/>
       );
     }
 
@@ -1026,6 +1044,7 @@ class App extends Component {
           {this.renderPrompt(teleprompterContent)}
           {this.renderProgress(this.state.currentState)}
           {this.renderInstructions(this.state.currentState)}
+          <button onClick={this.handleClick}>click</button>
         </div>
         {this.renderMainAudio(this.state.sound)}
         <IdleTimer
@@ -1036,6 +1055,7 @@ class App extends Component {
           timeout={this.state.timeout}
           format="MM-DD-YYYY HH:MM:ss.SSS">
         </IdleTimer>
+
       </div>
     );
   }

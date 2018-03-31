@@ -5,7 +5,7 @@ import Hammer from 'react-hammerjs';
 import Fade from '../components/Fade';
 
 
-  function ReflectingButton(props) {
+  function LanguageButton(props) {
     // Hammer options
     var options = {
         touchAction:'compute',
@@ -45,7 +45,7 @@ import Fade from '../components/Fade';
     );
   }
 
-  ReflectingButton.propTypes = {
+  LanguageButton.propTypes = {
     array: PropTypes.array.isRequired,
     onClicked: PropTypes.func,
     language: PropTypes.string.isRequired,
@@ -56,4 +56,4 @@ import Fade from '../components/Fade';
     eyesFreeRelease: PropTypes.func.isRequired
   };
 
-  export default ReflectingButton;
+  export default LanguageButton;
