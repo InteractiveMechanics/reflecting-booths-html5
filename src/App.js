@@ -641,7 +641,7 @@ class App extends Component {
         <div className="attract" onClick={() => this.transition({ type: 'welcome' })}>
         <h3> WELCOME TO THE </h3>
         <h1> RECORDING BOOTH </h1>
-        <Fade content={this.state.attractFade}
+        <Fade loop={true} content={this.state.attractFade}
           array={['Tap anywhere to begin',
           "(sp) Tap anywhere to begin",
           "(jp) Tap anywhere to begin",

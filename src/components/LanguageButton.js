@@ -40,7 +40,7 @@ import Fade from '../components/Fade';
 
     return (
         <button value={audio} className={props.class} onClick={onTapFunc}>
-          <Fade array={props.array} />
+          <Fade loop={true} array={props.array} />
         </button>
     );
   }

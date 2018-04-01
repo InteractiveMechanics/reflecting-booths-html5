@@ -173,15 +173,9 @@ body {
   height: 600px;
   float: left;
   color: white;
-
-  background: rgba(0,63,105,1);
-background: -moz-linear-gradient(top, rgba(0,63,105,1) 0%, rgba(0,63,105,1) 77%, rgba(163,203,230,1) 100%);
-background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(0,63,105,1)), color-stop(77%, rgba(0,63,105,1)), color-stop(100%, rgba(163,203,230,1)));
-background: -webkit-linear-gradient(top, rgba(0,63,105,1) 0%, rgba(0,63,105,1) 77%, rgba(163,203,230,1) 100%);
-background: -o-linear-gradient(top, rgba(0,63,105,1) 0%, rgba(0,63,105,1) 77%, rgba(163,203,230,1) 100%);
-background: -ms-linear-gradient(top, rgba(0,63,105,1) 0%, rgba(0,63,105,1) 77%, rgba(163,203,230,1) 100%);
-background: linear-gradient(to bottom, rgba(0,63,105,1) 0%, rgba(0,63,105,1) 77%, rgba(163,203,230,1) 100%);
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#003f69', endColorstr='#a3cbe6', GradientType=0 );
+  background-image: url('./Assets/bkgr-fade.png');
+  background-position:center;
+  background-size: cover;
 }
 
 #touchscreen{
@@ -757,6 +751,9 @@ top: -80px;
   .progressbar svg {
       width: 25px;
       height: 25px;
+      position: absolute;
+bottom: 29px;
+left: 33px;
   }
 
   .progressbar li:after {
@@ -766,9 +763,9 @@ top: -80px;
       position: absolute;
       background-color: white;
       top: 58px;
-      left: -90px;
+      right: -93px;
   }
-  .progressbar li:first-child:after {
+  .progressbar li:last-child:after {
       content: none;
   }
   .progressbar li.active {
@@ -780,22 +777,19 @@ top: -80px;
       background-color: white;
   }
 
-  .fade-enter {
+  .fade {
     opacity: 0.01;
-  }
-
-  .fade-enter.fade-enter-active {
-    opacity: 1;
-    transition: opacity 1000ms ease-in;
   }
 
   .fade-exit {
-    opacity: 1;
+    opacity: 0.01;
+    transition: opacity 500ms ease-in;
   }
 
-  .fade-appear {
-    opacity: 0.01;
-}
+  .fade-enter {
+    opacity: 1;
+    transition: opacity 500ms ease-in;
+  }
 
 .fade-appear.fade-appear-active {
     opacity: 1;
@@ -809,4 +803,35 @@ top: -80px;
   padding: 20px 25px;
   font-size: 30px;
   text-align: center;
+}
+
+li.white-line{
+  color: rgba(255, 255, 255, 1);
+}
+
+li.blue-line{
+  color: rgba(33, 177, 231, 1);
+}
+
+li.blue-line{
+  color: rgba(33, 177, 231, 1);
+}
+
+li.blue-line h3{
+display: none;
+
+}
+
+li.light-line{
+  color: rgba(255, 255, 255, 0.5);
+}
+
+li.white-line:after{
+  background-color: rgba(255, 255, 255, 1);
+}
+li.blue-line:after{
+  background-color: rgba(33, 177, 231, 1);
+}
+li.light-line:after{
+  background-color: rgba(255, 255, 255, 0.5);
 }
