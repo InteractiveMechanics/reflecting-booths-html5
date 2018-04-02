@@ -352,14 +352,14 @@ var quizQuestions = [
             nextQuestionId: 'record',
               type: "Why is is important to remember 9/11?",
               content: {
-                english:"Why is is important to remember 9/11?",
-                spanish: "(sp) Why is is important to remember 9/11?",
-                japanese: "(jp) Why is is important to remember 9/11?",
-                portugese: "(pt) Why is is important to remember 9/11?",
-                french: "(fr) Why is is important to remember 9/11?",
-                italian: "(it) Why is is important to remember 9/11?",
-                mandarin: "(mn) Why is is important to remember 9/11?",
-                dutch: "(dt) Why is is important to remember 9/11?"
+                english:"Why is it important to remember 9/11?",
+                spanish: "(sp) Why is it important to remember 9/11?",
+                japanese: "(jp) Why is it important to remember 9/11?",
+                portugese: "(pt) Why is it important to remember 9/11?",
+                french: "(fr) Why is it important to remember 9/11?",
+                italian: "(it) Why is it important to remember 9/11?",
+                mandarin: "(mn) Why is it important to remember 9/11?",
+                dutch: "(dt) Why is it important to remember 9/11?"
               }
           },
           {

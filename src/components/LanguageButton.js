@@ -37,7 +37,7 @@ import Fade from '../components/Fade';
       onPressUpFunc = props.eyesFreeRelease;
     }
 
-
+    
     return (
         <button value={audio} className={props.class} onClick={onTapFunc}>
           <Fade loop={true} array={props.array} />

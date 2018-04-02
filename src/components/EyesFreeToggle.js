@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { CSSTransition, transit } from "react-css-transition";
 
 class Toggle extends React.Component {
   constructor(props) {
@@ -13,17 +12,13 @@ class Toggle extends React.Component {
   }
 
   render() {
+    let style = "eyesfree-toggle"
+    if (this.state.active){
+      style = "eyesfree-toggle active"
+    }
     return (
-      <div style={styles.container} onClick={this.handleClick}>
-        <CSSTransition
-          defaultStyle={{ transform: "translate(0, 0)" }}
-          enterStyle={{ transform: transit("translate(50px, 0)", 500, "ease-in-out") }}
-          leaveStyle={{ transform: transit("translate(0, 0)", 500, "ease-in-out") }}
-          activeStyle={{ transform: "translate(50px, 0)" }}
-          active={this.state.active}
-          >
-          <div style={styles.circle} />
-        </CSSTransition>
+      <div className={style} onClick={this.handleClick}>
+          <div className="logo"/> <div>
       </div>
     );
   }

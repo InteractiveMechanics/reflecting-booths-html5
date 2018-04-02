@@ -15,6 +15,7 @@ import axios from 'axios'
 import Sound from 'react-sound';
 import IdleTimer from 'react-idle-timer';
 import ReflectingButton from './components/ReflectingButton';
+import EyesFreeButton from './components/EyesFreeButton';
 import LanguageButton from './components/LanguageButton';
 import InputSuggestion from './components/InputSuggestion';
 import Fade from './components/Fade';
@@ -26,7 +27,7 @@ class App extends Component {
     super(props);
 
     this.state = {
-      currentState: 'recording',
+      currentState: 'attract',
       language: 'english',
       eyesFree: false,
       firstname: '',
@@ -70,7 +71,7 @@ class App extends Component {
   componentWillMount() {
     this.setState({
       touchscreen: data['steps']['attract']["touchscreen"],
-      teleprompter: data['steps']['recording']["teleprompter"],
+      teleprompter: data['steps']['attract']["teleprompter"],
       buttonClass: "small",
       question: quizQuestions[0].question,
       answerOptions: quizQuestions[0].answers,
@@ -225,8 +226,6 @@ class App extends Component {
       let id = this.getSessionId();
       return {
         teleprompter: {
-          heading: data['steps']['recording']["teleprompter"]["heading"],
-          prompt: this.state.prompt
         },
         touchscreen: data['steps']['recording']["touchscreen"],
         sound: data['steps']['recording']["audio"]
@@ -582,7 +581,7 @@ class App extends Component {
       }
 
       return (
-        <ReflectingButton class={eyesFreeClass} language={this.state.language} buttonData={data['buttons']['eyes-free']} onClicked={() => this.toggleEyesFree()} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
+        <EyesFreeButton class={eyesFreeClass} language={this.state.language} buttonData={data['buttons']['eyes-free']} onClicked={() => this.toggleEyesFree()} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
       );
     }
 

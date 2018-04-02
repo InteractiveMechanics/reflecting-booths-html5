@@ -5,9 +5,13 @@ import PropTypes from 'prop-types';
 function Quiz(props) {
   function renderAnswerOptions(key) {
     //const answerText = key.content[props.language];
+
+    let height = (400/props.answerOptions.length).toString();
+
     return (
       <AnswerOption
         key={key.content['english']}
+        heightStyle={height}
         answerContent={key.content['english']}
         content={key.content}
         language={props.language}

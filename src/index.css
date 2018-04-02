@@ -58,12 +58,38 @@ body {
 
 /* Quiz Component */
 .answerOptions {
+  height: 400px;
   margin: 0 40px 0px 40px;
   padding: 0;
   list-style: none;
   font-family: "ScalaSans-Regular", sans-serif;
-  font-size: 25px;
+  font-size: 36px;
   letter-spacing: 2px;
+}
+
+/* AnswerOption Component */
+.answerOption {
+  border-bottom: 1px solid #fff;
+  text-align:left;
+  /* height: 100px; */
+}
+
+
+
+.answerOption.active {
+  background-color: rgba(255,255,255, 0.9);
+  color:#2E2E2E;
+}
+
+.answerOption:hover {
+  background-color: rgba(255,255,255, 0.9);
+  color:#2E2E2E;
+}
+
+.radioCustomButton {
+    position: absolute;
+    width: auto;
+    opacity: 0;
 }
 
 /* QuestionCount Component */
@@ -78,22 +104,7 @@ body {
   padding: 0.5rem 2.5rem 1.5rem 2.5rem;
 }
 
-/* AnswerOption Component */
-.answerOption {
-  border-bottom: 1px solid #fff;
-  text-align:left;
-}
 
-.answerOption:hover {
-  background-color: rgba(255,255,255, 0.9);
-  color:#2E2E2E;
-}
-
-.radioCustomButton {
-    position: absolute;
-    width: auto;
-    opacity: 0;
-}
 
 .radioCustomButton,
 .radioCustomLabel {
@@ -106,31 +117,47 @@ body {
     position: relative;
     width: 100%;
     margin: 0;
-    padding: 1.5rem 2.5rem 1.5rem 5rem;
-
-    line-height: 1.5;
+    padding: 34px 28px 30px 111px;
+    line-height: 1;
 }
+
 
 .radioCustomButton ~ .radioCustomLabel:before {
     position: absolute;
-    top: 20px;
+    top: 28px;
     left: 38px;
-    width: 28px;
-    height: 28px;
+    width: 44px;
+    height: 44px;
     content: '';
     display: inline-block;
     vertical-align: middle;
-    background: #fff;
-    border: 1px solid #bbb;
+    box-sizing: border-box;
+    border: 3px solid white;
     border-radius: 50%;
-    transition: all 0.3s;
 }
 
 .radioCustomButton:checked ~ .radioCustomLabel:before {
     content: '';
-    background: #8BC53F url(./svg/icon-check.svg) no-repeat;
-    background-size: 27px;
-    border-color: #8BC53F;
+    background: url(./Assets/icon-selected.png) no-repeat;
+    background-size: 55px;
+    background-position: center;
+    border: 3px solid white;
+
+}
+
+.answerOption .radioCustomLabel{
+
+}
+
+.languageOption .radioCustomLabel{
+  font-size: 40px;
+  font-family: "ScalaSans-Bold", sans-serif;
+  line-height: 1;
+  padding: 32px 28px 32px 111px;
+  text-transform: capitalize;
+}
+.answerOption.option-size-2{
+  font-size: 22px;
 }
 
 /* Animation */
@@ -493,6 +520,25 @@ top: -80px;
   border: none;
 }
 
+.eyes-free-off .toggle{
+  position: absolute;
+  top: 157px;
+left: 117px;
+width: 100px;
+height: 100px;
+  transition: left 300ms ease-out;
+  background: url(./Assets/icon-eyes-free.png) no-repeat;
+}
+
+.eyes-free-on .toggle{
+  position: absolute;
+  top: 157px;
+left: 185px;
+width: 100px;
+height: 100px;
+  transition: left 300ms ease-in;
+  background: url(./Assets/icon-eyes-free.png) no-repeat;
+}
 
 .eyes-free-on h4{
   font-family: "ScalaSans", sans-serif;
@@ -504,7 +550,7 @@ top: -40px;
 }
 
 .eyes-free-off{
-  color: grey;
+  color: white;
   width:388px;
   height: 290px;
   position: absolute;
@@ -525,8 +571,10 @@ top: -40px;
 }
 
 .languageOption{
-  width: 50%;
-  float: left;
+  max-width: 50%;
+float: left;
+min-width: 46.5%;
+margin-right: 25px;
 }
 
 .timer-progress{

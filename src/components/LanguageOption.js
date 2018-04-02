@@ -2,8 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
   function LanguageOption(props) {
+
+    let optionClass = "answerOption languageOption";
+    if (props.languageValue === props.language){
+      optionClass = "answerOption languageOption active";
+    }
+
     return (
-      <li className="answerOption languageOption">
+      <li className={optionClass}>
         <input
           type="radio"
           className="radioCustomButton"
