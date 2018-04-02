@@ -9,13 +9,16 @@ import 'react-circular-progressbar/dist/styles.css';
 class Timer extends Component {
   constructor(props) {
     super(props);
-    this.state = { time: {}, seconds: props.seconds, totalTime: props.seconds };
+    this.state = { time: {}, seconds: props.seconds, totalTime: props.seconds, secondTimer: false };
     this.timer = 0;
-    this.secondTimer = false;
     this.startTimer = this.startTimer.bind(this);
     this.countDown = this.countDown.bind(this);
     this.stopRecording = props.stopRecording;
-    this.time = this.time.bind(this);
+    this.time1 = this.time1.bind(this);
+    this.time2 = this.time2.bind(this);
+    console.log(props.content);
+    this.startText = props.content.timerStart[props.language];
+    this.timerText = props.content.timerText[props.language];
   }
 
   secondsToTime(secs){
@@ -64,13 +67,13 @@ class Timer extends Component {
 
     // Check if we're at zero.
     if (seconds == 0) {
-      if (!this.secondTimer){
-        this.secondTimer = true;
+      if (!this.state.secondTimer){
         clearInterval(this.timer);
         this.setState({
-          time: {},
+          time: this.secondsToTime(120),
           seconds: 120,
-          totalTime: 120
+          totalTime: 120,
+          secondTimer: true
 
         });
         this.timer= 0;
@@ -84,31 +87,56 @@ class Timer extends Component {
   }
 
 
-time() {
+time1() {
   let time = this.state.time.m+":"+this.state.time.s;
+  return time
+}
+
+time2() {
+  let time = this.state.time.s;
   return time
 }
 
 
   render() {
-    var percentage = (this.state.seconds/this.state.totalTime)*100;
+    let time = null;
+    let content = null;
+    let percentage = (this.state.seconds/this.state.totalTime)*100;
+
+    if(!this.state.secondTimer){
+      time = this.time2;
+      content = this.startText;
+    } else {
+      time = this.time1;
+      content = this.timerText;
+    }
+
+
+
 
     return(
-      <div className="timer-progress">
-        <CircularProgressbar
-                {...this.props}
-                percentage={percentage}
-                textForPercentage={this.time}
-                strokeWidth={18}
-
-              />
+      <div className="timer">
+        <h1>{content}</h1>
+        <div className="timer-progress">
+          <CircularProgressbar
+                  {...this.props}
+                  percentage={percentage}
+                  textForPercentage={time}
+                  strokeWidth={14}
+                  background={true}
+                  backgroundPadding={-7}
+                />
+        </div>
       </div>
+
     );
   }
 }
 
 Timer.propTypes = {
   seconds: PropTypes.number.isRequired,
-  stopRecording: PropTypes.func.isRequired
+  stopRecording: PropTypes.func.isRequired,
+  language: PropTypes.string.isRequired,
+  content: PropTypes.object.isRequired
 };
 export default Timer;

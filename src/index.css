@@ -632,12 +632,19 @@ h1, h2, h3, h4, p {
 
 
 .CircularProgressbar{
+ overflow:visible;
+}
 
+.CircularProgressbar .CircularProgressbar-text{
+  fill: #111111;
+  font-family: "Gotham-Medium", sans-serif;
+  font-size: 26px;
 }
 
 .CircularProgressbar .CircularProgressbar-path{
 stroke-linecap: butt;
-stroke: #A3CBE6
+stroke: #A3CBE6;
+
 }
 
 .CircularProgressbar .CircularProgressbar-trail{
@@ -647,6 +654,20 @@ stroke: transparent;
 
 .CircularProgressbar .CircularProgressbar-background{
   fill: white;
+}
+
+.CircularProgressbar-path{
+  -webkit-filter: drop-shadow( -5px -5px 5px #000 );
+          filter: drop-shadow( -5px -5px 5px #000 );
+}
+
+.timer h1{
+  font-family: "ScalaSans", sans-serif;
+font-size: 52px;
+margin: auto;
+position: relative;
+text-align: center;
+margin-top: 50px;
 }
 
 .timer-progress{
@@ -729,12 +750,13 @@ top: -80px;
       display: flex;
       justify-content: space-between;
       width: 800px;
-      padding: 0px 25px;
+      padding: 0px 25px 0px;
       color: white;
       font-family: "ScalaSans-Bold", sans-serif;
       font-size:21px;
       position: absolute;
       bottom: 0px;
+      margin: 0px;
   }
   .progressbar li {
       list-style-type: none;
@@ -783,18 +805,13 @@ left: 33px;
 
   .fade-exit {
     opacity: 0.01;
-    transition: opacity 500ms ease-in;
+    transition: opacity 800ms ease-in;
   }
 
   .fade-enter {
     opacity: 1;
-    transition: opacity 500ms ease-in;
+    transition: opacity 800ms ease-out;
   }
-
-.fade-appear.fade-appear-active {
-    opacity: 1;
-    transition: opacity 5000ms ease-in;
-}
 
 .prompt{
   position: absolute;

@@ -207,8 +207,18 @@ const data = {
       "audio": "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg"
     },
     "recording": {
-      "teleprompter": {
-        "heading": {
+      "timer": {
+        "timerStart":{
+          "english": "Recording begins in:",
+          "spanish": "(sp) Recording begins in:",
+          "japanese": "(jp) Recording begins in:",
+          "portugese": "(pt) Recording begins in:",
+          "french": "(fr) Recording begins in:",
+          "italian": "(it) Recording begins in:",
+          "mandarin": "(mn) Recording begins in:",
+          "dutch": "(dt) Recording begins in:"
+        },
+        "timerText":{
           "english": "Time remaining:",
           "spanish": "(sp) Time remaining:",
           "japanese": "(jp) Time remaining:",
@@ -217,16 +227,6 @@ const data = {
           "italian": "(it) Time remaining:",
           "mandarin": "(mn) Time remaining:",
           "dutch": "(dt) Time remaining:"
-        },
-        "paragraph": {
-          "english": "last prompt rendered in place of progress",
-          "spanish": "(sp) last prompt rendered in place of progress",
-          "japanese": "(jp) last prompt rendered in place of progress",
-          "portugese": "(pt) last prompt rendered in place of progress",
-          "french": "(fr) last prompt rendered in place of progress",
-          "italian": "(it) last prompt rendered in place of progress",
-          "mandarin": "(mn) last prompt rendered in place of progress",
-          "dutch": "(dt) last prompt rendered in place of progress"
         }
       },
       "stop": "review",

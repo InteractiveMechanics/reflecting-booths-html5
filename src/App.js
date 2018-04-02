@@ -26,7 +26,7 @@ class App extends Component {
     super(props);
 
     this.state = {
-      currentState: 'attract',
+      currentState: 'recording',
       language: 'english',
       eyesFree: false,
       firstname: '',
@@ -70,7 +70,7 @@ class App extends Component {
   componentWillMount() {
     this.setState({
       touchscreen: data['steps']['attract']["touchscreen"],
-      teleprompter: data['steps']['attract']["teleprompter"],
+      teleprompter: data['steps']['recording']["teleprompter"],
       buttonClass: "small",
       question: quizQuestions[0].question,
       answerOptions: quizQuestions[0].answers,
@@ -621,9 +621,12 @@ class App extends Component {
   }
 
   renderTeleprompter(state) {
-    return (
-      <Teleprompter content={state} language={this.state.language}/>
-    );
+    if (this.state.teleprompter){
+      return (
+        <Teleprompter content={state} language={this.state.language}/>
+      );
+    }
+
   }
 
   attractFadeHandler(event) {
@@ -773,7 +776,7 @@ class App extends Component {
   renderTimer(state) {
     if(state === "recording"){
       return (
-        <Timer seconds={10} stopRecording={this.handleRecordingStop}/>
+        <Timer language={this.state.language} content={data['steps']['recording']["timer"]} seconds={10} stopRecording={this.handleRecordingStop}/>
       );
     }
   }
@@ -794,10 +797,10 @@ class App extends Component {
     }
   }
 
-  renderPrompt(teleprompter) {
-    if(teleprompter.prompt){
+  renderPrompt() {
+    if(this.state.prompt && (this.state.currentState === 'recording')){
       return (
-        <h3>{teleprompter.prompt}</h3>
+        <h3>{this.state.prompt}</h3>
       );
     }
   }
@@ -1041,7 +1044,7 @@ class App extends Component {
         <div id="teleprompter">
           {this.renderTeleprompter(teleprompterContent)}
           {this.renderTimer(currentState)}
-          {this.renderPrompt(teleprompterContent)}
+          {this.renderPrompt()}
           {this.renderProgress(this.state.currentState)}
           {this.renderInstructions(this.state.currentState)}
           <button onClick={this.handleClick}>click</button>
