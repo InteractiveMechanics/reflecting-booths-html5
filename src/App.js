@@ -51,7 +51,8 @@ class App extends Component {
       sessionId: "",
       sound: "",
       timeout: 180000,
-      attractFade: 0
+      attractFade: 0,
+      locationSuggestions: []
     };
 
     this.handleLanguageSelected = this.handleLanguageSelected.bind(this);
@@ -62,20 +63,22 @@ class App extends Component {
     this.handleClick = this.handleClick.bind(this);
     this.handleEyesFreeHover = this.handleEyesFreeHover.bind(this);
     this.handleEyesFreeRelease = this.handleEyesFreeRelease.bind(this);
-    this.attractFadeHandler = this.attractFadeHandler.bind(this);
     this.handleMainAudioFinish = this.handleMainAudioFinish.bind(this);
+    this.handleLocationQuery = this.handleLocationQuery.bind(this);
+    this.handleLocationEntry = this.handleLocationEntry.bind(this);
     //this.renderMainAudio = this.renderMainAudio.bind(this);
   }
 
 
   componentWillMount() {
+    let startState = 'attract'
     this.setState({
-      touchscreen: data['steps']['attract']["touchscreen"],
-      teleprompter: data['steps']['attract']["teleprompter"],
+      touchscreen: data['steps'][startState]["touchscreen"],
+      teleprompter: data['steps'][startState]["teleprompter"],
       buttonClass: "small",
       question: quizQuestions[0].question,
       answerOptions: quizQuestions[0].answers,
-      sound: data['steps']['attract']["audio"]
+      sound: data['steps'][startState]["audio"]
     });
   }
 
@@ -87,14 +90,31 @@ class App extends Component {
   //   }))
   // }
 
-  // get autocomplete suggestion
-  // handleClick () {
-  // axios.get('http://10.0.61.18/locate', { params: { name: 'philadelphia', limit: 3 }})
-  //   .then(response =>
-  //     this.setState({
-  //     questions: response.data,
-  //   }))
-  // }
+  handleLocationEntry () {
+    let location = this.state.locationSuggestion;
+    if (location){
+      this.setState({
+        location: location.name+ ', ' + location.admin1_name + ', ' + location.country_name
+      })
+    }
+    this.transition({ type: 'next' })
+  }
+
+  //get autocomplete suggestion
+  handleLocationQuery (string) {
+    if (string.length>0){
+      axios.get('http://10.0.61.18/locate', { params: { name: string, limit: 1 }})
+        .then(response =>
+          this.setState({
+          locationSuggestion: response.data.data[0],
+        }))
+    } else {
+        this.setState({
+      locationSuggestion: null
+      })
+    }
+
+  }
 
   //get questions
   handleClick () {
@@ -107,7 +127,8 @@ class App extends Component {
 
   getSessionId () {
     // should point to internal server address ** just for testing
-    axios.put('')
+    //axios.put('https://www.uuidgenerator.net/api/version1')
+    axios.get('https://www.uuidgenerator.net/api/version1')
       .then(response =>
         this.setState({
         sessionId: response.data
@@ -201,6 +222,8 @@ class App extends Component {
         touchscreen: data['steps']['questions']["touchscreen"],
         buttonClass: data['steps']['questions']["buttonclass"],
         question: quizQuestions[0].question,
+        answer: '',
+        prompt: '',
         answerOptions: quizQuestions[0].answers,
         sound: data['steps']['questions']["audio"]
 
@@ -381,7 +404,7 @@ class App extends Component {
       return(
         <ReflectingButton class="next-button-small" language={this.state.language} buttonData={data['buttons']['next']} onClicked={() => this.transition({ type: 'next' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree} />
       )
-    }else if(this.state.answer.length >0){
+    }else if(this.state.answer.length > 0){
         return(
           <ReflectingButton  class="next-button-small" language={this.state.language} buttonData={data['buttons']['next']} onClicked={() => this.setNextQuestion()} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
         )
@@ -440,9 +463,9 @@ class App extends Component {
       }
     }
     if (state === 'location'){
-      if (this.state.location.length > 0){
+      if (this.state.locationSuggestion){
         return(
-          <ReflectingButton class="next-button-small" language={this.state.language} buttonData={data['buttons']['next']} onClicked={() => this.transition({ type: 'next' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
+          <ReflectingButton class="next-button-small" language={this.state.language} buttonData={data['buttons']['next']} onClicked={this.handleLocationEntry} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
         )
       }else {
         return(
@@ -628,13 +651,6 @@ class App extends Component {
 
   }
 
-  attractFadeHandler(event) {
-    this.setState({ attractFade: this.state.attractFade+1 })
-    // setInterval(() => {
-    //   this.setState({ attractFade: this.state.attractFade+1 })
-    // }, 5000)
-  }
-
 
 
   renderAttract(state) {
@@ -642,8 +658,9 @@ class App extends Component {
       return (
         <div className="attract" onClick={() => this.transition({ type: 'welcome' })}>
         <h3> WELCOME TO THE </h3>
-        <h1> RECORDING BOOTH </h1>
-        <Fade loop={true} content={this.state.attractFade}
+        <h1> <span>RECORDING BOOTH</span> </h1>
+        <Fade loop={true}
+          duration={4000}
           array={['Tap anywhere to begin',
           "(sp) Tap anywhere to begin",
           "(jp) Tap anywhere to begin",
@@ -820,11 +837,10 @@ class App extends Component {
     if (state === 'record-intro-1'){
       return (
         <Fade loop={false}
+        duration={8500}
           class='prompt'
-          content={this.state.attractFade}
-            array={['try to look straight ahead at this screen during the entire recording', '(script-2)','(script-3)'
-          ]
-        }/>
+            array={data['steps']['record-intro-1']["instructions"][this.state.language]}
+        />
       )
     }
   }
@@ -853,7 +869,7 @@ class App extends Component {
     }
 
   renderMainAudio(sound) {
-    if (this.state.currentState == 'attract' || (this.state.sound.length>0 && this.state.eyesFree)) {
+    if (this.state.currentState == 'attract' || this.state.currentState == 'welcome' || (this.state.sound && this.state.eyesFree)) {
       return (
         <Sound
       url={this.state.sound}
@@ -973,13 +989,22 @@ class App extends Component {
   }
   //location
   onLocationInputChanged = (data) => {
-  this.setState({ location: data });
+    console.log(data);
+    this.handleLocationQuery(data);
+  //this.setState({ location: data });
   }
   renderLocationKeyboard(keyboardInput) {
+    let location = this.state.locationSuggestion;
     if(this.state.currentState === 'location'){
+      let locationSuggestion = 'Type to enter city, state, country';
+      if (location ){
+        locationSuggestion = location.name+ ', ' + location.admin1_name + ', ' + location.country_name;
+      } else{
+        locationSuggestion = 'Type to enter city, state, country';
+      }
       return (
         <div>
-        <InputSuggestion content="Type to enter city, state, country"  input={this.state.location}/>
+        <InputSuggestion content={locationSuggestion}  input=''/>
         <Keyboard
           value={this.state.location}
           name='keyboard'
@@ -1040,13 +1065,12 @@ class App extends Component {
           {this.renderRecordStop(currentState)}
 
         </div>
-        <div id="teleprompter">
+        <div id="teleprompter" className="">
           {this.renderTeleprompter(teleprompterContent)}
           {this.renderTimer(currentState)}
           {this.renderPrompt()}
           {this.renderProgress(this.state.currentState)}
           {this.renderInstructions(this.state.currentState)}
-          <button onClick={this.handleClick}>click</button>
         </div>
         {this.renderMainAudio(this.state.sound)}
         <IdleTimer

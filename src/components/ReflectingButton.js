@@ -23,25 +23,19 @@ import Hammer from 'react-hammerjs';
     var audio = props.buttonData.audio;
 
 
-    var onTapFunc = props.onClicked;
-    var onDoubleTapFunc = null;
-    var onHoverFunc = null;
-    var onPressUpFunc = null;
-
-
     if (props.eyesFree) {
-      onTapFunc = null;
-      onDoubleTapFunc = props.onClicked;
-      onHoverFunc = props.eyesFreeHover;
-      onPressUpFunc = props.eyesFreeRelease;
+      return (
+        <Hammer  onDoubleTap={props.onClicked} onPress={props.eyesFreeHover} onPressUp={props.eyesFreeRelease}  options={options}>
+          <button value={audio} className={props.class}> <h4>{content}</h4><div className="toggle"></div> </button>
+        </Hammer>
+      )
+    } else {
+      return (
+        <Hammer  onTap={props.onClicked} options={options}>
+          <button className={props.class}> <h4>{content}</h4><div className="toggle"></div> </button>
+        </Hammer>
+      )
     }
-
-
-    return (
-      <Hammer  onTap={onTapFunc} onDoubleTap={onDoubleTapFunc} onPress={onHoverFunc} onPressUp={onPressUpFunc}  options={options}>
-        <button value={audio} className={props.class}> <h4>{content}</h4> </button>
-      </Hammer>
-    );
   }
 
   ReflectingButton.propTypes = {

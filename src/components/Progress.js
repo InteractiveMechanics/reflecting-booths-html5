@@ -82,6 +82,8 @@ class Progress extends Component {
       case 'last-name':
       case 'email':
       case 'location':
+      case 'age':
+      case 'end':
       homeFill = 'rgba(33, 177, 231, 1)';
       homeStyle = 'blue-line';
       aboutFill = 'rgba(33, 177, 231, 1)';

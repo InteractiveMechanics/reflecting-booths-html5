@@ -21,26 +21,11 @@ import Fade from '../components/Fade';
         }
     };
     var content = props.buttonData.text[props.language];
-    var audio = props.buttonData.audio;
 
 
-    var onTapFunc = props.onClicked;
-    var onDoubleTapFunc = null;
-    var onHoverFunc = null;
-    var onPressUpFunc = null;
-
-
-    if (props.eyesFree) {
-      onTapFunc = null;
-      onDoubleTapFunc = props.onClicked;
-      onHoverFunc = props.eyesFreeHover;
-      onPressUpFunc = props.eyesFreeRelease;
-    }
-
-    
     return (
-        <button value={audio} className={props.class} onClick={onTapFunc}>
-          <Fade loop={true} array={props.array} />
+        <button className={props.class} onClick={props.onClicked}>
+          <Fade loop={true} duration={4000} array={props.array} />
         </button>
     );
   }

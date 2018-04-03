@@ -4,9 +4,10 @@ import attractVideo from '../Assets/Video/AttractScreen_v01.mp4';
 import recordVideo from '../Assets/Video/RecordingInstructions_v02.mp4';
 
 function Teleprompter(props) {
-  var videoFile;
-  var heading;
-  var paragraph;
+  let videoFile;
+  let heading;
+  let paragraph;
+  let contentClass = "content";
   if (props.content.videosrc){
     videoFile = <video width="800" height="600" src={attractVideo} autoPlay loop type="video/mp4"/>
   }else if (props.content.recordvideo){
@@ -23,15 +24,22 @@ function Teleprompter(props) {
     paragraph = <p>{props.content.paragraph[props.language]}</p>
   } else{
     paragraph = null
+    contentClass = "content tele-center";
   }
+
+  let content = <div className={contentClass}>
+    {heading}
+    {paragraph}
+  </div>
+
+  if (!heading && !paragraph){
+    content = null;
+  }
+
 
   return (
     <div className="wrapper">
-    <div className="content">
-      {heading}
-      {paragraph}
-
-    </div>
+      {content}
     {videoFile}
   </div>);
 }

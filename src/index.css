@@ -71,6 +71,9 @@ body {
 .answerOption {
   border-bottom: 1px solid #fff;
   text-align:left;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   /* height: 100px; */
 }
 
@@ -203,6 +206,18 @@ body {
   background-image: url('./Assets/bkgr-fade.png');
   background-position:center;
   background-size: cover;
+}
+
+.tele-center{
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#teleprompter .tele-center h1{
+  margin: 0px;
+  display: block;
 }
 
 #touchscreen{
@@ -495,18 +510,20 @@ top: -80px;
   bottom: 0;
   right: 0;
   background: #002843 url(./Assets/icon-stop.png) no-repeat;
-  background-position:center;
+  background-position: 50% 300px;
   border: none;
 }
 
 
 .record-stop h4{
+  width: 430px;
   font-family: "ScalaSans-Bold", sans-serif;
   font-size:52px;
+  line-height:1.2;
   margin: auto;
   position: relative;
   text-align: center;
-  top: -180px;
+  top: -102px;
 }
 
 .eyes-free-on{
@@ -614,12 +631,21 @@ margin-top: 50px;
 font-family: "Gotham-Medium", sans-serif;
 font-size: 28px;
 letter-spacing: 4px;
+position: absolute;
+background-color:#002843;
+left: 206px;
+top: 141px;
+padding-left: 30px;
+padding-right: 30px;
 }
 
-.attract h1{
+.attract h1 span{
 font-family: "Gotham-Medium", sans-serif;
 font-size: 52px;
-letter-spacing: 4px;
+padding: 40px 0px 30px 0px;
+letter-spacing: 6px;
+border-bottom: solid white 3px;
+border-top: solid white 3px;
 }
 
 .attract h4{
@@ -720,7 +746,7 @@ margin-top: 50px;
 
 .timer-progress{
   margin: auto;
-margin-top: 40px;
+margin-top: 70px;
 }
 
 .ui-keyboard-input, .suggestion{
@@ -756,9 +782,9 @@ margin-top: 40px;
   color: white;
 }
 .ui-keyboard-button {
-  height: 45px;
-  width: 45px;
-  margin: 4px;
+  height: 69px;
+    width: 56px;
+    margin: 5px;
   cursor: pointer;
   background: #003F69;
   border: none;
@@ -899,4 +925,11 @@ li.blue-line:after{
 }
 li.light-line:after{
   background-color: rgba(255, 255, 255, 0.5);
+}
+.mirrored{
+  -moz-transform: scale(1, -1);
+  -webkit-transform: scale(1, -1);
+  -o-transform: scale(1, -1);
+  -ms-transform: scale(1, -1);
+  transform: scale(1, -1);
 }

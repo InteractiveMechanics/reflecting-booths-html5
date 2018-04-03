@@ -35,9 +35,7 @@ const data = {
   ],
   "steps": {
     "attract": {
-      "teleprompter": {
-        "videosrc": "http://techslides.com/demos/sample-videos/small.mp4"
-      },
+      "teleprompter": {},
       "touchscreen": {
         "text": {
           "english": "Tap anywhere to begin",
@@ -52,7 +50,7 @@ const data = {
       },
       "buttonclass": "large",
       "welcome": "welcome",
-      "audio": "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg"
+      "audio": "http://soundbible.com/grab.php?id=1598&type=mp3"
     },
 
     "welcome": {
@@ -82,7 +80,7 @@ const data = {
       "buttonclass": "large",
       "next": "about-1",
       "language": "language",
-      "audio": "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg"
+      "audio": "http://soundbible.com/grab.php?id=1598&type=mp3"
 
     },
     "language": {
@@ -100,7 +98,7 @@ const data = {
       },
       "back": "welcome",
       "buttonclass": "small",
-      "audio": "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg"
+      "audio": "http://soundbible.com/grab.php?id=1598&type=mp3"
     },
     "about-1": {
       "teleprompter": {
@@ -128,7 +126,7 @@ const data = {
       "buttonclass": "large",
       "next": "about-2",
       "back": "welcome",
-      "audio": "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg"
+      "audio": "http://soundbible.com/grab.php?id=1598&type=mp3"
 
     },
     "about-2": {
@@ -157,7 +155,7 @@ const data = {
       "buttonclass": "large",
       "next": "questions",
       "back": "about-1",
-      "audio": "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg"
+      "audio": "http://soundbible.com/grab.php?id=1598&type=mp3"
     },
     "questions": {
       "teleprompter": {},
@@ -165,17 +163,91 @@ const data = {
       "buttonclass": "small",
       "next": "record-intro-1",
       "back": "about-2",
-      "audio": "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg"
+      "audio": "http://soundbible.com/grab.php?id=1598&type=mp3"
     },
 
     "record-intro-1": {
       "teleprompter": {
         "recordvideo": true
       },
+      "instructions": {
+        "english": [
+          "Make sure there is nothing in your hands or on your lap.",
+          "Look straight at this screen during the entire recording.",
+          "Share your story as if talking to a friend or loved one.",
+          "There will be a ten second countdown before recording begins.",
+          "A bright light will turn on in front of you when recording begins.",
+          "You will have two full minutes to record your story.",
+          "If you finish early, tap anywhere on the screen in front of you to stop the recording.",
+        ],
+        "spanish": [
+          "(sp) Make sure there is nothing in your hands or on your lap.",
+          "(sp) Look straight at this screen during the entire recording.",
+          "(sp) Share your story as if talking to a friend or loved one.",
+          "(sp) There will be a ten second countdown before recording begins.",
+          "(sp) A bright light will turn on in front of you when recording begins.",
+          "(sp) You will have two full minutes to record your story.",
+          "(sp) If you finish early, tap anywhere on the screen in front of you to stop the recording.",
+        ],
+        "japanese": [
+          "(jp) Make sure there is nothing in your hands or on your lap.",
+          "(jp) Look straight at this screen during the entire recording.",
+          "(jp) Share your story as if talking to a friend or loved one.",
+          "(jp) There will be a ten second countdown before recording begins.",
+          "(jp) A bright light will turn on in front of you when recording begins.",
+          "(jp) You will have two full minutes to record your story.",
+          "(jp) If you finish early, tap anywhere on the screen in front of you to stop the recording.",
+        ],
+        "portuguese": [
+          "(pt) Make sure there is nothing in your hands or on your lap.",
+          "(pt) Look straight at this screen during the entire recording.",
+          "(pt) Share your story as if talking to a friend or loved one.",
+          "(pt) There will be a ten second countdown before recording begins.",
+          "(pt) A bright light will turn on in front of you when recording begins.",
+          "(pt) You will have two full minutes to record your story.",
+          "(pt) If you finish early, tap anywhere on the screen in front of you to stop the recording.",
+        ],
+        "french": [
+          "(fr) Make sure there is nothing in your hands or on your lap.",
+          "(fr) Look straight at this screen during the entire recording.",
+          "(fr) Share your story as if talking to a friend or loved one.",
+          "(fr) There will be a ten second countdown before recording begins.",
+          "(fr) A bright light will turn on in front of you when recording begins.",
+          "(fr) You will have two full minutes to record your story.",
+          "(fr) If you finish early, tap anywhere on the screen in front of you to stop the recording.",
+        ],
+        "italian": [
+          "(it) Make sure there is nothing in your hands or on your lap.",
+          "(it) Look straight at this screen during the entire recording.",
+          "(it) Share your story as if talking to a friend or loved one.",
+          "(it) There will be a ten second countdown before recording begins.",
+          "(it) A bright light will turn on in front of you when recording begins.",
+          "(it) You will have two full minutes to record your story.",
+          "(it) If you finish early, tap anywhere on the screen in front of you to stop the recording.",
+        ],
+        "mandarin": [
+          "(mn) Make sure there is nothing in your hands or on your lap.",
+          "(mn) Look straight at this screen during the entire recording.",
+          "(mn) Share your story as if talking to a friend or loved one.",
+          "(mn) There will be a ten second countdown before recording begins.",
+          "(mn) A bright light will turn on in front of you when recording begins.",
+          "(mn) You will have two full minutes to record your story.",
+          "(mn) If you finish early, tap anywhere on the screen in front of you to stop the recording.",
+        ],
+        "dutch": [
+          "(dt) Make sure there is nothing in your hands or on your lap.",
+          "(dt) Look straight at this screen during the entire recording.",
+          "(dt) Share your story as if talking to a friend or loved one.",
+          "(dt) There will be a ten second countdown before recording begins.",
+          "(dt) A bright light will turn on in front of you when recording begins.",
+          "(dt) You will have two full minutes to record your story.",
+          "(dt) If you finish early, tap anywhere on the screen in front of you to stop the recording.",
+        ]
+      },
       "buttonclass": "large",
       "next": "record-intro-2",
       "back": "questions",
-      "audio": "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg"
+      "audio": "http://soundbible.com/grab.php?id=1598&type=mp3"
     },
 
     "record-intro-2": {
@@ -204,7 +276,7 @@ const data = {
       "buttonclass": "large",
       "recording": "recording",
       "back": "record-intro-1",
-      "audio": "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg"
+      "audio": "http://soundbible.com/grab.php?id=1598&type=mp3"
     },
     "recording": {
       "timer": {
@@ -230,7 +302,7 @@ const data = {
         }
       },
       "stop": "review",
-      "audio": "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg"
+      "audio": "http://soundbible.com/grab.php?id=1598&type=mp3"
     },
 
     "review": {
@@ -260,7 +332,7 @@ const data = {
       "record-again": "record-intro-1",
       "next": "user-agreement",
       "skip": "end",
-      "audio": "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg"
+      "audio": "http://soundbible.com/grab.php?id=1598&type=mp3"
     },
     "user-agreement": {
       "teleprompter": {
@@ -310,7 +382,7 @@ const data = {
       "buttonclass": "small",
       "agree": "first-name",
       "disagree": "user-agreement-warning",
-      "audio": "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg"
+      "audio": "http://soundbible.com/grab.php?id=1598&type=mp3"
     },
     "user-agreement-warning": {
       "teleprompter": {
@@ -328,7 +400,7 @@ const data = {
       "buttonclass": "large",
       "delete": "record-intro-1",
       "save": "user-agreement",
-      "audio": "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg"
+      "audio": "http://soundbible.com/grab.php?id=1598&type=mp3"
     },
     "first-name": {
       "teleprompter": {
@@ -350,7 +422,7 @@ const data = {
       "buttonclass": "small",
       "next": "last-name",
       "back": "user-agreement",
-      "audio": "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg"
+      "audio": "http://soundbible.com/grab.php?id=1598&type=mp3"
     },
     "last-name": {
       "teleprompter": {
@@ -372,7 +444,7 @@ const data = {
       "buttonclass": "small",
       "next": "email",
       "back": "first-name",
-      "audio": "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg"
+      "audio": "http://soundbible.com/grab.php?id=1598&type=mp3"
     },
     "email": {
       "teleprompter": {
@@ -394,7 +466,7 @@ const data = {
       "buttonclass": "small",
       "next": "location",
       "back": "last-name",
-      "audio": "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg"
+      "audio": "http://soundbible.com/grab.php?id=1598&type=mp3"
     },
     "location": {
       "teleprompter": {
@@ -416,7 +488,7 @@ const data = {
       "buttonclass": "small",
       "next": "age",
       "back": "email",
-      "audio": "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg"
+      "audio": "http://soundbible.com/grab.php?id=1598&type=mp3"
     },
     "age": {
       "teleprompter": {
@@ -450,7 +522,7 @@ const data = {
       "buttonclass": "small",
       "next": "end",
       "back": "location",
-      "audio": "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg"
+      "audio": "http://soundbible.com/grab.php?id=1598&type=mp3"
     },
     "end": {
       "teleprompter": {
@@ -478,13 +550,13 @@ const data = {
       "buttonclass": "large",
       "record-again": "questions",
       "home": "attract",
-      "audio": "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg"
+      "audio": "http://soundbible.com/grab.php?id=1598&type=mp3"
     }
   },
 
   "buttons": {
     "next": {
-      "audio": "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg",
+      "audio": "http://soundbible.com/grab.php?id=1598&type=mp3",
       "text": {
         "english": "Continue",
         "spanish": "(sp) Continue",
@@ -497,7 +569,7 @@ const data = {
       }
     },
     "back": {
-      "audio": "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg",
+      "audio": "http://soundbible.com/grab.php?id=1598&type=mp3",
       "text": {
         "english": "Back",
         "spanish": "(sp) Back",
@@ -510,7 +582,7 @@ const data = {
       }
     },
     "eyes-free": {
-      "audio": "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg",
+      "audio": "http://soundbible.com/grab.php?id=1598&type=mp3",
       "text": {
         "english": "Eyes-Free",
         "spanish": "(sp) Eyes-Free",
@@ -523,7 +595,7 @@ const data = {
       }
     },
     "language": {
-      "audio": "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg",
+      "audio": "http://soundbible.com/grab.php?id=1598&type=mp3",
       "text": {
         "english": "Language",
         "spanish": "(sp) Language",
@@ -536,7 +608,7 @@ const data = {
       }
     },
     "save": {
-      "audio": "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg",
+      "audio": "http://soundbible.com/grab.php?id=1598&type=mp3",
       "text": {
         "english": "No, save video",
         "spanish": "(sp) No, save video",
@@ -549,7 +621,7 @@ const data = {
       }
     },
     "delete": {
-      "audio": "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg",
+      "audio": "http://soundbible.com/grab.php?id=1598&type=mp3",
       "text": {
         "english": "Yes, delete",
         "spanish": "(sp) Yes, delete",
@@ -562,7 +634,7 @@ const data = {
       }
     },
     "disagree": {
-      "audio": "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg",
+      "audio": "http://soundbible.com/grab.php?id=1598&type=mp3",
       "text": {
         "english": "I Disagree",
         "spanish": "(sp) I Disagree",
@@ -575,7 +647,7 @@ const data = {
       }
     },
     "agree": {
-      "audio": "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg",
+      "audio": "http://soundbible.com/grab.php?id=1598&type=mp3",
       "text": {
         "english": "I Agree",
         "spanish": "(sp) I Agree",
@@ -588,7 +660,7 @@ const data = {
       }
     },
     "retake-video": {
-      "audio": "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg",
+      "audio": "http://soundbible.com/grab.php?id=1598&type=mp3",
       "text": {
         "english": "Retake Video",
         "spanish": "(sp) Retake Video",
@@ -601,7 +673,7 @@ const data = {
       }
     },
     "record": {
-      "audio": "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg",
+      "audio": "http://soundbible.com/grab.php?id=1598&type=mp3",
       "text": {
         "english": "Record",
         "spanish": "(sp) Record",
@@ -614,7 +686,7 @@ const data = {
       }
     },
     "record-stop": {
-      "audio": "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg",
+      "audio": "http://soundbible.com/grab.php?id=1598&type=mp3",
       "text": {
         "english": "Touch anywhere to stop recording",
         "spanish": "(sp) Touch anywhere to stop recording",
@@ -627,7 +699,7 @@ const data = {
       }
     },
     "home": {
-      "audio": "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg",
+      "audio": "http://soundbible.com/grab.php?id=1598&type=mp3",
       "text": {
         "english": "Home",
         "spanish": "(sp) Home",
@@ -640,7 +712,7 @@ const data = {
       }
     },
     "recordanother": {
-      "audio": "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg",
+      "audio": "http://soundbible.com/grab.php?id=1598&type=mp3",
       "text": {
         "english": "Make Another Recording",
         "spanish": "(sp) Make Another Recording",
