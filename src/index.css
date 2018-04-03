@@ -199,13 +199,14 @@ body {
 
 #teleprompter{
   position: absolute;
-    width: 800px;
-    height: 600px;
-    left: 800px;
-    color: white;
-    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAyAAAAJYCAYAAACadoJwAAAAAXNSR…DD//k+OgECBAgQIECAAIFawBOsWtweAQIECBAgQIAAgWGBf2eaB4SJsAFPAAAAAElFTkSuQmCC);
-    background-position: center;
-    background-size: cover;
+  width: 800px;
+  height: 600px;
+  top:0px;
+  left:0px;
+  color: white;
+  background-image: url('./Assets/bkgr-fade.png');
+  background-position:center;
+  background-size: cover;
 }
 
 .tele-center{
@@ -223,10 +224,11 @@ body {
 #touchscreen{
   background-color: #002843;
   color: white;
+  position:absolute;
+  top:0px;
+  left:800px;
   width: 800px;
   height: 600px;
-  float: left;
-  position: relative;
   z-index: -10;
 }
 

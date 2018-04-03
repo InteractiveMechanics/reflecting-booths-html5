@@ -1068,7 +1068,7 @@ class App extends Component {
           {this.renderRecordStop(currentState)}
 
         </div>
-        <div id="teleprompter" className="">
+        <div id="teleprompter" className="mirrored">
           {this.renderTeleprompter(teleprompterContent)}
           {this.renderTimer(currentState)}
           {this.renderPrompt()}
