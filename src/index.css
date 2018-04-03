@@ -198,14 +198,14 @@ body {
 
 
 #teleprompter{
-  position: relative;
-  width: 800px;
-  height: 600px;
-  float: left;
-  color: white;
-  background-image: url('./Assets/bkgr-fade.png');
-  background-position:center;
-  background-size: cover;
+  position: absolute;
+    width: 800px;
+    height: 600px;
+    left: 800px;
+    color: white;
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAyAAAAJYCAYAAACadoJwAAAAAXNSR…DD//k+OgECBAgQIECAAIFawBOsWtweAQIECBAgQIAAgWGBf2eaB4SJsAFPAAAAAElFTkSuQmCC);
+    background-position: center;
+    background-size: cover;
 }
 
 .tele-center{
@@ -771,9 +771,30 @@ margin-top: 70px;
   z-index:-2;
 }
 
+.suggestion-normal{
+  font-family: "ScalaSans", sans-serif;
+  opacity: 0.5;
+  position: absolute;
+  z-index:-2;
+}
+
+.keyboard-wrapper{
+  z-index:-2;
+}
+
+h3.prompt{
+  position: absolute;
+  bottom: 0px;
+  font-family: "ScalaSans", sans-serif;
+  font-size: 40px;
+  text-align: center;
+  margin: 25px;
+}
+
 .ui-keyboard{
   background: none;
   border: none;
+  z-index:0;
 }
 
 .ui-keyboard span {
@@ -886,15 +907,6 @@ left: 33px;
     opacity: 1;
     transition: opacity 800ms ease-out;
   }
-
-.prompt{
-  position: absolute;
-  bottom: 0px;
-  width: 800px;
-  padding: 20px 25px;
-  font-size: 30px;
-  text-align: center;
-}
 
 li.white-line{
   color: rgba(255, 255, 255, 1);

@@ -528,7 +528,7 @@ class App extends Component {
     }
     if (this.state.currentState == 'end'){
       return (
-        <ReflectingButton class="record-again" language={this.state.language} buttonData={data['buttons']['retake-video']} onClicked={() => this.transition({ type: 'record-again' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
+        <ReflectingButton class="record-again" language={this.state.language} buttonData={data['buttons']['record-another']} onClicked={() => this.transition({ type: 'record-again' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
       );
     }
   }
@@ -816,14 +816,14 @@ class App extends Component {
   renderPrompt() {
     if(this.state.prompt && (this.state.currentState === 'recording')){
       return (
-        <h3>{this.state.prompt}</h3>
+        <h3 className="prompt">{this.state.prompt}</h3>
       );
     }
   }
 
   renderProgress(state) {
 
-    if ((state === 'attract') || (state === 'record-intro-1')){
+    if ((state === 'attract') || (state === 'record-intro-1') || (state === 'record')){
 
     }else{
       return (
@@ -891,7 +891,7 @@ class App extends Component {
       console.log(data['keyboards'][this.state.language][0]);
       return (
         <div>
-        <InputSuggestion content="Type to enter first name"  input={this.state.firstname}/>
+        <InputSuggestion class='suggestion' content="Type to enter first name"  input={this.state.firstname}/>
         <Keyboard
           value={this.state.firstname}
           name='keyboard'
@@ -925,7 +925,7 @@ class App extends Component {
     if(this.state.currentState === 'last-name'){
       return (
         <div>
-        <InputSuggestion content="Type to enter last name"  input={this.state.lastname}/>
+        <InputSuggestion class='suggestion' content="Type to enter last name"  input={this.state.lastname}/>
         <Keyboard
           value={this.state.lastname}
           name='keyboard'
@@ -960,7 +960,7 @@ class App extends Component {
     if(this.state.currentState === 'email'){
       return (
       <div>
-        <InputSuggestion content="Type to enter email"  input={this.state.email}/>
+        <InputSuggestion class='suggestion' content="Type to enter email"  input={this.state.email}/>
         <Keyboard
           value={this.state.email}
           name='keyboard'
@@ -995,16 +995,19 @@ class App extends Component {
   }
   renderLocationKeyboard(keyboardInput) {
     let location = this.state.locationSuggestion;
+    let suggestionClass = 'suggestion';
     if(this.state.currentState === 'location'){
       let locationSuggestion = 'Type to enter city, state, country';
       if (location ){
+        suggestionClass = 'suggestion suggestion-normal';
         locationSuggestion = location.name+ ', ' + location.admin1_name + ', ' + location.country_name;
       } else{
+        suggestionClass = 'suggestion';
         locationSuggestion = 'Type to enter city, state, country';
       }
       return (
         <div>
-        <InputSuggestion content={locationSuggestion}  input=''/>
+        <InputSuggestion class={suggestionClass} content={locationSuggestion}  input=''/>
         <Keyboard
           value={this.state.location}
           name='keyboard'

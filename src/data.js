@@ -35,7 +35,9 @@ const data = {
   ],
   "steps": {
     "attract": {
-      "teleprompter": {},
+      "teleprompter": {
+        "videosrc": "http://techslides.com/demos/sample-videos/small.mp4"
+      },
       "touchscreen": {
         "text": {
           "english": "Tap anywhere to begin",
@@ -46,7 +48,7 @@ const data = {
           "italian": "Tocca per iniziare",
           "mandarin": "点击开始",
           "dutch": "Zum Beginnen den Bildschirm antippen"
-        }
+        },
       },
       "buttonclass": "large",
       "welcome": "welcome",
@@ -711,7 +713,7 @@ const data = {
         "dutch": "(dt) Home"
       }
     },
-    "recordanother": {
+    "record-another": {
       "audio": "http://soundbible.com/grab.php?id=1598&type=mp3",
       "text": {
         "english": "Make Another Recording",
