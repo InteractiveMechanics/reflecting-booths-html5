@@ -91,6 +91,12 @@ class App extends Component {
   //   }))
   // }
 
+  startRecording () {
+    //axios.get('http://10.0.94.54:3000/activate-video');
+    this.transition({ type: 'recording' })
+  }
+
+
   handleLocationEntry () {
     let location = this.state.locationSuggestion;
     if (location){
@@ -99,6 +105,22 @@ class App extends Component {
       })
     }
     this.transition({ type: 'next' })
+  }
+
+  //get autocomplete suggestion
+  handleLocationQuery (string) {
+    if (string.length>0){
+      axios.get('http://10.0.61.18/locate', { params: { name: string, limit: 1 }})
+        .then(response =>
+          this.setState({
+          locationSuggestion: response.data.data[0],
+        }))
+    } else {
+        this.setState({
+      locationSuggestion: null
+      })
+    }
+
   }
 
   //get autocomplete suggestion
@@ -508,7 +530,7 @@ class App extends Component {
   renderRecordButton(state) {
     if (this.state.currentState == 'record-intro-2'){
       return (
-        <ReflectingButton class="record-button" language={this.state.language} buttonData={data['buttons']['record']} onClicked={() => this.transition({ type: 'recording' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
+        <ReflectingButton class="record-button" language={this.state.language} buttonData={data['buttons']['record']} onClicked={this.startRecording} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
       );
     }
   }

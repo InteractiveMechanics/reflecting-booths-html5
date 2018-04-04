@@ -56,6 +56,15 @@ body {
   padding: 1.5rem 2.5rem;
 }
 
+.ui-app{
+  overflow-x: hidden;
+  overflow-y: hidden;
+  -webkit-user-select: none; /* Safari 3.1+ */
+    -moz-user-select: none; /* Firefox 2+ */
+    -ms-user-select: none; /* IE 10+ */
+    user-select: none;
+}
+
 /* Quiz Component */
 .answerOptions {
   height: 400px;
@@ -946,9 +955,6 @@ li.light-line:after{
   background-color: rgba(255, 255, 255, 0.5);
 }
 .mirrored{
-  -moz-transform: scale(1, -1);
-  -webkit-transform: scale(1, -1);
-  -o-transform: scale(1, -1);
-  -ms-transform: scale(1, -1);
-  transform: scale(1, -1);
+
+  transform: scale(-1, 1);
 }
