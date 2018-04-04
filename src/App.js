@@ -79,7 +79,7 @@ class App extends Component {
       buttonClass: "small",
       question: quizQuestions[0].question,
       answerOptions: quizQuestions[0].answers,
-      sound: data['steps'][startState]["audio"]
+      sound: Chime
     });
   }
 
@@ -588,7 +588,10 @@ class App extends Component {
 
   toggleEyesFree() {
     if(this.state.eyesFree === false){
-      this.setState({ eyesFree: true });
+      this.setState({
+        eyesFree: true,
+        language: 'english'
+      });
     }else{
       this.setState({ eyesFree: false });
     }
@@ -736,7 +739,7 @@ class App extends Component {
 
   handleEyesFreeHover(event) {
     console.log(event.target);
-    this.setAudio(event.target.value);
+    this.setAudio(Chime);
   }
 
   handleEyesFreeRelease(event) {
@@ -809,6 +812,8 @@ class App extends Component {
           question={this.state.question}
           questionTotal={quizQuestions.length}
           onAnswerSelected={this.handleAnswerSelected}
+          onAnswerHover={this.onEyesFreeHover}
+          eyesFree={this.state.eyesFree}
         />
       );
     }
@@ -1045,7 +1050,7 @@ class App extends Component {
 
     return (
       <div className="ui-app" data-state={currentState}>
-        <div id="touchscreen">
+        <div id="touchscreen" className="flipped">
           {this.renderAttract(currentState)}
           {this.renderFirstNameKeyboard(keyboardInput)}
           {this.renderLastNameKeyboard(keyboardInput)}
@@ -1069,7 +1074,7 @@ class App extends Component {
           {this.renderRecordStop(currentState)}
 
         </div>
-        <div id="teleprompter" className="mirrored">
+        <div id="teleprompter" className="mirrored flipped">
           {this.renderTeleprompter(teleprompterContent)}
           {this.renderTimer(currentState)}
           {this.renderPrompt()}

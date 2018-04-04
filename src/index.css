@@ -252,6 +252,11 @@ text-align: center;
 top: -40px;
 }
 
+.flipped{
+  transform: rotate(180deg);
+}
+
+
 .next-button-small-inactive{
   color: white;
   width:164px;

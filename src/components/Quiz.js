@@ -20,6 +20,8 @@ function Quiz(props) {
         questionId={props.questionId}
         nextQuestionId={key.nextQuestionId}
         onAnswerSelected={props.onAnswerSelected}
+        onAnswerHover={props.onAnswerHover}
+        eyesFree={props.eyesFree}
       />
     );
   }
@@ -39,7 +41,9 @@ function Quiz(props) {
     question: PropTypes.object.isRequired,
     questionId: PropTypes.number.isRequired,
     questionTotal: PropTypes.number.isRequired,
-    onAnswerSelected: PropTypes.func.isRequired
+    onAnswerSelected: PropTypes.func.isRequired,
+    onAnswerHover: PropTypes.func.isRequired,
+    eyesFree: PropTypes.bool.isRequired
   };
 
 
