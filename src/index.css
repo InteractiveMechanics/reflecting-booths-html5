@@ -56,7 +56,6 @@ body {
   padding: 1.5rem 2.5rem;
 }
 
-html, body {margin: 0; height: 100%; overflow: hidden}
 
 .ui-app{
   overflow-x: hidden;
@@ -794,6 +793,15 @@ margin-top: 70px;
 
 .keyboard-wrapper{
   z-index:-2;
+}
+
+h4.prompt{
+  position: absolute;
+  bottom: 0px;
+  font-family: "ScalaSans", sans-serif;
+  font-size: 40px;
+  text-align: center;
+  margin: 25px;
 }
 
 h3.prompt{

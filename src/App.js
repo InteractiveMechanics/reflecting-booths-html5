@@ -67,6 +67,7 @@ class App extends Component {
     this.handleMainAudioFinish = this.handleMainAudioFinish.bind(this);
     this.handleLocationQuery = this.handleLocationQuery.bind(this);
     this.handleLocationEntry = this.handleLocationEntry.bind(this);
+    this.transition = this.transition.bind(this);
     //this.renderMainAudio = this.renderMainAudio.bind(this);
   }
 
@@ -530,7 +531,7 @@ class App extends Component {
   renderRecordButton(state) {
     if (this.state.currentState == 'record-intro-2'){
       return (
-        <ReflectingButton class="record-button" language={this.state.language} buttonData={data['buttons']['record']} onClicked={this.startRecording} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
+        <ReflectingButton class="record-button" language={this.state.language} buttonData={data['buttons']['record']} onClicked={() => this.transition({ type: 'recording' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
       );
     }
   }
@@ -851,7 +852,7 @@ class App extends Component {
 
   renderProgress(state) {
 
-    if ((state === 'attract') || (state === 'record-intro-1') || (state === 'record')){
+    if ((state === 'attract') || (state === 'record-intro-1') || (state === 'recording')){
 
     }else{
       return (
