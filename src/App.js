@@ -60,14 +60,15 @@ class App extends Component {
     this.setNewQuestion = this.setNewQuestion.bind(this);
     this.handleAnswerSelected = this.handleAnswerSelected.bind(this);
     this.handleAgeSelected = this.handleAgeSelected.bind(this);
-    this.handleRecordingStop = this.handleRecordingStop.bind(this);
+    this.stopRecording = this.stopRecording.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleEyesFreeHover = this.handleEyesFreeHover.bind(this);
     this.handleEyesFreeRelease = this.handleEyesFreeRelease.bind(this);
     this.handleMainAudioFinish = this.handleMainAudioFinish.bind(this);
     this.handleLocationQuery = this.handleLocationQuery.bind(this);
     this.handleLocationEntry = this.handleLocationEntry.bind(this);
-    this.transition = this.transition.bind(this);
+    this.startRecording = this.startRecording.bind(this);
+    this.preRecordSteps = this.preRecordSteps.bind(this);
     //this.renderMainAudio = this.renderMainAudio.bind(this);
   }
 
@@ -92,9 +93,30 @@ class App extends Component {
   //   }))
   // }
 
+  preRecordSteps () {
+    this.transition({ type: 'record-intro-2' });
+    axios.get('http://10.0.94.54:3000/activate-video')
+    console.log('activated video');
+  }
+
   startRecording () {
-    //axios.get('http://10.0.94.54:3000/activate-video');
-    this.transition({ type: 'recording' })
+    this.transition({ type: 'recording' });
+
+    //lights on a different address
+    axios.put('http://10.0.94:3000/lights/up');
+    console.log('lights-up');
+
+    axios.put('http://10.0.94.50:3000/video/'+this.state.sessionId);
+    console.log('start recording');
+
+
+
+  }
+
+  stopRecording(state){
+    axios.get('http://10.0.94.53:3000/activate-video');
+    axios.get('http://10.0.94.53:3000/activate-video');
+    this.transition({ type: 'stop' });
   }
 
 
@@ -426,7 +448,7 @@ class App extends Component {
     if (state === 'questions'){
     if (this.state.nextQuestionId === 'record-intro-1'){
       return(
-        <ReflectingButton class="next-button-small" language={this.state.language} buttonData={data['buttons']['next']} onClicked={() => this.transition({ type: 'next' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree} />
+        <ReflectingButton class="next-button-small" language={this.state.language} buttonData={data['buttons']['next']} onClicked={() => this.transition({ type: 'record-intro-1' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree} />
       )
     }else if(this.state.answer.length > 0){
         return(
@@ -446,10 +468,12 @@ class App extends Component {
         && this.state.email.length > 0
         && this.state.location.length > 0
         && this.state.age === 'Yes'){
-        return(
-          <ReflectingButton class="next-button" language={this.state.language} buttonData={data['buttons']['next']} onClicked={() => this.transition({ type: 'skip' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
-        )
+         <ReflectingButton class="next-button" language={this.state.language} buttonData={data['buttons']['next']} onClicked={() => this.transition({ type: 'skip' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
       }
+    }
+
+    if (state === 'record-intro-1') {
+
     }
 
     //dirty
@@ -531,7 +555,7 @@ class App extends Component {
   renderRecordButton(state) {
     if (this.state.currentState == 'record-intro-2'){
       return (
-        <ReflectingButton class="record-button" language={this.state.language} buttonData={data['buttons']['record']} onClicked={() => this.transition({ type: 'recording' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
+        <ReflectingButton class="record-button" language={this.state.language} buttonData={data['buttons']['record']} onClicked={this.startRecording} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
       );
     }
   }
@@ -539,7 +563,7 @@ class App extends Component {
   renderRecordStop(state) {
     if (this.state.currentState == 'recording'){
       return (
-        <ReflectingButton class="record-stop" language={this.state.language} buttonData={data['buttons']['record-stop']} onClicked={() => this.transition({ type: 'stop' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
+        <ReflectingButton class="record-stop" language={this.state.language} buttonData={data['buttons']['record-stop']} onClicked={this.stopRecording} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
       );
     }
   }
@@ -812,14 +836,12 @@ class App extends Component {
 
   }
 
-  handleRecordingStop(state){
-    this.transition({ type: 'stop' })
-  }
+
 
   renderTimer(state) {
     if(state === "recording"){
       return (
-        <Timer language={this.state.language} content={data['steps']['recording']["timer"]} seconds={10} stopRecording={this.handleRecordingStop}/>
+        <Timer language={this.state.language} content={data['steps']['recording']["timer"]} seconds={10} stopRecording={this.stopRecording}/>
       );
     }
   }
