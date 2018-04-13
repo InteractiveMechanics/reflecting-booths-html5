@@ -28,7 +28,7 @@ class App extends Component {
     super(props);
 
     this.state = {
-      currentState: 'first-name',
+      currentState: 'attract',
       language: 'english',
       eyesFree: false,
       firstname: '',
@@ -74,7 +74,7 @@ class App extends Component {
 
 
   componentWillMount() {
-    let startState = 'first-name'
+    let startState = 'attract'
     this.setState({
       touchscreen: data['steps'][startState]["touchscreen"],
       teleprompter: data['steps'][startState]["teleprompter"],
