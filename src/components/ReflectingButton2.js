@@ -6,12 +6,12 @@ import Hammer from 'react-hammerjs';
 
   function ReflectingButton(props) {
     // Hammer options
-
     var options = {
         touchAction:'compute',
         recognizers: {
             tap: {
-              enable: true
+                time: 600,
+                threshold: 100
             },
             press: {
                 time: 600,
@@ -19,22 +19,6 @@ import Hammer from 'react-hammerjs';
             }
         }
     };
-
-    if (props.eyesFree){
-      options = {
-          touchAction:'compute',
-          recognizers: {
-              tap: {
-                  enable: false
-              },
-              press: {
-                  time: 600,
-                  threshold: 100
-              }
-          }
-      };
-    }
-
     var content = props.buttonData.text[props.language];
     var audio = props.buttonData.audio;
 

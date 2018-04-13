@@ -10,8 +10,7 @@ import Hammer from 'react-hammerjs';
         touchAction:'compute',
         recognizers: {
             tap: {
-                time: 600,
-                threshold: 100
+              enable: true
             },
             press: {
                 time: 600,
@@ -19,6 +18,21 @@ import Hammer from 'react-hammerjs';
             }
         }
     };
+
+    if (props.eyesFree){
+      options = {
+          touchAction:'compute',
+          recognizers: {
+              tap: {
+                  enable: false
+              },
+              press: {
+                  time: 600,
+                  threshold: 100
+              }
+          }
+      };
+    }
     var content = props.buttonData.text[props.language];
     var audio = props.buttonData.audio;
 

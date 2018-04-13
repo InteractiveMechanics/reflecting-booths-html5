@@ -66,7 +66,7 @@ class Timer extends Component {
     });
 
     // Check if we're at zero.
-    if (seconds == 0) {
+    if (seconds < 0) {
       if (!this.state.secondTimer){
         clearInterval(this.timer);
         this.setState({
@@ -101,7 +101,7 @@ time2() {
   render() {
     let time = null;
     let content = null;
-    let percentage = (this.state.seconds/this.state.totalTime)*100;
+    let percentage = ((this.state.totalTime-this.state.seconds)/this.state.totalTime)*100;
 
     if(!this.state.secondTimer){
       time = this.time2;
@@ -125,6 +125,7 @@ time2() {
                   strokeWidth={14}
                   background={true}
                   backgroundPadding={-7}
+                  counterClockwise={false}
                 />
         </div>
       </div>

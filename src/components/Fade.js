@@ -6,20 +6,23 @@ import { CSSTransition } from 'react-transition-group';
 class Fade extends Component {
   constructor(props) {
     super(props);
-    this.state = { activeIndex: 0, loop:props.loop, class:props.class, animate: 'fade', duration: props.duration};
+    this.state = { activeIndex: 0, loop:props.loop, class:props.class, animate: 'fade fade-enter', duration: props.duration};
     this.array = props.array;
     this.animate = true;
   }
 
 
   componentDidMount(props) {
+    setTimeout(function(){
+      this.setState({ animate: 'fade fade-exit'})
+    }.bind(this), this.state.duration-1000);
     this.progressSlideshow(props);
   }
 
   progressSlideshow(props) {
 
     setTimeout(function () {
-      if (this.state.activeIndex < this.array.length-1 ){
+      if (this.state.activeIndex < this.array.length-1){
         this.setState({ activeIndex: this.state.activeIndex+1, animate: 'fade fade-enter' });
         setTimeout(function (){
             this.setState({ animate: 'fade fade-exit'})

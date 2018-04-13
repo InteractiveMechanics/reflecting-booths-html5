@@ -733,61 +733,61 @@ const data = {
         "1 2 3 4 5 6 7 8 9 0 {bksp}",
         "q w e r t y u i o p ",
         "a s d f g h j k l , . '",
-        "z x c v b n m {enter}",
-        "{space} - \u0040"]
+        "z x c v b n m",
+        "{space} - \u0040 {meta-1}"]
     },
     "spanish": {
       "normal": [
         "1 2 3 4 5 6 7 8 9 0 {bksp}",
         "q w e r t y u i o p ",
         "a s d f g h j k l , . '",
-        "z x c v b n m {enter}",
-        "{space} - \u0040"]    },
+        "z x c v b n m",
+        "{space} - \u0040 {meta-1}"]    },
     "japanese": {
       "normal": [
         "\u306c:Nu \u3075:Hu \u3042:A \u3046:U \u3048:E \u304a:O \u3084:Ya \u3086:Yu \u3088:Yo \u308f:Wa {bksp}",
         "\u305f:Ta \u3066:Te \u3044:I \u3059:Su \u304b:Ka \u3093:N \u306a:Na \u306b:Ni \u3089:Ra \u305b:Se ",
         "\u3061:Ti \u3068:To \u3057:Si \u306f:Ha \u304D:Ki \u304f:Ku \u307e:Ma \u306e:No \u308a:Ri \u306d:Ne \u308b:Ru '",
-        "\u3064:Tu \u3055:Sa \u305d:So \u3072:Hi \u3053:Ko \u307f:Mi \u3082:Mo {enter}",
-        "{space} - \u0040"]
+        "\u3064:Tu \u3055:Sa \u305d:So \u3072:Hi \u3053:Ko \u307f:Mi \u3082:Mo ",
+        "{space} - \u0040 {meta-1}"]
     },
     "portuguese": {
       "normal": [
         "1 2 3 4 5 6 7 8 9 0 {bksp}",
         "q w e r t y u i o p ",
         "a s d f g h j k l , . '",
-        "z x c v b n m {enter}",
-        "{space} - \u0040"]    },
+        "z x c v b n m",
+        "{space} - \u0040 {meta-1}"]    },
     "french": {
       "normal": [
         "1 2 3 4 5 6 7 8 9 0 {bksp}",
         "a z e r t y u i o p ",
         "q s d f g h j k l m , . '",
-        "w x c v b n {enter}",
-        "{space} - \u0040"]
+        "w x c v b n m",
+        "{space} - \u0040 {meta-1}"]
     },
     "italian": {
       "normal": [
         "1 2 3 4 5 6 7 8 9 0 {bksp}",
         "q w e r t y u i o p ",
         "a s d f g h j k l , . '",
-        "z x c v b n m {enter}",
-        "{space} - \u0040"]    },
+        "z x c v b n m",
+        "{space} - \u0040 {meta-1}"]    },
     "mandarin": {
       "normal": [
         "\u3105 \u3109 \u02C7 \u02CB \u3113 \u02CA \u02D9 \u311A \u311E \u3122 {bksp}",
         "\u3106 \u310A \u310D \u3110 \u3114 \u3117 \u3127 \u311B \u311F \u3123",
         "\u3107 \u310B \u310E \u3111 \u3115 \u3118 \u3128 \u311C \u3120 , . '",
-        "\u3108 \u310C \u310F \u3112 \u3116 \u3119 \u3129 \u311D \u3121 \u3125 {enter}",
-        "{space} - \u0040"]
+        "\u3108 \u310C \u310F \u3112 \u3116 \u3119 \u3129 \u311D \u3121 \u3125",
+        "{space} - \u0040 {meta-1}"]
     },
     "dutch": {
       "normal": [
         "1 2 3 4 5 6 7 8 9 0 {bksp}",
         "q w e r t y u i o p ",
         "a s d f g h j k l , . '",
-        "z x c v b n m {enter}",
-        "{space} - \u0040"]    }
+        "z x c v b n m",
+        "{space} - \u0040 {meta-1}"]    }
   },
   "progress-text": {
     "home": {

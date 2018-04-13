@@ -28,7 +28,7 @@ class App extends Component {
     super(props);
 
     this.state = {
-      currentState: 'attract',
+      currentState: 'first-name',
       language: 'english',
       eyesFree: false,
       firstname: '',
@@ -74,7 +74,7 @@ class App extends Component {
 
 
   componentWillMount() {
-    let startState = 'attract'
+    let startState = 'first-name'
     this.setState({
       touchscreen: data['steps'][startState]["touchscreen"],
       teleprompter: data['steps'][startState]["teleprompter"],
@@ -448,7 +448,7 @@ class App extends Component {
     if (state === 'questions'){
     if (this.state.nextQuestionId === 'record-intro-1'){
       return(
-        <ReflectingButton class="next-button-small" language={this.state.language} buttonData={data['buttons']['next']} onClicked={() => this.transition({ type: 'record-intro-1' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree} />
+        <ReflectingButton class="next-button-small" language={this.state.language} buttonData={data['buttons']['next']} onClicked={() => this.transition({ type: 'next' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree} />
       )
     }else if(this.state.answer.length > 0){
         return(
@@ -935,11 +935,18 @@ class App extends Component {
   }
 
   onFirstNameInputChanged = (data) => {
+    console.log(this.refs.emailKeyboard.keyboard);
   this.setState({ firstname: data });
   }
   renderFirstNameKeyboard(keyboardInput) {
     if(this.state.currentState === 'first-name'){
-      console.log(data['keyboards'][this.state.language][0]);
+
+      // this.refs.emailKeyboard.interface.keyaction.com = (base) => {
+      //   // Enter button pressed
+      //   // Accepting content, as an example:
+      //   //return this.keyboard.interface.keyaction.accept(base);
+      //   console.log('com pressed')
+      // };
       return (
         <div>
         <InputSuggestion class='suggestion' content="Type to enter first name"  input={this.state.firstname}/>
@@ -959,11 +966,12 @@ class App extends Component {
             updateOnChange: true,
             initialFocus: true,
             display: {
-              "accept" : "Submit"
+              "bksp" : "\u2190",
+              "meta-1" : ".com"
             }
           }}
           onChange={this.onFirstNameInputChanged}
-          ref={k => this.keyboard = k}
+          ref='emailKeyboard'
         />
       </div>
       );
@@ -993,7 +1001,8 @@ class App extends Component {
             updateOnChange: true,
             initialFocus: true,
             display: {
-              "accept" : "Submit"
+              "bksp" : "\u2190",
+              "meta-1" : ".com"
             }
           }}
           onChange={this.onLastNameInputChanged}
@@ -1028,7 +1037,8 @@ class App extends Component {
             updateOnChange: true,
             initialFocus: true,
             display: {
-              "accept" : "Submit"
+              "bksp" : "\u2190",
+              "meta-1" : ".com"
             }
           }}
           onChange={this.onEmailInputChanged}
@@ -1075,7 +1085,8 @@ class App extends Component {
             updateOnChange: true,
             initialFocus: true,
             display: {
-              "accept" : "Submit"
+              "bksp" : "\u2190",
+              "meta-1" : ".com"
             }
           }}
           onChange={this.onLocationInputChanged}
@@ -1095,7 +1106,7 @@ class App extends Component {
 
     return (
       <div className="ui-app" data-state={currentState}>
-        <div id="touchscreen" className="flipped">
+        <div id="touchscreen" className="">
           {this.renderAttract(currentState)}
           {this.renderFirstNameKeyboard(keyboardInput)}
           {this.renderLastNameKeyboard(keyboardInput)}
@@ -1119,7 +1130,7 @@ class App extends Component {
           {this.renderRecordStop(currentState)}
 
         </div>
-        <div id="teleprompter" className="mirrored flipped">
+        <div id="teleprompter" className="">
           {this.renderTeleprompter(teleprompterContent)}
           {this.renderTimer(currentState)}
           {this.renderPrompt()}

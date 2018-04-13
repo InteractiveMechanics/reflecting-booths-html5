@@ -121,7 +121,6 @@ body {
 .radioCustomLabel {
     display: inline-block;
     vertical-align: middle;
-    cursor: pointer;
 }
 
 .radioCustomLabel {
@@ -239,6 +238,11 @@ body {
   height: 600px;
   z-index: -10;
   user-select: none;
+
+}
+
+*{
+  /* cursor: none; */
 }
 
 .next-button-small{
@@ -831,7 +835,6 @@ h3.prompt{
   height: 69px;
     width: 56px;
     margin: 5px;
-  cursor: pointer;
   background: #003F69;
   border: none;
   border-radius: 0px;
@@ -966,4 +969,15 @@ li.light-line:after{
 .mirrored{
 
   transform: scale(-1, 1);
+}
+
+.ui-keyboard-space{
+  width: 242px;
+}
+
+.ui-keyboard-actionkey:not(.ui-keyboard-dec):not(.ui-keyboard-combo) span {
+    font-size: 21px;
+    position: relative;
+    top: 0px;
+    left: 0px;
 }
