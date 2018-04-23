@@ -556,6 +556,468 @@ const data = {
     }
   },
 
+  "questions": [
+    {
+        question: {
+          audio: "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg",
+          content:{
+            english: "Where were you during 9/11 or the '93 bombing?",
+            spanish: "(sp) Where were you during 9/11 or the '93 bombing?",
+            japanese: "(jp) Where were you during 9/11 or the '93 bombing?",
+            portugese: "(pt) Where were you during 9/11 or the '93 bombing?",
+            french: "(fr) Where were you during 9/11 or the '93 bombing?",
+            italian: "(it) Where were you during 9/11 or the '93 bombing?",
+            mandarin: "(mn) Where were you during 9/11 or the '93 bombing?",
+            dutch: "(dt) Where were you during 9/11 or the '93 bombing?"
+          }
+
+        },
+        answers: [
+            {
+              audio: "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg",
+              nextQuestionId: 1,
+              type: "I was not born yet",
+              content:{
+                english: "I was not born yet",
+                spanish: "(sp) I was not born yet",
+                japanese: "(jp) I was not born yet",
+                portugese: "(pt) I was not born yet",
+                french: "(fr) I was not born yet",
+                italian: "(it) I was not born yet",
+                mandarin: "(mn) I was not born yet",
+                dutch: "(dt) I was not born yet"
+
+              }
+            },
+            {
+              audio: "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg",
+              nextQuestionId: 2,
+              type: "Near an attack site",
+              content:{
+                english:"Near an attack site",
+                spanish: "(sp) Near an attack site",
+                japanese: "(jp) Near an attack site",
+                portugese: "(pt) Near an attack site",
+                french: "(fr) Near an attack site",
+                italian: "(it) Near an attack site",
+                mandarin: "(mn) Near an attack site",
+                dutch: "(dt) Near an attack site"
+
+              }
+            },
+            {
+              audio: "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg",
+              nextQuestionId: 2,
+              type: "Elsewhere in the U.S.",
+              content:{
+                english:"Elsewhere in the U.S.",
+                spanish: "(sp) Elsewhere in the U.S.",
+                japanese: "(jp) Elsewhere in the U.S.",
+                portugese: "(pt) Elsewhere in the U.S.",
+                french: "(fr) Elsewhere in the U.S.",
+                italian: "(it) Elsewhere in the U.S.",
+                mandarin: "(mn) Elsewhere in the U.S.",
+                dutch: "(dt) Elsewhere in the U.S."
+
+              }
+            },
+            {
+              audio: "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg",
+              nextQuestionId: 2,
+              type: "Elsewhere internationally",
+              content: {
+                english:"Elsewhere internationally",
+                spanish: "(sp) Elsewhere internationally",
+                japanese: "(jp) Elsewhere internationally",
+                portugese: "(pt) Elsewhere internationally",
+                french: "(fr) Elsewhere internationally",
+                italian: "(it) Elsewhere internationally",
+                mandarin: "(mn) Elsewhere internationally",
+                dutch: "(dt) Elsewhere internationally"
+              }
+            }
+        ]
+    },
+    {
+        question: {
+          audio: "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg",
+          content:{
+            english: "Would you like to talk about how you've learned about these attacks?",
+            spanish: "(sp) Would you like to talk about how you've learned about these attacks",
+            japanese: "(jp) Would you like to talk about how you've learned about these attacks",
+            portugese: "(pt) Would you like to talk about how you've learned about these attacks",
+            french: "(fr) Would you like to talk about how you've learned about these attacks",
+            italian: "(it) Would you like to talk about how you've learned about these attacks",
+            mandarin: "(mn) Would you like to talk about how you've learned about these attacks",
+            dutch: "(dt) Would you like to talk about how you've learned about these attacks"
+          }
+        },
+        answers: [
+            {
+              audio: "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg",
+              nextQuestionId: 'record',
+              type: "Yes",
+              content: {
+                english:"Yes",
+                spanish: "(sp) Yes",
+                japanese: "(jp) Yes",
+                portugese: "(pt) Yes",
+                french: "(fr) Yes",
+                italian: "(it) Yes",
+                mandarin: "(mn) Yes",
+                dutch: "(dt) Yes"
+              }
+            },
+            {
+              audio: "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg",
+              nextQuestionId: 3,
+              type: "No",
+              content: {
+                english: "No",
+                spanish: "(sp) No",
+                japanese: "(jp) No",
+                portugese: "(pt) No",
+                french: "(fr) No",
+                italian: "(it) No",
+                mandarin: "(mn) No",
+                dutch: "(dt) No"
+              }
+            }
+        ]
+    },
+    {
+      question: {
+        audio: "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg",
+        content:{
+          english: "Would you like to tell your 9/11 or ‘93 story?",
+          spanish: "(sp) Would you like to tell your 9/11 or ‘93 story?",
+          japanese: "(jp) Would you like to tell your 9/11 or ‘93 story?",
+          portugese: "(pt) Would you like to tell your 9/11 or ‘93 story?",
+          french: "(fr) Would you like to tell your 9/11 or ‘93 story?",
+          italian: "(it) Would you like to tell your 9/11 or ‘93 story?",
+          mandarin: "(mn) Would you like to tell your 9/11 or ‘93 story?",
+          dutch: "(dt) Would you like to tell your 9/11 or ‘93 story?"
+        }
+      },
+        answers: [
+            {
+              audio: "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg",
+              nextQuestionId: 'record',
+              type: "Yes",
+              content: {
+                english: "Yes",
+                spanish: "(sp) Yes",
+                japanese: "(jp) Yes",
+                portugese: "(pt) Yes",
+                french: "(fr) Yes",
+                italian: "(it) Yes",
+                mandarin: "(mn) Yes",
+                dutch: "(dt) Yes"
+              }
+            },
+            {
+              audio: "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg",
+              nextQuestionId: 3,
+              type: "No",
+              content: {
+                english: "No",
+                spanish: "(sp) No",
+                japanese: "(jp) No",
+                portugese: "(pt) No",
+                french: "(fr) No",
+                italian: "(it) No",
+                mandarin: "(mn) No",
+                dutch: "(dt) No"
+
+              }
+            }
+        ]
+    },
+    {
+      question: {
+      audio: "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg",
+      content:{
+        english: "Would you like to make a recording in memory of a victim of 9/11 or 1993?",
+        spanish: "(sp) Would you like to make a recording in memory of a victim of 9/11 or 1993",
+        japanese: "(jp) Would you like to make a recording in memory of a victim of 9/11 or 1993",
+        portugese: "(pt) Would you like to make a recording in memory of a victim of 9/11 or 1993",
+        french: "(fr) Would you like to make a recording in memory of a victim of 9/11 or 1993",
+        italian: "(it) Would you like to make a recording in memory of a victim of 9/11 or 1993",
+        mandarin: "(mn) Would you like to make a recording in memory of a victim of 9/11 or 1993",
+        dutch: "(dt) Would you like to make a recording in memory of a victim of 9/11 or 1993"
+      }
+    },
+        answers: [
+            {
+              audio: "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg",
+              nextQuestionId: 'record',
+              type: "Yes",
+              content: {
+                english:"Yes",
+                spanish: "(sp) Yes",
+                japanese: "(jp) Yes",
+                portugese: "(pt) Yes",
+                french: "(fr) Yes",
+                italian: "(it) Yes",
+                mandarin: "(mn) Yes",
+                dutch: "(dt) Yes"
+              }
+            },
+            {
+              audio: "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg",
+              nextQuestionId: 4,
+              type: "No",
+              content: {
+                english:"No",
+                spanish: "(sp) No",
+                japanese: "(jp) No",
+                portugese: "(pt) No",
+                french: "(fr) No",
+                italian: "(it) No",
+                mandarin: "(mn) No",
+                dutch: "(dt) No"
+              }
+            }
+        ]
+    },
+    {
+        question: {
+        audio: "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg",
+        content:{
+          english: "Would you like to talk about how these attacks continue to impact you today?",
+          spanish: "(sp) Would you like to talk about how these attacks continue to impact you today?",
+          japanese: "(jp) Would you like to talk about how these attacks continue to impact you today?",
+          portugese: "(pt) Would you like to talk about how these attacks continue to impact you today?",
+          french: "(fr) Would you like to talk about how these attacks continue to impact you today?",
+          italian: "(it) Would you like to talk about how these attacks continue to impact you today?",
+          mandarin: "(mn) Would you like to talk about how these attacks continue to impact you today?",
+          dutch: "(dt) Would you like to talk about how these attacks continue to impact you today?"
+        }
+      },
+        answers: [
+            {
+              audio: "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg",
+              nextQuestionId: 5,
+              type: "Yes",
+              content: {
+                english:"Yes",
+                spanish: "(sp) Yes",
+                japanese: "(jp) Yes",
+                portugese: "(pt) Yes",
+                french: "(fr) Yes",
+                italian: "(it) Yes",
+                mandarin: "(mn) Yes",
+                dutch: "(dt) Yes"
+
+              }
+            },
+            {
+              audio: "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg",
+              nextQuestionId: 6,
+              type: "No",
+              content: {
+                english:"No",
+                spanish: "(sp) No",
+                japanese: "(jp) No",
+                portugese: "(pt) No",
+                french: "(fr) No",
+                italian: "(it) No",
+                mandarin: "(mn) No",
+                dutch: "(dt) No"
+              }
+            }
+        ]
+    },
+    {
+        question: {
+        audio: "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg",
+        content:{
+          english: "Do you know what you'd like to say?",
+          spanish: "(sp) Do you know what you'd like to say?",
+          japanese: "(jp) Do you know what you'd like to say?",
+          portugese: "(pt) Do you know what you'd like to say?",
+          french: "(fr) Do you know what you'd like to say?",
+          italian: "(it) Do you know what you'd like to say?",
+          mandarin: "(mn) Do you know what you'd like to say?",
+          dutch: "(dt) Do you know what you'd like to say?"
+        }
+      },
+        answers: [
+            {
+              audio: "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg",
+              nextQuestionId: 'record',
+              type: "Yes",
+              content: {
+                english:"Yes",
+                spanish: "(sp) Yes",
+                japanese: "(jp) Yes",
+                portugese: "(pt) Yes",
+                french: "(fr) Yes",
+                italian: "(it) Yes",
+                mandarin: "(mn) Yes",
+                dutch: "(dt) Yes"
+              }
+            },
+            {
+              audio: "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg",
+              nextQuestionId: 7,
+              type: "No",
+              content: {
+                english:"No",
+                spanish: "(sp) No",
+                japanese: "(jp) No",
+                portugese: "(pt) No",
+                french: "(fr) No",
+                italian: "(it) No",
+                mandarin: "(mn) No",
+                dutch: "(dt) No"
+              }
+            }
+        ]
+    },
+    {
+        question: {
+        audio: "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg",
+        content:{
+          english: "Here are some other topics to talk about.",
+          spanish: "(sp) Here are some other topics to talk about.",
+          japanese: "(jp) Here are some other topics to talk about.",
+          portugese: "(pt) Here are some other topics to talk about.",
+          french: "(fr) Here are some other topics to talk about.",
+          italian: "(it) Here are some other topics to talk about.",
+          mandarin: "(mn) Here are some other topics to talk about.",
+          dutch: "(dt) Here are some other topics to talk about."
+        }
+      },
+        answers: [
+            {
+              audio: "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg",
+              nextQuestionId: 'record',
+                type: "What does rebuilding at ground zero mean to you?",
+                content: {
+                  english:"What does rebuilding at ground zero mean to you?",
+                  spanish: "(sp) What does rebuilding at ground zero mean to you?",
+                  japanese: "(jp) What does rebuilding at ground zero mean to you?",
+                  portugese: "(pt) What does rebuilding at ground zero mean to you?",
+                  french: "(fr) What does rebuilding at ground zero mean to you?",
+                  italian: "(it) What does rebuilding at ground zero mean to you?",
+                  mandarin: "(mn) What does rebuilding at ground zero mean to you?",
+                  dutch: "(dt) What does rebuilding at ground zero mean to you?"
+                }
+            },
+            {
+              audio: "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg",
+              nextQuestionId: 'record',
+                type: "Why is is important to remember 9/11?",
+                content: {
+                  english:"Why is it important to remember 9/11?",
+                  spanish: "(sp) Why is it important to remember 9/11?",
+                  japanese: "(jp) Why is it important to remember 9/11?",
+                  portugese: "(pt) Why is it important to remember 9/11?",
+                  french: "(fr) Why is it important to remember 9/11?",
+                  italian: "(it) Why is it important to remember 9/11?",
+                  mandarin: "(mn) Why is it important to remember 9/11?",
+                  dutch: "(dt) Why is it important to remember 9/11?"
+                }
+            },
+            {
+              audio: "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg",
+              nextQuestionId: 'record',
+                type: "Did you see something at the museum that impacted you?",
+                content: {
+                  english:"Did you see something at the museum that impacted you?",
+                  spanish: "(sp) Did you see something at the museum that impacted you?",
+                  japanese: "(jp) Did you see something at the museum that impacted you?",
+                  portugese: "(pt) Did you see something at the museum that impacted you?",
+                  french: "(fr) Did you see something at the museum that impacted you?",
+                  italian: "(it) Did you see something at the museum that impacted you?",
+                  mandarin: "(mn) Did you see something at the museum that impacted you?",
+                  dutch: "(dt) Did you see something at the museum that impacted you?"
+                }
+            }
+        ]
+    },
+    {
+        question: {
+        audio: "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg",
+        content:{
+          english: "Here are some prompts to help you get started.",
+          spanish: "(sp) Here are some prompts to help you get started.",
+          japanese: "(jp) Here are some prompts to help you get started.",
+          portugese: "(pt) Here are some prompts to help you get started.",
+          french: "(fr) Here are some prompts to help you get started.",
+          italian: "(it) Here are some prompts to help you get started.",
+          mandarin: "(mn) Here are some prompts to help you get started.",
+          dutch: "(dt) Here are some prompts to help you get started."
+        }
+      },
+        answers: [
+            {
+              audio: "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg",
+              nextQuestionId: 'record',
+                type: "What is your experience with ongoing recovery efforts or health effects?",
+                content:{
+                  english: "What is your experience with ongoing recovery efforts or health effects?",
+                  spanish: "(sp) What is your experience with ongoing recovery efforts or health effects?",
+                  japanese: "(jp) What is your experience with ongoing recovery efforts or health effects?",
+                  portugese: "(pt) What is your experience with ongoing recovery efforts or health effects?",
+                  french: "(fr) What is your experience with ongoing recovery efforts or health effects?",
+                  italian: "(it) What is your experience with ongoing recovery efforts or health effects?",
+                  mandarin: "(mn) What is your experience with ongoing recovery efforts or health effects?",
+                  dutch: "(dt) What is your experience with ongoing recovery efforts or health effects?"
+                }
+            },
+            {
+              audio: "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg",
+              nextQuestionId: 'record',
+                type: "Has 9/11 influenced your feelings about patriotism?",
+                content:{
+                  english: "Has 9/11 influenced your feelings about patriotism?",
+                  spanish: "(sp) Has 9/11 influenced your feelings about patriotism?",
+                  japanese: "(jp) Has 9/11 influenced your feelings about patriotism?",
+                  portugese: "(pt) Has 9/11 influenced your feelings about patriotism?",
+                  french: "(fr) Has 9/11 influenced your feelings about patriotism?",
+                  italian: "(it) Has 9/11 influenced your feelings about patriotism?",
+                  mandarin: "(mn) Has 9/11 influenced your feelings about patriotism?",
+                  dutch: "(dt) Has 9/11 influenced your feelings about patriotism?"
+                }
+            },
+            {
+              audio: "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg",
+              nextQuestionId: 'record',
+                type: "Has 9/11 influenced your own military service or volunteerism?",
+                content:{
+                  english: "Has 9/11 influenced your own military service or volunteerism?",
+                  spanish: "(sp) Has 9/11 influenced your own military service or volunteerism?",
+                  japanese: "(jp) Has 9/11 influenced your own military service or volunteerism?",
+                  portugese: "(pt) Has 9/11 influenced your own military service or volunteerism?",
+                  french: "(fr) Has 9/11 influenced your own military service or volunteerism?",
+                  italian: "(it) Has 9/11 influenced your own military service or volunteerism?",
+                  mandarin: "(mn) Has 9/11 influenced your own military service or volunteerism?",
+                  dutch: "(dt) Has 9/11 influenced your own military service or volunteerism?"
+                }
+            },
+            {
+              audio: "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg",
+              nextQuestionId: 'record',
+                type: "How has your life been afected by 9/11?",
+                content:{
+                  english: "How has your life been afected by 9/11?",
+                  spanish: "(sp) How has your life been afected by 9/11?",
+                  japanese: "(jp) How has your life been afected by 9/11?",
+                  portugese: "(pt) How has your life been afected by 9/11?",
+                  french: "(fr) How has your life been afected by 9/11?",
+                  italian: "(it) How has your life been afected by 9/11?",
+                  mandarin: "(mn) How has your life been afected by 9/11?",
+                  dutch: "(dt) How has your life been afected by 9/11?"
+                }
+            }
+
+
+        ]
+    }
+  ],
+
   "buttons": {
     "next": {
       "audio": "http://soundbible.com/grab.php?id=1598&type=mp3",
@@ -638,7 +1100,7 @@ const data = {
     "disagree": {
       "audio": "http://soundbible.com/grab.php?id=1598&type=mp3",
       "text": {
-        "english": "I Disagree",
+        "english": "I don't agree, delete my recording.",
         "spanish": "(sp) I Disagree",
         "japanese": "(jp) I Disagree",
         "portuguese": "(pt) I Disagree",
@@ -651,7 +1113,7 @@ const data = {
     "agree": {
       "audio": "http://soundbible.com/grab.php?id=1598&type=mp3",
       "text": {
-        "english": "I Agree",
+        "english": "I agree, continue to submit recording.",
         "spanish": "(sp) I Agree",
         "japanese": "(jp) I Agree",
         "portuguese": "(pt) I Agree",
@@ -731,18 +1193,31 @@ const data = {
     "english": {
       "normal": [
         "1 2 3 4 5 6 7 8 9 0 {bksp}",
-        "q w e r t y u i o p ",
-        "a s d f g h j k l , . '",
-        "z x c v b n m",
-        "{space} - \u0040 {meta-1}"]
+        "q w e r t y u i o p -",
+        "a s d f g h j k l '",
+        "{shift} z x c v b n m , .",
+        "{space} \u0040 {meta-1}"],
+      "shift": [
+        "1 2 3 4 5 6 7 8 9 0 {bksp}",
+        "Q W E R T Y U I O P -",
+        "A S D F G H J K L '",
+        "{shift} Z X C V B N M , .",
+        "{space} \u0040 {meta-1}"]
     },
     "spanish": {
       "normal": [
         "1 2 3 4 5 6 7 8 9 0 {bksp}",
         "q w e r t y u i o p ",
         "a s d f g h j k l , . '",
-        "z x c v b n m",
-        "{space} - \u0040 {meta-1}"]    },
+        "{shift} z x c v b n m",
+        "{space} - \u0040 {meta-1}"],
+        "shift": [
+          "1 2 3 4 5 6 7 8 9 0 {bksp}",
+          "Q W E R T Y U I O P ",
+          "A S D F G H J K L , . '",
+          "{shift} Z X C V B N M",
+          "{space} - \u0040 {meta-1}"]
+            },
     "japanese": {
       "normal": [
         "\u306c:Nu \u3075:Hu \u3042:A \u3046:U \u3048:E \u304a:O \u3084:Ya \u3086:Yu \u3088:Yo \u308f:Wa {bksp}",
@@ -756,23 +1231,42 @@ const data = {
         "1 2 3 4 5 6 7 8 9 0 {bksp}",
         "q w e r t y u i o p ",
         "a s d f g h j k l , . '",
-        "z x c v b n m",
-        "{space} - \u0040 {meta-1}"]    },
+        "{shift} z x c v b n m",
+        "{space} - \u0040 {meta-1}"],
+        "shift": [
+          "1 2 3 4 5 6 7 8 9 0 {bksp}",
+          "Q W E R T Y U I O P ",
+          "A S D F G H J K L , . '",
+          "{shift} Z X C V B N M",
+          "{space} - \u0040 {meta-1}"]    },
     "french": {
       "normal": [
         "1 2 3 4 5 6 7 8 9 0 {bksp}",
         "a z e r t y u i o p ",
         "q s d f g h j k l m , . '",
-        "w x c v b n m",
-        "{space} - \u0040 {meta-1}"]
+        "{shift} w x c v b n m",
+        "{space} - \u0040 {meta-1}"],
+        "shift": [
+          "1 2 3 4 5 6 7 8 9 0 {bksp}",
+          "A Z E R T Y U I O P ",
+          "Q S D F G H J K L M , . '",
+          "{shift} W X C V B N M",
+          "{space} - \u0040 {meta-1}"]
     },
     "italian": {
       "normal": [
         "1 2 3 4 5 6 7 8 9 0 {bksp}",
         "q w e r t y u i o p ",
         "a s d f g h j k l , . '",
-        "z x c v b n m",
-        "{space} - \u0040 {meta-1}"]    },
+        "{shift} z x c v b n m",
+        "{space} - \u0040 {meta-1}"],
+        "shift": [
+          "1 2 3 4 5 6 7 8 9 0 {bksp}",
+          "Q W E R T Y U I O P ",
+          "A S D F G H J K L , . '",
+          "{shift} Z X C V B N M",
+          "{space} - \u0040 {meta-1}"]
+    },
     "mandarin": {
       "normal": [
         "\u3105 \u3109 \u02C7 \u02CB \u3113 \u02CA \u02D9 \u311A \u311E \u3122 {bksp}",
@@ -786,8 +1280,15 @@ const data = {
         "1 2 3 4 5 6 7 8 9 0 {bksp}",
         "q w e r t y u i o p ",
         "a s d f g h j k l , . '",
-        "z x c v b n m",
-        "{space} - \u0040 {meta-1}"]    }
+        "{shift} z x c v b n m",
+        "{space} - \u0040 {meta-1}"],
+        "shift": [
+          "1 2 3 4 5 6 7 8 9 0 {bksp}",
+          "Q W E R T Y U I O P ",
+          "A S D F G H J K L , . '",
+          "{shift} Z X C V B N M",
+          "{space} - \u0040 {meta-1}"]
+    }
   },
   "progress-text": {
     "home": {
@@ -839,6 +1340,16 @@ const data = {
       "italian": "(it) submit",
       "mandarin": "(mn) submit",
       "dutch": "(dt) submit"
+    },
+    "back-to-home": {
+      "english": "Back to the home screen.",
+      "spanish": "(sp) Back to the home screen.",
+      "japanese": "(jp) Back to the home screen.",
+      "portuguese": "(pt) Back to the home screen.",
+      "french": "(fr) Back to the home screen.",
+      "italian": "(it) Back to the home screen.",
+      "mandarin": "(mn) Back to the home screen.",
+      "dutch": "(dt) Back to the home screen."
     }
   }
 }

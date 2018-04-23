@@ -833,7 +833,7 @@ h3.prompt{
 }
 .ui-keyboard-button {
   height: 69px;
-    width: 56px;
+    width: 61px;
     margin: 5px;
   background: #003F69;
   border: none;
@@ -972,7 +972,16 @@ li.light-line:after{
 }
 
 .ui-keyboard-space{
-  width: 242px;
+  width: 302px;
+}
+.ui-keyboard-shift{
+  width:100px;
+  text-transform: lowercase;
+  letter-spacing: 2px;
+}
+
+.ui-keyboard-- span, .ui-keyboard-39 span, .ui-keyboard-44 span, .ui-keyboard-46 span{
+  font-size: 30px;
 }
 
 .ui-keyboard-actionkey:not(.ui-keyboard-dec):not(.ui-keyboard-combo) span {

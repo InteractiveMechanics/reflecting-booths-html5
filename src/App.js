@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import './App.css';
 import './Keyboard.css';
 import Teleprompter from './components/Teleprompter';
-import Touchscreen from './components/Touchscreen';
 import data from './data';
 import LanguageSelect from './components/LanguageSelect';
 import Keyboard from 'react-virtual-keyboard';
 import quizQuestions from './api/quizQuestions-re';
 import Quiz from './components/Quiz';
-import update from 'immutability-helper';
+//no longer used?
+//import update from 'immutability-helper';
 import Timer from './components/Timer';
 import Progress from './components/Progress';
 import axios from 'axios'
@@ -20,6 +20,7 @@ import LanguageButton from './components/LanguageButton';
 import InputSuggestion from './components/InputSuggestion';
 import Fade from './components/Fade';
 import Chime from './Assets/audio/chime.mp3';
+//import { TransitionGroup } from 'react-transition-group';
 
 
 
@@ -128,22 +129,6 @@ class App extends Component {
       })
     }
     this.transition({ type: 'next' })
-  }
-
-  //get autocomplete suggestion
-  handleLocationQuery (string) {
-    if (string.length>0){
-      axios.get('http://10.0.61.18/locate', { params: { name: string, limit: 1 }})
-        .then(response =>
-          this.setState({
-          locationSuggestion: response.data.data[0],
-        }))
-    } else {
-        this.setState({
-      locationSuggestion: null
-      })
-    }
-
   }
 
   //get autocomplete suggestion
@@ -292,7 +277,7 @@ class App extends Component {
       };
 
       case 'recording':
-      let id = this.getSessionId();
+      this.getSessionId();
       return {
         teleprompter: {
         },
@@ -436,7 +421,7 @@ class App extends Component {
   }
 
   emailValidation() {
-    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(this.state.email).toLowerCase());
   }
 
@@ -468,7 +453,9 @@ class App extends Component {
         && this.state.email.length > 0
         && this.state.location.length > 0
         && this.state.age === 'Yes'){
+          return(
          <ReflectingButton class="next-button" language={this.state.language} buttonData={data['buttons']['next']} onClicked={() => this.transition({ type: 'skip' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
+       )
       }
     }
 
@@ -511,11 +498,12 @@ class App extends Component {
       }
     }
     if (state === 'location'){
-      if (this.state.locationSuggestion){
+      //if (this.state.locationSuggestion){
+      if (state){
         return(
           <ReflectingButton class="next-button-small" language={this.state.language} buttonData={data['buttons']['next']} onClicked={this.handleLocationEntry} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
         )
-      }else {
+      } else {
         return(
           <ReflectingButton class="next-button-small-inactive" language={this.state.language} buttonData={data['buttons']['next']} onClicked={this.doNothing()} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
         )
@@ -553,7 +541,7 @@ class App extends Component {
   }
 
   renderRecordButton(state) {
-    if (this.state.currentState == 'record-intro-2'){
+    if (this.state.currentState === 'record-intro-2'){
       return (
         <ReflectingButton class="record-button" language={this.state.language} buttonData={data['buttons']['record']} onClicked={this.startRecording} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
       );
@@ -561,7 +549,7 @@ class App extends Component {
   }
 
   renderRecordStop(state) {
-    if (this.state.currentState == 'recording'){
+    if (this.state.currentState === 'recording'){
       return (
         <ReflectingButton class="record-stop" language={this.state.language} buttonData={data['buttons']['record-stop']} onClicked={this.stopRecording} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
       );
@@ -569,12 +557,12 @@ class App extends Component {
   }
 
   renderRecordAgain(state) {
-    if (this.state.currentState == 'review'){
+    if (this.state.currentState === 'review'){
       return (
         <ReflectingButton class="back-button" language={this.state.language} buttonData={data['buttons']['retake-video']} onClicked={() => this.transition({ type: 'record-again' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
       );
     }
-    if (this.state.currentState == 'end'){
+    if (this.state.currentState === 'end'){
       return (
         <ReflectingButton class="record-again" language={this.state.language} buttonData={data['buttons']['record-another']} onClicked={() => this.transition({ type: 'record-again' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
       );
@@ -582,14 +570,14 @@ class App extends Component {
   }
 
   renderDisagree(state) {
-    if (this.state.currentState == 'user-agreement'){
+    if (this.state.currentState === 'user-agreement'){
       return (
         <ReflectingButton class="disagree-button-small" language={this.state.language} buttonData={data['buttons']['disagree']} onClicked={() => this.transition({ type: 'disagree' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
       );
     }
   }
   renderDelete(state) {
-    if (this.state.currentState == 'user-agreement-warning'){
+    if (this.state.currentState === 'user-agreement-warning'){
       return (
         <ReflectingButton class="delete-button" language={this.state.language} buttonData={data['buttons']['delete']} onClicked={() => this.transition({ type: 'delete' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
       );
@@ -597,14 +585,17 @@ class App extends Component {
   }
 
   renderHomeButton(state) {
-    if (this.state.currentState == 'end'){
+    if (this.state.currentState === 'end'){
       return (
         <ReflectingButton class="home-button" language={this.state.language} buttonData={data['buttons']['home']} onClicked={() => this.transition({ type: 'home' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
       );
     }
   }
+
+
+
   renderSave(state) {
-    if (this.state.currentState == 'user-agreement-warning'){
+    if (this.state.currentState === 'user-agreement-warning'){
       return (
         <ReflectingButton
           class="save-button"
@@ -619,7 +610,7 @@ class App extends Component {
   }
 
   renderAgree(state) {
-    if (this.state.currentState == 'user-agreement'){
+    if (this.state.currentState === 'user-agreement'){
       return (
         <ReflectingButton
           class="agree-button-small"
@@ -705,7 +696,7 @@ class App extends Component {
 
 
   renderAttract(state) {
-    if(this.state.currentState == 'attract'){
+    if(this.state.currentState === 'attract'){
       return (
         <div className="attract" onClick={() => this.transition({ type: 'welcome' })}>
         <h3> WELCOME TO THE </h3>
@@ -795,7 +786,7 @@ class App extends Component {
   }
 
   renderAgeSelect(state){
-    if(state == "age"){
+    if(state === "age"){
       return (
         <ul className="answerOptions">
         <li className="answerOption">
@@ -810,7 +801,7 @@ class App extends Component {
             onChange={this.handleAgeSelected}
           />
           <label className="radioCustomLabel" htmlFor="yes">
-            Yes
+            Yes, I am 18 or older
           </label>
         </li>
         <li className="answerOption">
@@ -825,7 +816,7 @@ class App extends Component {
             onChange={this.handleAgeSelected}
           />
           <label className="radioCustomLabel" htmlFor="no">
-            No
+            No, I am under 18
           </label>
         </li>
         </ul>
@@ -920,7 +911,7 @@ class App extends Component {
     }
 
   renderMainAudio(sound) {
-    if (this.state.currentState == 'attract' || this.state.currentState == 'welcome' || (this.state.sound && this.state.eyesFree)) {
+    if (this.state.currentState === 'attract' || this.state.currentState === 'welcome' || (this.state.sound && this.state.eyesFree)) {
       return (
         <Sound
       url={this.state.sound}
@@ -1059,10 +1050,10 @@ class App extends Component {
     let suggestionClass = 'suggestion';
     if(this.state.currentState === 'location'){
       let locationSuggestion = 'Type to enter city, state, country';
-      if (location ){
+      if ( location ) {
         suggestionClass = 'suggestion suggestion-normal';
         locationSuggestion = location.name+ ', ' + location.admin1_name + ', ' + location.country_name;
-      } else{
+      } else {
         suggestionClass = 'suggestion';
         locationSuggestion = 'Type to enter city, state, country';
       }
@@ -1106,30 +1097,34 @@ class App extends Component {
 
     return (
       <div className="ui-app" data-state={currentState}>
-        <div id="touchscreen" className="">
-          {this.renderAttract(currentState)}
-          {this.renderFirstNameKeyboard(keyboardInput)}
-          {this.renderLastNameKeyboard(keyboardInput)}
-          {this.renderEmailKeyboard(keyboardInput)}
-          {this.renderLocationKeyboard(keyboardInput)}
-          {this.renderEyesFree(currentState)}
-          {this.renderLanguageButton(currentState)}
-          {this.renderLanguageSelect(currentState)}
-          {this.renderQuiz(currentState)}
-          {this.renderAgreement(currentState)}
-          {this.renderAgeSelect(currentState)}
-          {this.renderRecordAgain(currentState)}
-          {this.renderDelete(currentState)}
-          {this.renderSave(currentState)}
-          {this.renderDisagree(currentState)}
-          {this.renderAgree(currentState)}
-          {this.renderHomeButton(currentState)}
-          {this.renderBackButton(currentState, buttonClass)}
-          {this.renderNextButton(currentState, buttonClass)}
-          {this.renderRecordButton(currentState)}
-          {this.renderRecordStop(currentState)}
 
-        </div>
+
+         <div id="touchscreen" className="">
+         {this.renderAttract(currentState)}
+         {this.renderFirstNameKeyboard(keyboardInput)}
+         {this.renderLastNameKeyboard(keyboardInput)}
+         {this.renderEmailKeyboard(keyboardInput)}
+         {this.renderLocationKeyboard(keyboardInput)}
+         {this.renderEyesFree(currentState)}
+         {this.renderLanguageButton(currentState)}
+         {this.renderLanguageSelect(currentState)}
+         {this.renderQuiz(currentState)}
+         {this.renderAgreement(currentState)}
+         {this.renderAgeSelect(currentState)}
+         {this.renderRecordAgain(currentState)}
+         {this.renderDelete(currentState)}
+         {this.renderSave(currentState)}
+         {this.renderDisagree(currentState)}
+         {this.renderAgree(currentState)}
+         {this.renderHomeButton(currentState)}
+         {this.renderBackButton(currentState, buttonClass)}
+         {this.renderNextButton(currentState, buttonClass)}
+         {this.renderRecordButton(currentState)}
+         {this.renderRecordStop(currentState)}
+         </div>
+
+
+
         <div id="teleprompter" className="">
           {this.renderTeleprompter(teleprompterContent)}
           {this.renderTimer(currentState)}

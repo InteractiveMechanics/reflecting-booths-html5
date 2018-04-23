@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 function InputSuggestion(props) {
 
 
-if (props.input.length == 0){
+if (props.input.length === 0){
   return (
     <input value={props.content} className={props.class} type="text" disabled/>
   )
