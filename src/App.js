@@ -5,7 +5,7 @@ import Teleprompter from './components/Teleprompter';
 import data from './data';
 import LanguageSelect from './components/LanguageSelect';
 import Keyboard from 'react-virtual-keyboard';
-import quizQuestions from './api/quizQuestions-re';
+//import quizQuestions from './api/quizQuestions-re';
 import Quiz from './components/Quiz';
 //no longer used?
 //import update from 'immutability-helper';
@@ -20,6 +20,7 @@ import LanguageButton from './components/LanguageButton';
 import InputSuggestion from './components/InputSuggestion';
 import Fade from './components/Fade';
 import Chime from './Assets/audio/chime.mp3';
+const quizQuestions = data['questions'];
 //import { TransitionGroup } from 'react-transition-group';
 
 
@@ -104,14 +105,11 @@ class App extends Component {
     this.transition({ type: 'recording' });
 
     //lights on a different address
-    axios.put('http://10.0.94:3000/lights/up');
+    axios.put('http://10.0.94.50:3000/lights/up');
     console.log('lights-up');
 
     axios.put('http://10.0.94.50:3000/video/'+this.state.sessionId);
     console.log('start recording');
-
-
-
   }
 
   stopRecording(state){
@@ -265,6 +263,7 @@ class App extends Component {
         teleprompter: data['steps']['record-intro-1']["teleprompter"],
         touchscreen: data['steps']['record-intro-1']["touchscreen"],
         buttonClass: data['steps']['record-intro-1']["buttonclass"],
+        answer: '',
         sound: Chime
       };
 
@@ -430,12 +429,17 @@ class App extends Component {
   }
 
   renderNextButton(state, buttonclass) {
+    if (state === 'about-2'){
+      return(
+        <ReflectingButton class="next-button" language={this.state.language} buttonData={data['buttons']['next-to-questions']} onClicked={() => this.transition({ type: 'next' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree} />
+      )
+    }
     if (state === 'questions'){
     if (this.state.nextQuestionId === 'record-intro-1'){
       return(
         <ReflectingButton class="next-button-small" language={this.state.language} buttonData={data['buttons']['next']} onClicked={() => this.transition({ type: 'next' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree} />
       )
-    }else if(this.state.answer.length > 0){
+    } else if (this.state.answer.length > 0){
         return(
           <ReflectingButton  class="next-button-small" language={this.state.language} buttonData={data['buttons']['next']} onClicked={() => this.setNextQuestion()} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
         )
@@ -460,7 +464,9 @@ class App extends Component {
     }
 
     if (state === 'record-intro-1') {
-
+      return(
+      <ReflectingButton class="next-button" language={this.state.language} buttonData={data['buttons']['record']} onClicked={() => this.transition({ type: 'skip' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
+      )
     }
 
     //dirty
@@ -534,14 +540,26 @@ class App extends Component {
     } else{
       btnClass = "";
     }
+    if (state === "about-1"){
+      return (
+      <ReflectingButton class={btnClass} language={this.state.language} buttonData={data['buttons']['back-to-home']} onClicked={() => this.transition({ type: 'back' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
+      );
+    } else if ( state === "record-intro-1") {
+      return(
+        <ReflectingButton class={btnClass} language={this.state.language} buttonData={data['buttons']['back-to-questions']} onClicked={() => this.transition({ type: 'back' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
+
+      )
+    } else {
       return (
         <ReflectingButton class={btnClass} language={this.state.language} buttonData={data['buttons']['back']} onClicked={() => this.transition({ type: 'back' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
       );
     }
+
+    }
   }
 
   renderRecordButton(state) {
-    if (this.state.currentState === 'record-intro-2'){
+    if (this.state.currentState === 'record-intro-1'){
       return (
         <ReflectingButton class="record-button" language={this.state.language} buttonData={data['buttons']['record']} onClicked={this.startRecording} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
       );
@@ -703,14 +721,7 @@ class App extends Component {
         <h1> <span>RECORDING BOOTH</span> </h1>
         <Fade loop={true}
           duration={4000}
-          array={['Tap anywhere to begin',
-          "(sp) Tap anywhere to begin",
-          "(jp) Tap anywhere to begin",
-        "(pt) Tap anywhere to begin",
-        "(fr) Tap anywhere to begin",
-        "(it) Tap anywhere to begin",
-        "(mn) Tap anywhere to begin",
-        "(dt) Tap anywhere to begin"]} />
+          array={data['steps']['attract']['touchscreen']['text']} />
         </div>
       );
     }
