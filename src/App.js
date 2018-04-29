@@ -55,7 +55,9 @@ class App extends Component {
       sound: "",
       timeout: 180000,
       attractFade: 0,
-      locationSuggestions: []
+      locationSuggestions: [],
+      touchscreenClass: "fade fade-enter",
+      teleprompterClass: "fade fade-enter"
     };
 
     this.handleLanguageSelected = this.handleLanguageSelected.bind(this);
@@ -165,18 +167,34 @@ class App extends Component {
     )
   }
 
-  transition(action) {
-    console.log('transition triggered');
-    const currentGalleryState = this.state.currentState;
-    const nextGalleryState = data['steps'][currentGalleryState][action.type];
-    if (nextGalleryState) {
-      const nextState = this.command(nextGalleryState, action);
+  fadeScreen () {
+    this.setState({
+      touchscreenClass: "fade fade-exit",
+      teleprompterClass: "fade fade-exit"
+    });
+    setTimeout(function(){
+      this.setState({ teleprompterClass: 'fade fade-enter'})
+    }.bind(this), 1000);
+    setTimeout(function(){
+      this.setState({ touchscreenClass: 'fade fade-enter'})
+    }.bind(this), 2000);
+  }
 
-      this.setState({
-        currentState: nextGalleryState,
-        ...nextState // extended state
-      });
-    }
+  transition (action) {
+    this.fadeScreen();
+    setTimeout(function(){
+      const currentGalleryState = this.state.currentState;
+      const nextGalleryState = data['steps'][currentGalleryState][action.type];
+      if (nextGalleryState) {
+        const nextState = this.command(nextGalleryState, action);
+
+        this.setState({
+          currentState: nextGalleryState,
+          ...nextState // extended state
+        });
+      }
+    }.bind(this), 1000);
+    console.log('transition triggered');
   }
 
   idleReset() {
@@ -911,6 +929,7 @@ class App extends Component {
     }
   }
 
+  //unneccessary?
   setNewQuestion() {
     this.setState({ teleprompter:  "new Question"});
   }
@@ -1110,7 +1129,7 @@ class App extends Component {
       <div className="ui-app" data-state={currentState}>
 
 
-         <div id="touchscreen" className="">
+         <div id="touchscreen" className={this.state.touchscreenClass}>
          {this.renderAttract(currentState)}
          {this.renderFirstNameKeyboard(keyboardInput)}
          {this.renderLastNameKeyboard(keyboardInput)}
@@ -1136,7 +1155,7 @@ class App extends Component {
 
 
 
-        <div id="teleprompter" className="">
+        <div id="teleprompter" className={this.state.teleprompterClass}>
           {this.renderTeleprompter(teleprompterContent)}
           {this.renderTimer(currentState)}
           {this.renderPrompt()}
