@@ -5,13 +5,10 @@ import Teleprompter from './components/Teleprompter';
 import data from './data';
 import LanguageSelect from './components/LanguageSelect';
 import Keyboard from 'react-virtual-keyboard';
-//import quizQuestions from './api/quizQuestions-re';
 import Quiz from './components/Quiz';
-//no longer used?
-//import update from 'immutability-helper';
 import Timer from './components/Timer';
 import Progress from './components/Progress';
-import axios from 'axios'
+import axios from 'axios';
 import Sound from 'react-sound';
 import IdleTimer from 'react-idle-timer';
 import ReflectingButton from './components/ReflectingButton';
@@ -20,8 +17,10 @@ import LanguageButton from './components/LanguageButton';
 import InputSuggestion from './components/InputSuggestion';
 import Fade from './components/Fade';
 import Chime from './Assets/audio/chime.mp3';
+import { findDOMNode } from 'react-dom';
+import $ from 'jquery';
 const quizQuestions = data['questions'];
-//import { TransitionGroup } from 'react-transition-group';
+
 
 
 
@@ -38,7 +37,7 @@ class App extends Component {
       email: '',
       location: '',
       counter: 0,
-      questionId: 1,
+      questionId: 0,
       nextQuestionId: 0,
       question: '',
       answerOptions: [],
@@ -57,11 +56,14 @@ class App extends Component {
       attractFade: 0,
       locationSuggestions: [],
       touchscreenClass: "fade fade-enter",
-      teleprompterClass: "fade fade-enter"
+      teleprompterClass: "fade fade-enter",
+      remembrance: false,
+      prevQuestionArray: []
     };
 
     this.handleLanguageSelected = this.handleLanguageSelected.bind(this);
     this.setNewQuestion = this.setNewQuestion.bind(this);
+    this.prevQuestion = this.prevQuestion.bind(this);
     this.handleAnswerSelected = this.handleAnswerSelected.bind(this);
     this.handleAgeSelected = this.handleAgeSelected.bind(this);
     this.stopRecording = this.stopRecording.bind(this);
@@ -272,7 +274,10 @@ class App extends Component {
         answer: '',
         prompt: '',
         answerOptions: quizQuestions[0].answers,
-        sound: Chime
+        sound: Chime,
+        prevQuestionArray: [],
+        nextQuestionId: 0,
+        questionId: 0
 
       };
 
@@ -414,26 +419,54 @@ class App extends Component {
   }
 
   setNextQuestion() {
-    if (this.state.nextQuestionId === 'record-intro-1'){
-      this.setState({
-        currentState: 'record-intro-1'
+    this.fadeScreen();
+    setTimeout(function(){
+      if (this.state.nextQuestionId === 'record-intro-1'){
+        this.setState({
+          currentState: 'record-intro-1'
 
-      })
-    } else{
-      const counter = this.state.counter + 1;
-      const questionId = this.state.nextQuestionId;
-      this.setState({
-        counter: counter,
-        questionId: questionId,
-        question: quizQuestions[questionId].question,
-        answerOptions: quizQuestions[questionId].answers,
-        answer: '',
-        teleprompter: {
-          heading: quizQuestions[questionId].question.content,
-        },
-        nextQuestionId: null
-      });
-    }
+        })
+      } else{
+        const counter = this.state.counter + 1;
+        const questionId = this.state.nextQuestionId;
+        var prevArray = this.state.prevQuestionArray.slice();
+        prevArray.push(this.state.questionId);
+        this.setState({
+          prevQuestionArray: prevArray,
+          counter: counter,
+          questionId: questionId,
+          question: quizQuestions[questionId].question,
+          answerOptions: quizQuestions[questionId].answers,
+          answer: '',
+          teleprompter: {
+            heading: quizQuestions[questionId].question.content,
+          },
+          nextQuestionId: null
+        });
+      }
+    }.bind(this), 1000);
+  }
+
+  prevQuestion() {
+    this.fadeScreen();
+    setTimeout(function(){
+        var prevArray = this.state.prevQuestionArray.slice();
+        const counter = this.state.counter - 1;
+        const questionId = prevArray.pop();;
+        this.setState({
+          prevQuestionArray: prevArray,
+          counter: counter,
+          questionId: questionId,
+          question: quizQuestions[questionId].question,
+          answerOptions: quizQuestions[questionId].answers,
+          answer: '',
+          teleprompter: {
+            heading: quizQuestions[questionId].question.content,
+          },
+          nextQuestionId: null
+        });
+    }.bind(this), 1000);
+
 
   }
 
@@ -557,6 +590,18 @@ class App extends Component {
       btnClass = "back-button";
     } else{
       btnClass = "";
+    }
+    if (state === 'questions'){
+    if (this.state.prevQuestionArray.length === 0){
+      return(
+        <ReflectingButton class={btnClass} language={this.state.language} buttonData={data['buttons']['back']} onClicked={() => this.transition({ type: 'back' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
+      )
+    } else {
+      return(
+        <ReflectingButton class={btnClass} language={this.state.language} buttonData={data['buttons']['back']} onClicked={this.prevQuestion} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
+      )
+    }
+
     }
     if (state === "about-1"){
       return (
@@ -748,7 +793,20 @@ class App extends Component {
 
 
   setUserAnswer(answer) {
-    if(this.state.questionId > 5) {
+    if (this.state.questionId === 3) {
+      if (answer === "Yes, let’s start recording."){
+        this.setState({
+          answer: answer,
+          remembrance: true
+        });
+      } else {
+        this.setState({
+          answer: answer,
+          remembrance: false
+        });
+      }
+
+    } else if (this.state.questionId === 4) {
       this.setState({
         answer: answer,
         prompt: answer
@@ -758,7 +816,6 @@ class App extends Component {
         answer: answer,
       });
     }
-
   }
 
 
@@ -892,6 +949,18 @@ class App extends Component {
     }
   }
 
+  renderRemembrance() {
+    if(this.state.remembrance && (this.state.currentState === 'recording')){
+      return (
+        <Fade delay={10000} loop={false}
+        duration={5400} stop={true}
+          class='prompt'
+            array={data['steps']['recording']["remembranceText"][this.state.language]}
+        />
+      );
+    }
+  }
+
   renderProgress(state) {
 
     if ((state === 'attract') || (state === 'record-intro-1') || (state === 'recording')){
@@ -907,14 +976,16 @@ class App extends Component {
   renderInstructions(state) {
     if (state === 'record-intro-1'){
       return (
-        <Fade loop={false}
-        duration={8500}
+        <Fade delay={1000} loop={false}
+        duration={5400}
           class='prompt'
             array={data['steps']['record-intro-1']["instructions"][this.state.language]}
         />
       )
     }
   }
+
+
 
   renderAgreement(state) {
     if(state === "user-agreement"){
@@ -956,18 +1027,10 @@ class App extends Component {
   }
 
   onFirstNameInputChanged = (data) => {
-    console.log(this.refs.emailKeyboard.keyboard);
   this.setState({ firstname: data });
   }
   renderFirstNameKeyboard(keyboardInput) {
     if(this.state.currentState === 'first-name'){
-
-      // this.refs.emailKeyboard.interface.keyaction.com = (base) => {
-      //   // Enter button pressed
-      //   // Accepting content, as an example:
-      //   //return this.keyboard.interface.keyaction.accept(base);
-      //   console.log('com pressed')
-      // };
       return (
         <div>
         <InputSuggestion class='suggestion' content="Type to enter first name"  input={this.state.firstname}/>
@@ -988,11 +1051,11 @@ class App extends Component {
             initialFocus: true,
             display: {
               "bksp" : "\u2190",
-              "meta-1" : ".com"
+              "meta1" : ".com"
             }
           }}
           onChange={this.onFirstNameInputChanged}
-          ref='emailKeyboard'
+          ref='firstNameKeyboard'
         />
       </div>
       );
@@ -1023,7 +1086,7 @@ class App extends Component {
             initialFocus: true,
             display: {
               "bksp" : "\u2190",
-              "meta-1" : ".com"
+              "meta1" : ".com"
             }
           }}
           onChange={this.onLastNameInputChanged}
@@ -1059,7 +1122,7 @@ class App extends Component {
             initialFocus: true,
             display: {
               "bksp" : "\u2190",
-              "meta-1" : ".com"
+              "meta1" : ".com"
             }
           }}
           onChange={this.onEmailInputChanged}
@@ -1071,7 +1134,6 @@ class App extends Component {
   }
   //location
   onLocationInputChanged = (data) => {
-    console.log(data);
     this.handleLocationQuery(data);
   //this.setState({ location: data });
   }
@@ -1107,7 +1169,7 @@ class App extends Component {
             initialFocus: true,
             display: {
               "bksp" : "\u2190",
-              "meta-1" : ".com"
+              "meta1" : ".com"
             }
           }}
           onChange={this.onLocationInputChanged}
@@ -1129,7 +1191,8 @@ class App extends Component {
       <div className="ui-app" data-state={currentState}>
 
 
-         <div id="touchscreen" className={this.state.touchscreenClass}>
+         <div id="touchscreen" className="">
+         <div id="fadewrap" className={this.state.touchscreenClass}>
          {this.renderAttract(currentState)}
          {this.renderFirstNameKeyboard(keyboardInput)}
          {this.renderLastNameKeyboard(keyboardInput)}
@@ -1152,15 +1215,19 @@ class App extends Component {
          {this.renderRecordButton(currentState)}
          {this.renderRecordStop(currentState)}
          </div>
+         </div>
 
 
 
-        <div id="teleprompter" className={this.state.teleprompterClass}>
+        <div id="teleprompter" className="">
+        <div id="fadewrap" className={this.state.teleprompterClass}>
           {this.renderTeleprompter(teleprompterContent)}
           {this.renderTimer(currentState)}
           {this.renderPrompt()}
+          {this.renderRemembrance()}
           {this.renderProgress(this.state.currentState)}
           {this.renderInstructions(this.state.currentState)}
+          </div>
         </div>
         {this.renderMainAudio(this.state.sound)}
         <IdleTimer

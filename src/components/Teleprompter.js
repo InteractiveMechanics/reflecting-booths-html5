@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import attractVideo from '../Assets/Video/AttractScreen_v01.mp4';
-import recordVideo from '../Assets/Video/RecordingInstructions_v02.mp4';
+import attractVideo from '../Assets/Video/AttractScreen_v02.mp4';
+import recordVideo from '../Assets/Video/RecordingInstructions_v03.mp4';
 
 function Teleprompter(props) {
   let videoFile;

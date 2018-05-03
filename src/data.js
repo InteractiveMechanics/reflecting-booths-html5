@@ -1,36 +1,36 @@
 const data = {
   "languages": [
     {
-      "english": "English",
-      "native": "English"
+      "english": "english",
+      "native": "english"
     },
     {
-      "english": "French",
-      "native": "Français"
+      "english": "french",
+      "native": "français"
     },
     {
-      "english": "Spanish",
-      "native": "Español"
+      "english": "spanish",
+      "native": "español"
     },
     {
-      "english": "Italian",
-      "native": "Italiano"
+      "english": "italian",
+      "native": "italiano"
     },
     {
-      "english": "Japanese",
+      "english": "japanese",
       "native": "日本語"
     },
     {
-      "english": "Mandarin",
+      "english": "mandarin",
       "native": "简体中文"
     },
     {
-      "english": "Portuguese",
-      "native": "Português"
+      "english": "portuguese",
+      "native": "português"
     },
     {
-      "english": "Dutch",
-      "native": "Deutsch"
+      "english": "dutch",
+      "native": "deutsch"
     }
   ],
   "steps": {
@@ -114,14 +114,14 @@ const data = {
           "dutch": "(dt) Make a recording"
         },
         "paragraph": {
-          "english": "Use the touch screen in front of you to answer the questions you see here. To help you record your story, you will be asked a series of questions about what you would like to discuss.",
-          "spanish": "(sp) Use the touch screen in front of you to answer the questions you see here. To help you record your story, you will be asked a series of questions about what you would like to discuss.",
-          "japanese": "(jp) Use the touch screen in front of you to answer the questions you see here. To help you record your story, you will be asked a series of questions about what you would like to discuss.",
-          "portuguese": "(pt) Use the touch screen in front of you to answer the questions you see here. To help you record your story, you will be asked a series of questions about what you would like to discuss.",
-          "french": "(fr) Use the touch screen in front of you to answer the questions you see here. To help you record your story, you will be asked a series of questions about what you would like to discuss.",
-          "italian": "(it) Use the touch screen in front of you to answer the questions you see here. To help you record your story, you will be asked a series of questions about what you would like to discuss.",
-          "mandarin": "(mn) Use the touch screen in front of you to answer the questions you see here. To help you record your story, you will be asked a series of questions about what you would like to discuss.",
-          "dutch": "(dt) Use the touch screen in front of you to answer the questions you see here. To help you record your story, you will be asked a series of questions about what you would like to discuss."
+          "english": "Use the touch screen in front of you to answer the questions you see here. These questions will help you prepare for your recording.",
+          "spanish": "(sp) Use the touch screen in front of you to answer the questions you see here. These questions will help you prepare for your recording.",
+          "japanese": "(jp) Use the touch screen in front of you to answer the questions you see here. These questions will help you prepare for your recording.",
+          "portuguese": "(pt) Use the touch screen in front of you to answer the questions you see here. These questions will help you prepare for your recording.",
+          "french": "(fr) Use the touch screen in front of you to answer the questions you see here. These questions will help you prepare for your recording.",
+          "italian": "(it) Use the touch screen in front of you to answer the questions you see here. These questions will help you prepare for your recording.",
+          "mandarin": "(mn) Use the touch screen in front of you to answer the questions you see here. These questions will help you prepare for your recording.",
+          "dutch": "(dt) Use the touch screen in front of you to answer the questions you see here. These questions will help you prepare for your recording."
         }
       },
       "buttonclass": "large",
@@ -173,12 +173,12 @@ const data = {
       },
       "instructions": {
         "english": [
-          "Make sure there is nothing in your hands or on your lap",
-          "Look directly at this screen throughout the entire recording",
-          "There will be a 10 second countdown before recording begins",
-          "A bright light will turn on in front of you when recording begins",
-          "You will have two full minutes to record your story",
-          "If you finish early, tap anywhere on the screen in front of you to stop the recording"
+          "Make sure there is nothing in your hands or on your lap.",
+          "Look directly at this screen throughout the entire recording.",
+          "There will be a 10-second countdown before recording begins.",
+          "A bright light will turn on in front of you when recording begins.",
+          "You will have two minutes to record your story.",
+          "If you finish early, tap anywhere on the screen in front of you to stop the recording."
         ],
         "spanish": [
           "(sp) Make sure there is nothing in your hands or on your lap",
@@ -265,6 +265,48 @@ const data = {
           "mandarin": "(mn) Time remaining:",
           "dutch": "(dt) Time remaining:"
         }
+      },
+      "remembranceText":{
+        "english": [
+          "Please record your loved one’s name.",
+          "Please record your relationship to your loved one. For example, “my mother.”",
+          "Please record your remembrance."
+        ],
+        "spanish": [
+          "(sp) Please record your loved one’s name.",
+          "(sp) Please record your relationship to your loved one. For example, “my mother.”",
+          "(sp) Please record your remembrance."
+        ],
+        "japanese": [
+          "(jp) Please record your loved one’s name.",
+          "(jp) Please record your relationship to your loved one. For example, “my mother.”",
+          "(jp) Please record your remembrance."
+        ],
+        "portuguese": [
+          "(pt) Please record your loved one’s name.",
+          "(pt) Please record your relationship to your loved one. For example, “my mother.”",
+          "(pt) Please record your remembrance."
+        ],
+        "french": [
+          "(fr) Please record your loved one’s name.",
+          "(fr) Please record your relationship to your loved one. For example, “my mother.”",
+          "(fr) Please record your remembrance."
+        ],
+        "italian": [
+          "(it) Please record your loved one’s name.",
+          "(it) Please record your relationship to your loved one. For example, “my mother.”",
+          "(it) Please record your remembrance."
+        ],
+        "mandarin": [
+          "(mn) Please record your loved one’s name.",
+          "(mn) Please record your relationship to your loved one. For example, “my mother.”",
+          "(mn) Please record your remembrance."
+        ],
+        "dutch": [
+          "(dt) Please record your loved one’s name.",
+          "(dt) Please record your relationship to your loved one. For example, “my mother.”",
+          "(dt) Please record your remembrance."
+        ],
       },
       "stop": "review",
       "audio": "http://soundbible.com/grab.php?id=1598&type=mp3"
@@ -539,63 +581,63 @@ const data = {
             {
               audio: "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg",
               nextQuestionId: 1,
-              type: "At or near an attack site",
+              type: "I was at or near an attack site.",
               content:{
-                english: "At or near an attack site",
-                spanish: "(sp) At or near an attack site",
-                japanese: "(jp) At or near an attack site",
-                portugese: "(pt) At or near an attack site",
-                french: "(fr) At or near an attack site",
-                italian: "(it) At or near an attack site",
-                mandarin: "(mn) At or near an attack site",
-                dutch: "(dt) At or near an attack site"
+                english: "I was at or near an attack site.",
+                spanish: "(sp) I was at or near an attack site.",
+                japanese: "(jp) I was at or near an attack site.",
+                portugese: "(pt) I was at or near an attack site.",
+                french: "(fr) I was at or near an attack site.",
+                italian: "(it) I was at or near an attack site.",
+                mandarin: "(mn) I was at or near an attack site.",
+                dutch: "(dt) I was at or near an attack site."
 
               }
             },
             {
               audio: "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg",
               nextQuestionId: 1,
-              type: "Elsewhere in the United States",
+              type: "I was elsewhere in the United States.",
               content:{
-                english:"Elsewhere in the United States",
-                spanish: "(sp) Elsewhere in the United States",
-                japanese: "(jp) Elsewhere in the United States",
-                portugese: "(pt) Elsewhere in the United States",
-                french: "(fr) Elsewhere in the United States",
-                italian: "(it) Elsewhere in the United States",
-                mandarin: "(mn) Elsewhere in the United States",
-                dutch: "(dt) Elsewhere in the United States"
+                english:"I was elsewhere in the United States.",
+                spanish: "(sp) I was elsewhere in the United States.",
+                japanese: "(jp) I was elsewhere in the United States.",
+                portugese: "(pt) I was elsewhere in the United States.",
+                french: "(fr) I was elsewhere in the United States.",
+                italian: "(it) I was elsewhere in the United States.",
+                mandarin: "(mn) I was elsewhere in the United States.",
+                dutch: "(dt) I was elsewhere in the United States."
 
               }
             },
             {
               audio: "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg",
               nextQuestionId: 1,
-              type: "Elsewhere internationally",
+              type: "I was elsewhere internationally.",
               content: {
-                english:"Elsewhere internationally",
-                spanish: "(sp) Elsewhere internationally",
-                japanese: "(jp) Elsewhere internationally",
-                portugese: "(pt) Elsewhere internationally",
-                french: "(fr) Elsewhere internationally",
-                italian: "(it) Elsewhere internationally",
-                mandarin: "(mn) Elsewhere internationally",
-                dutch: "(dt) Elsewhere internationally"
+                english:"I was elsewhere internationally.",
+                spanish: "(sp) I was elsewhere internationally.",
+                japanese: "(jp) I was elsewhere internationally.",
+                portugese: "(pt) I was elsewhere internationally.",
+                french: "(fr) I was elsewhere internationally.",
+                italian: "(it) I was elsewhere internationally.",
+                mandarin: "(mn) I was elsewhere internationally.",
+                dutch: "(dt) I was elsewhere internationally."
               }
             },
             {
               audio: "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg",
               nextQuestionId: 2,
-              type: "I was not born yet",
+              type: "I was not born yet.",
               content: {
-                english:"I was not born yet",
-                spanish: "(sp) I was not born yet",
-                japanese: "(jp) I was not born yet",
-                portugese: "(pt) I was not born yet",
-                french: "(fr) I was not born yet",
-                italian: "(it) I was not born yet",
-                mandarin: "(mn) I was not born yet",
-                dutch: "(dt) I was not born yet"
+                english:"I was not born yet.",
+                spanish: "(sp) I was not born yet.",
+                japanese: "(jp) I was not born yet.",
+                portugese: "(pt) I was not born yet.",
+                french: "(fr) I was not born yet.",
+                italian: "(it) I was not born yet.",
+                mandarin: "(mn) I was not born yet.",
+                dutch: "(dt) I was not born yet."
               }
             }
         ]
@@ -892,14 +934,14 @@ const data = {
     "eyes-free": {
       "audio": "http://soundbible.com/grab.php?id=1598&type=mp3",
       "text": {
-        "english": "Text-to-speech",
-        "spanish": "(sp) Text-to-speech",
-        "japanese": "(jp) Text-to-speech",
-        "portuguese": "(pt) Text-to-speech",
-        "french": "(fr) Text-to-speech",
-        "italian": "(it) Text-to-speech",
-        "mandarin": "(mn) Text-to-speech",
-        "dutch": "(dt) Text-to-speech"
+        "english": "Screen Reader",
+        "spanish": "(sp) Screen Reader",
+        "japanese": "(jp) Screen Reader",
+        "portuguese": "(pt) Screen Reader",
+        "french": "(fr) Screen Reader",
+        "italian": "(it) Screen Reader",
+        "mandarin": "(mn) Screen Reader",
+        "dutch": "(dt) Screen Reader"
       }
     },
     "language": {
@@ -1040,13 +1082,13 @@ const data = {
         "q w e r t y u i o p -",
         "a s d f g h j k l '",
         "{shift} z x c v b n m , .",
-        "{space} \u0040 {meta-1}"],
+        "{space} \u0040 {meta1}"],
       "shift": [
         "1 2 3 4 5 6 7 8 9 0 {bksp}",
         "Q W E R T Y U I O P -",
         "A S D F G H J K L '",
         "{shift} Z X C V B N M , .",
-        "{space} \u0040 {meta-1}"]
+        "{space} \u0040 {meta1}"]
     },
     "spanish": {
       "normal": [
@@ -1054,13 +1096,13 @@ const data = {
         "q w e r t y u i o p ",
         "a s d f g h j k l , . '",
         "{shift} z x c v b n m",
-        "{space} - \u0040 {meta-1}"],
+        "{space} - \u0040 {meta1}"],
         "shift": [
           "1 2 3 4 5 6 7 8 9 0 {bksp}",
           "Q W E R T Y U I O P ",
           "A S D F G H J K L , . '",
           "{shift} Z X C V B N M",
-          "{space} - \u0040 {meta-1}"]
+          "{space} - \u0040 {meta1}"]
             },
     "japanese": {
       "normal": [
@@ -1068,7 +1110,7 @@ const data = {
         "\u305f:Ta \u3066:Te \u3044:I \u3059:Su \u304b:Ka \u3093:N \u306a:Na \u306b:Ni \u3089:Ra \u305b:Se ",
         "\u3061:Ti \u3068:To \u3057:Si \u306f:Ha \u304D:Ki \u304f:Ku \u307e:Ma \u306e:No \u308a:Ri \u306d:Ne \u308b:Ru '",
         "\u3064:Tu \u3055:Sa \u305d:So \u3072:Hi \u3053:Ko \u307f:Mi \u3082:Mo ",
-        "{space} - \u0040 {meta-1}"]
+        "{space} - \u0040 {meta1}"]
     },
     "portuguese": {
       "normal": [
@@ -1076,26 +1118,26 @@ const data = {
         "q w e r t y u i o p ",
         "a s d f g h j k l , . '",
         "{shift} z x c v b n m",
-        "{space} - \u0040 {meta-1}"],
+        "{space} - \u0040 {meta1}"],
         "shift": [
           "1 2 3 4 5 6 7 8 9 0 {bksp}",
           "Q W E R T Y U I O P ",
           "A S D F G H J K L , . '",
           "{shift} Z X C V B N M",
-          "{space} - \u0040 {meta-1}"]    },
+          "{space} - \u0040 {meta1}"]    },
     "french": {
       "normal": [
         "1 2 3 4 5 6 7 8 9 0 {bksp}",
         "a z e r t y u i o p ",
         "q s d f g h j k l m , . '",
         "{shift} w x c v b n m",
-        "{space} - \u0040 {meta-1}"],
+        "{space} - \u0040 {meta1}"],
         "shift": [
           "1 2 3 4 5 6 7 8 9 0 {bksp}",
           "A Z E R T Y U I O P ",
           "Q S D F G H J K L M , . '",
           "{shift} W X C V B N M",
-          "{space} - \u0040 {meta-1}"]
+          "{space} - \u0040 {meta1}"]
     },
     "italian": {
       "normal": [
@@ -1103,13 +1145,13 @@ const data = {
         "q w e r t y u i o p ",
         "a s d f g h j k l , . '",
         "{shift} z x c v b n m",
-        "{space} - \u0040 {meta-1}"],
+        "{space} - \u0040 {meta1}"],
         "shift": [
           "1 2 3 4 5 6 7 8 9 0 {bksp}",
           "Q W E R T Y U I O P ",
           "A S D F G H J K L , . '",
           "{shift} Z X C V B N M",
-          "{space} - \u0040 {meta-1}"]
+          "{space} - \u0040 {meta1}"]
     },
     "mandarin": {
       "normal": [
@@ -1117,7 +1159,7 @@ const data = {
         "\u3106 \u310A \u310D \u3110 \u3114 \u3117 \u3127 \u311B \u311F \u3123",
         "\u3107 \u310B \u310E \u3111 \u3115 \u3118 \u3128 \u311C \u3120 , . '",
         "\u3108 \u310C \u310F \u3112 \u3116 \u3119 \u3129 \u311D \u3121 \u3125",
-        "{space} - \u0040 {meta-1}"]
+        "{space} - \u0040 {meta1}"]
     },
     "dutch": {
       "normal": [
@@ -1125,13 +1167,13 @@ const data = {
         "q w e r t y u i o p ",
         "a s d f g h j k l , . '",
         "{shift} z x c v b n m",
-        "{space} - \u0040 {meta-1}"],
+        "{space} - \u0040 {meta1}"],
         "shift": [
           "1 2 3 4 5 6 7 8 9 0 {bksp}",
           "Q W E R T Y U I O P ",
           "A S D F G H J K L , . '",
           "{shift} Z X C V B N M",
-          "{space} - \u0040 {meta-1}"]
+          "{space} - \u0040 {meta1}"]
     }
   },
   "progress-text": {
