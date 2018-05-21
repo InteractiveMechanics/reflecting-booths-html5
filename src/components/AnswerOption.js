@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
       height:props.heightStyle+"px"
     };
 
-    if(content.length>40){
+    if(content.length>50){
       optionTextSize = "option-size-2";
     }
 

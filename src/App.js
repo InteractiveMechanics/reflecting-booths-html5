@@ -16,9 +16,9 @@ import EyesFreeButton from './components/EyesFreeButton';
 import LanguageButton from './components/LanguageButton';
 import InputSuggestion from './components/InputSuggestion';
 import Fade from './components/Fade';
+import ReactKeyboard from './components/ReactKeyboard';
 import Chime from './Assets/audio/chime.mp3';
-import { findDOMNode } from 'react-dom';
-import $ from 'jquery';
+
 const quizQuestions = data['questions'];
 
 
@@ -75,6 +75,7 @@ class App extends Component {
     this.handleLocationEntry = this.handleLocationEntry.bind(this);
     this.startRecording = this.startRecording.bind(this);
     this.preRecordSteps = this.preRecordSteps.bind(this);
+    this.inUseLightToggle = this.inUseLightToggle.bind(this);
     //this.renderMainAudio = this.renderMainAudio.bind(this);
   }
 
@@ -107,19 +108,47 @@ class App extends Component {
 
   startRecording () {
     this.transition({ type: 'recording' });
-
-    //lights on a different address
-    axios.put('http://10.0.94.50:3000/lights/up');
-    console.log('lights-up');
-
-    axios.put('http://10.0.94.50:3000/video/'+this.state.sessionId);
+    axios.put('http://10.0.94.50:3000/video/'+ this.state.sessionId);
     console.log('start recording');
   }
 
   stopRecording(state){
     axios.get('http://10.0.94.53:3000/activate-video');
-    axios.get('http://10.0.94.53:3000/activate-video');
     this.transition({ type: 'stop' });
+  }
+
+  inUseLightToggle(value){
+    switch(value){
+      case 'ON':
+        console.log('in-use light ON');
+        axios.get('http://10.0.94.53:3000/lights/in-use-up');
+        break
+      case 'OFF':
+        console.log('in-use light OFF');
+        axios.get('http://10.0.94.53:3000/lights/in-use-down');
+        break
+      default:
+      break
+    }
+  }
+
+  videoLightToggle(value){
+    switch(value){
+      case 'ON':
+        console.log('video light ON');
+        axios.get('http://10.0.94.53:3000/lights/up');
+        break
+      case 'OFF':
+        console.log('video light OFF');
+        axios.get('http://10.0.94.53:3000/lights/down');
+        break
+      default:
+      break
+    }
+  }
+
+  resetAllLights(){
+    axios.get('http://10.0.94.53:3000/lights/reset');
   }
 
 
@@ -219,6 +248,7 @@ class App extends Component {
   command(nextState, action) {
     switch (nextState) {
       case 'attract':
+      this.inUseLightToggle('OFF');
       return {
         firstname: '',
         lastname: '',
@@ -228,15 +258,18 @@ class App extends Component {
         teleprompter: data['steps']['attract']["teleprompter"],
         touchscreen: data['steps']['attract']["touchscreen"],
         buttonClass: data['steps']['attract']["buttonclass"],
-        sound: Chime
+        sound: Chime,
+        inUseLight: false
       };
 
       case 'welcome':
+      this.inUseLightToggle('ON');
       return {
         teleprompter: data['steps']['welcome']["teleprompter"],
         touchscreen: data['steps']['welcome']["touchscreen"],
         buttonClass: data['steps']['welcome']["buttonclass"],
-        sound: Chime
+        sound: Chime,
+        inUseLight: true
       };
 
       case 'language':
@@ -300,14 +333,18 @@ class App extends Component {
 
       case 'recording':
       this.getSessionId();
+      this.videoLightToggle('ON');
       return {
         teleprompter: {
         },
         touchscreen: data['steps']['recording']["touchscreen"],
-        sound: Chime
+        sound: Chime,
+        videoLight: true
+
       };
 
       case 'review':
+      this.videoLightToggle('OFF');
       return {
         teleprompter: data['steps']['review']["teleprompter"],
         touchscreen: data['steps']['review']["touchscreen"],
@@ -668,7 +705,7 @@ class App extends Component {
   renderHomeButton(state) {
     if (this.state.currentState === 'end'){
       return (
-        <ReflectingButton class="home-button" language={this.state.language} buttonData={data['buttons']['home']} onClicked={() => this.transition({ type: 'home' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
+        <ReflectingButton class="home-button" language={this.state.language} buttonData={data['buttons']['back-to-home']} onClicked={() => this.transition({ type: 'home' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
       );
     }
   }
@@ -887,7 +924,7 @@ class App extends Component {
             onChange={this.handleAgeSelected}
           />
           <label className="radioCustomLabel" htmlFor="yes">
-            Yes, I am 18 or older
+            {data['steps']['age']['touchscreen']['age-select']['yes'][this.state.language]}
           </label>
         </li>
         <li className="answerOption">
@@ -902,7 +939,7 @@ class App extends Component {
             onChange={this.handleAgeSelected}
           />
           <label className="radioCustomLabel" htmlFor="no">
-            No, I am under 18
+            {data['steps']['age']['touchscreen']['age-select']['no'][this.state.language]}
           </label>
         </li>
         </ul>
@@ -1031,34 +1068,12 @@ class App extends Component {
   }
   renderFirstNameKeyboard(keyboardInput) {
     if(this.state.currentState === 'first-name'){
-      return (
+      return(
         <div>
-        <InputSuggestion class='suggestion' content="Type to enter first name"  input={this.state.firstname}/>
-        <Keyboard
-          value={this.state.firstname}
-          name='keyboard'
-          options={{
-            type:"input",
-            layout : 'custom',
-            customLayout: data['keyboards'][this.state.language],
-            alwaysOpen: true,
-            usePreview: false,
-            useWheel: false,
-            stickyShift: false,
-            appendLocally: true,
-            color: "light",
-            updateOnChange: true,
-            initialFocus: true,
-            display: {
-              "bksp" : "\u2190",
-              "meta1" : ".com"
-            }
-          }}
-          onChange={this.onFirstNameInputChanged}
-          ref='firstNameKeyboard'
-        />
-      </div>
-      );
+        <InputSuggestion class='suggestion' content={data['steps']['first-name']['suggestion'][this.state.language]}  input={this.state.firstname}/>
+        <ReactKeyboard eyesFree={this.state.eyesFree} value={this.state.firstname} layout={data['keyboards'][this.state.language]} onChange={this.onFirstNameInputChanged}/>
+        </div>
+      )
     }
   }
   onLastNameInputChanged = (data) => {
@@ -1068,30 +1083,8 @@ class App extends Component {
     if(this.state.currentState === 'last-name'){
       return (
         <div>
-        <InputSuggestion class='suggestion' content="Type to enter last name"  input={this.state.lastname}/>
-        <Keyboard
-          value={this.state.lastname}
-          name='keyboard'
-          options={{
-            type:"input",
-            layout : 'custom',
-            customLayout: data['keyboards'][this.state.language],
-            alwaysOpen: true,
-            usePreview: false,
-            useWheel: false,
-            stickyShift: false,
-            appendLocally: true,
-            color: "light",
-            updateOnChange: true,
-            initialFocus: true,
-            display: {
-              "bksp" : "\u2190",
-              "meta1" : ".com"
-            }
-          }}
-          onChange={this.onLastNameInputChanged}
-          ref={k => this.keyboard = k}
-        />
+        <InputSuggestion class='suggestion' content={data['steps']['last-name']['suggestion'][this.state.language]}  input={this.state.lastname}/>
+        <ReactKeyboard eyesFree={this.state.eyesFree} value={this.state.lastname} layout={data['keyboards'][this.state.language]} onChange={this.onLastNameInputChanged}/>
       </div>
       );
     }
@@ -1104,30 +1097,8 @@ class App extends Component {
     if(this.state.currentState === 'email'){
       return (
       <div>
-        <InputSuggestion class='suggestion' content="Type to enter email"  input={this.state.email}/>
-        <Keyboard
-          value={this.state.email}
-          name='keyboard'
-          options={{
-            type:"input",
-            layout : 'custom',
-            customLayout: data['keyboards'][this.state.language],
-            alwaysOpen: true,
-            usePreview: false,
-            useWheel: false,
-            stickyShift: false,
-            appendLocally: true,
-            color: "light",
-            updateOnChange: true,
-            initialFocus: true,
-            display: {
-              "bksp" : "\u2190",
-              "meta1" : ".com"
-            }
-          }}
-          onChange={this.onEmailInputChanged}
-          ref={k => this.keyboard = k}
-        />
+      <InputSuggestion class='suggestion' content={data['steps']['email']['suggestion'][this.state.language]}  input={this.state.email}/>
+      <ReactKeyboard eyesFree={this.state.eyesFree} value={this.state.email} layout={data['keyboards'][this.state.language]} onChange={this.onEmailInputChanged}/>
         </div>
       );
     }
@@ -1141,40 +1112,18 @@ class App extends Component {
     let location = this.state.locationSuggestion;
     let suggestionClass = 'suggestion';
     if(this.state.currentState === 'location'){
-      let locationSuggestion = 'Type to enter city, state, country';
+      let locationSuggestion = data['steps']['location']['suggestion'][this.state.language];
       if ( location ) {
         suggestionClass = 'suggestion suggestion-normal';
         locationSuggestion = location.name+ ', ' + location.admin1_name + ', ' + location.country_name;
       } else {
         suggestionClass = 'suggestion';
-        locationSuggestion = 'Type to enter city, state, country';
+        locationSuggestion = data['steps']['location']['suggestion'][this.state.language];
       }
       return (
         <div>
-        <InputSuggestion class={suggestionClass} content={locationSuggestion}  input=''/>
-        <Keyboard
-          value={this.state.location}
-          name='keyboard'
-          options={{
-            type:"input",
-            layout : 'custom',
-            customLayout: data['keyboards'][this.state.language],
-            alwaysOpen: true,
-            usePreview: false,
-            useWheel: false,
-            stickyShift: false,
-            appendLocally: true,
-            color: "light",
-            updateOnChange: true,
-            initialFocus: true,
-            display: {
-              "bksp" : "\u2190",
-              "meta1" : ".com"
-            }
-          }}
-          onChange={this.onLocationInputChanged}
-          ref={k => this.keyboard = k}
-        />
+        <InputSuggestion class={suggestionClass} content={locationSuggestion}  input={this.state.location}/>
+        <ReactKeyboard eyesFree={this.state.eyesFree} value={this.state.location} layout={data['keyboards'][this.state.language]} onChange={this.onLocationInputChanged}/>
       </div>
       );
     }

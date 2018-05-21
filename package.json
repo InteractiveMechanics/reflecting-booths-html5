@@ -23,7 +23,8 @@
     "react-sound": "^1.1.0",
     "react-transition-group": "^2.3.1",
     "react-virtual-keyboard": "^1.0.2",
-    "serve": "^6.5.6"
+    "serve": "^6.5.6",
+    "virtual-keyboard": "^1.28.3"
   },
   "scripts": {
     "start": "react-scripts start",
