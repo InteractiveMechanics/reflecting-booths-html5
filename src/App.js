@@ -34,9 +34,9 @@ class App extends Component {
 
     this.state = {
       data: jsonData,
-      currentState: 'attract',
+      currentState: 'first-name',
       language: 'english',
-      eyesFree: false,
+      eyesFree: true,
       firstname: '',
       lastname: '',
       email: '',
@@ -81,12 +81,13 @@ class App extends Component {
     this.startRecording = this.startRecording.bind(this);
     this.preRecordSteps = this.preRecordSteps.bind(this);
     this.inUseLightToggle = this.inUseLightToggle.bind(this);
+    this.setAudio = this.setAudio.bind(this);
     //this.renderMainAudio = this.renderMainAudio.bind(this);
   }
 
 
   componentWillMount() {
-    let startState = 'attract'
+    let startState = 'first-name'
     this.setState({
       touchscreen: data['steps'][startState]["touchscreen"],
       teleprompter: data['steps'][startState]["teleprompter"],
@@ -245,7 +246,7 @@ class App extends Component {
       teleprompter: data['steps']['attract']["teleprompter"],
       touchscreen: data['steps']['attract']["touchscreen"],
       buttonClass: data['steps']['attract']["buttonclass"],
-      sound: Chime
+      sound: ""
     })
   }
 
@@ -525,21 +526,21 @@ class App extends Component {
   renderNextButton(state, buttonclass) {
     if (state === 'about-2'){
       return(
-        <ReflectingButton class="next-button" language={this.state.language} buttonData={data['buttons']['next-to-questions']} onClicked={() => this.transition({ type: 'next' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree} />
+        <ReflectingButton class="next-button" language={this.state.language} buttonData={this.state.data.buttons['next-to-questions']} onClicked={() => this.transition({ type: 'next' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree} />
       )
     }
     if (state === 'questions'){
     if (this.state.nextQuestionId === 'record-intro-1'){
       return(
-        <ReflectingButton class="next-button-small" language={this.state.language} buttonData={data['buttons']['next']} onClicked={() => this.transition({ type: 'next' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree} />
+        <ReflectingButton class="next-button-small" language={this.state.language} buttonData={this.state.data.buttons['next']} onClicked={() => this.transition({ type: 'next' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree} />
       )
     } else if (this.state.answer.length > 0){
         return(
-          <ReflectingButton  class="next-button-small" language={this.state.language} buttonData={data['buttons']['next']} onClicked={() => this.setNextQuestion()} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
+          <ReflectingButton  class="next-button-small" language={this.state.language} buttonData={this.state.data.buttons['next']} onClicked={() => this.setNextQuestion()} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
         )
       }else{
         return(
-          <ReflectingButton class="next-button-small-inactive" language={this.state.language} buttonData={data['buttons']['next']} onClicked={this.doNothing()} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
+          <ReflectingButton class="next-button-small-inactive" language={this.state.language} buttonData={this.state.data.buttons['next']} onClicked={this.doNothing()} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
         )
       }
 
@@ -552,14 +553,14 @@ class App extends Component {
         && this.state.location.length > 0
         && this.state.age === 'Yes'){
           return(
-         <ReflectingButton class="next-button" language={this.state.language} buttonData={data['buttons']['next']} onClicked={() => this.transition({ type: 'skip' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
+         <ReflectingButton class="next-button" language={this.state.language} buttonData={this.state.data.buttons['next']} onClicked={() => this.transition({ type: 'skip' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
        )
       }
     }
 
     if (state === 'record-intro-1') {
       return(
-      <ReflectingButton class="next-button" language={this.state.language} buttonData={data['buttons']['record']} onClicked={() => this.transition({ type: 'skip' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
+      <ReflectingButton class="next-button" language={this.state.language} buttonData={this.state.data.buttons['record']} onClicked={() => this.transition({ type: 'skip' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
       )
     }
 
@@ -567,33 +568,33 @@ class App extends Component {
     if (state === 'first-name'){
       if (this.state.firstname.length > 0){
         return(
-          <ReflectingButton class="next-button-small" language={this.state.language} buttonData={data['buttons']['next']} onClicked={() => this.transition({ type: 'next' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
+          <ReflectingButton class="next-button-small" language={this.state.language} buttonData={this.state.data.buttons['next']} onClicked={() => this.transition({ type: 'next' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
         )
       }else {
         return(
-          <ReflectingButton class="next-button-small-inactive" language={this.state.language} buttonData={data['buttons']['next']} onClicked={this.doNothing()} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
+          <ReflectingButton class="next-button-small-inactive" language={this.state.language} buttonData={this.state.data.buttons['next']} onClicked={this.doNothing()} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
         )
       }
     }
     if (state === 'last-name'){
       if (this.state.lastname.length > 0){
         return(
-          <ReflectingButton class="next-button-small" language={this.state.language} buttonData={data['buttons']['next']} onClicked={() => this.transition({ type: 'next' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
+          <ReflectingButton class="next-button-small" language={this.state.language} buttonData={this.state.data.buttons['next']} onClicked={() => this.transition({ type: 'next' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
         )
       }else {
         return(
-          <ReflectingButton class="next-button-small-inactive" language={this.state.language} buttonData={data['buttons']['next']} onClicked={this.doNothing()} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
+          <ReflectingButton class="next-button-small-inactive" language={this.state.language} buttonData={this.state.data.buttons['next']} onClicked={this.doNothing()} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
         )
       }
     }
     if (state === 'email'){
       if (this.emailValidation()){
         return(
-          <ReflectingButton class="next-button-small" language={this.state.language} buttonData={data['buttons']['next']} onClicked={() => this.transition({ type: 'next' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
+          <ReflectingButton class="next-button-small" language={this.state.language} buttonData={this.state.data.buttons['next']} onClicked={() => this.transition({ type: 'next' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
         )
       }else {
         return(
-          <ReflectingButton class="next-button-small-inactive" language={this.state.language} buttonData={data['buttons']['next']} onClicked={this.doNothing()} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
+          <ReflectingButton class="next-button-small-inactive" language={this.state.language} buttonData={this.state.data.buttons['next']} onClicked={this.doNothing()} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
         )
       }
     }
@@ -601,11 +602,11 @@ class App extends Component {
       //if (this.state.locationSuggestion){
       if (state){
         return(
-          <ReflectingButton class="next-button-small" language={this.state.language} buttonData={data['buttons']['next']} onClicked={this.handleLocationEntry} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
+          <ReflectingButton class="next-button-small" language={this.state.language} buttonData={this.state.data.buttons['next']} onClicked={this.handleLocationEntry} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
         )
       } else {
         return(
-          <ReflectingButton class="next-button-small-inactive" language={this.state.language} buttonData={data['buttons']['next']} onClicked={this.doNothing()} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
+          <ReflectingButton class="next-button-small-inactive" language={this.state.language} buttonData={this.state.data.buttons['next']} onClicked={this.doNothing()} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
         )
       }
     } else if (data['steps'][this.state.currentState]["next"]){
@@ -619,7 +620,7 @@ class App extends Component {
         btnClass = "";
       }
       return (
-        <ReflectingButton  class={btnClass} language={this.state.language} buttonData={data['buttons']['next']} onClicked={() => this.transition({ type: 'next' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree} />
+        <ReflectingButton  class={btnClass} language={this.state.language} buttonData={this.state.data.buttons['next']} onClicked={() => this.transition({ type: 'next' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree} />
       );
     }
   }
@@ -637,27 +638,27 @@ class App extends Component {
     if (state === 'questions'){
     if (this.state.prevQuestionArray.length === 0){
       return(
-        <ReflectingButton class={btnClass} language={this.state.language} buttonData={data['buttons']['back']} onClicked={() => this.transition({ type: 'back' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
+        <ReflectingButton class={btnClass} language={this.state.language} buttonData={this.state.data.buttons['back']} onClicked={() => this.transition({ type: 'back' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
       )
     } else {
       return(
-        <ReflectingButton class={btnClass} language={this.state.language} buttonData={data['buttons']['back']} onClicked={this.prevQuestion} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
+        <ReflectingButton class={btnClass} language={this.state.language} buttonData={this.state.data.buttons['back']} onClicked={this.prevQuestion} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
       )
     }
 
     }
     if (state === "about-1"){
       return (
-      <ReflectingButton class={btnClass} language={this.state.language} buttonData={data['buttons']['back-to-home']} onClicked={() => this.transition({ type: 'back' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
+      <ReflectingButton class={btnClass} language={this.state.language} buttonData={this.state.data.buttons['back-to-home']} onClicked={() => this.transition({ type: 'back' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
       );
     } else if ( state === "record-intro-1") {
       return(
-        <ReflectingButton class={btnClass} language={this.state.language} buttonData={data['buttons']['back-to-questions']} onClicked={() => this.transition({ type: 'back' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
+        <ReflectingButton class={btnClass} language={this.state.language} buttonData={this.state.data.buttons['back-to-questions']} onClicked={() => this.transition({ type: 'back' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
 
       )
     } else {
       return (
-        <ReflectingButton class={btnClass} language={this.state.language} buttonData={data['buttons']['back']} onClicked={() => this.transition({ type: 'back' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
+        <ReflectingButton class={btnClass} language={this.state.language} buttonData={this.state.data.buttons['back']} onClicked={() => this.transition({ type: 'back' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
       );
     }
 
@@ -667,7 +668,7 @@ class App extends Component {
   renderRecordButton(state) {
     if (this.state.currentState === 'record-intro-1'){
       return (
-        <ReflectingButton class="record-button" language={this.state.language} buttonData={data['buttons']['record']} onClicked={this.startRecording} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
+        <ReflectingButton class="record-button" language={this.state.language} buttonData={this.state.data.buttons['record']} onClicked={this.startRecording} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
       );
     }
   }
@@ -675,7 +676,7 @@ class App extends Component {
   renderRecordStop(state) {
     if (this.state.currentState === 'recording'){
       return (
-        <ReflectingButton class="record-stop" language={this.state.language} buttonData={data['buttons']['record-stop']} onClicked={this.stopRecording} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
+        <ReflectingButton class="record-stop" language={this.state.language} buttonData={this.state.data.buttons['record-stop']} onClicked={this.stopRecording} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
       );
     }
   }
@@ -683,12 +684,12 @@ class App extends Component {
   renderRecordAgain(state) {
     if (this.state.currentState === 'review'){
       return (
-        <ReflectingButton class="back-button" language={this.state.language} buttonData={data['buttons']['retake-video']} onClicked={() => this.transition({ type: 'record-again' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
+        <ReflectingButton class="back-button" language={this.state.language} buttonData={this.state.data.buttons['retake-video']} onClicked={() => this.transition({ type: 'record-again' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
       );
     }
     if (this.state.currentState === 'end'){
       return (
-        <ReflectingButton class="record-again" language={this.state.language} buttonData={data['buttons']['record-another']} onClicked={() => this.transition({ type: 'record-again' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
+        <ReflectingButton class="record-again" language={this.state.language} buttonData={this.state.data.buttons['record-another']} onClicked={() => this.transition({ type: 'record-again' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
       );
     }
   }
@@ -696,14 +697,14 @@ class App extends Component {
   renderDisagree(state) {
     if (this.state.currentState === 'user-agreement'){
       return (
-        <ReflectingButton class="disagree-button-small" language={this.state.language} buttonData={data['buttons']['disagree']} onClicked={() => this.transition({ type: 'disagree' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
+        <ReflectingButton class="disagree-button-small" language={this.state.language} buttonData={this.state.data.buttons['disagree']} onClicked={() => this.transition({ type: 'disagree' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
       );
     }
   }
   renderDelete(state) {
     if (this.state.currentState === 'user-agreement-warning'){
       return (
-        <ReflectingButton class="delete-button" language={this.state.language} buttonData={data['buttons']['delete']} onClicked={() => this.transition({ type: 'delete' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
+        <ReflectingButton class="delete-button" language={this.state.language} buttonData={this.state.data.buttons['delete']} onClicked={() => this.transition({ type: 'delete' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
       );
     }
   }
@@ -711,7 +712,7 @@ class App extends Component {
   renderHomeButton(state) {
     if (this.state.currentState === 'end'){
       return (
-        <ReflectingButton class="home-button" language={this.state.language} buttonData={data['buttons']['back-to-home']} onClicked={() => this.transition({ type: 'home' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
+        <ReflectingButton class="home-button" language={this.state.language} buttonData={this.state.data.buttons['back-to-home']} onClicked={() => this.transition({ type: 'home' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
       );
     }
   }
@@ -724,7 +725,7 @@ class App extends Component {
         <ReflectingButton
           class="save-button"
           language={this.state.language}
-          buttonData={data['buttons']['save']}
+          buttonData={this.state.data.buttons['save']}
           onClicked={() => this.transition({ type: 'save' })}
           eyesFreeHover={this.handleEyesFreeHover}
           eyesFreeRelease={this.handleEyesFreeRelease}
@@ -739,7 +740,7 @@ class App extends Component {
         <ReflectingButton
           class="agree-button-small"
           language={this.state.language}
-          buttonData={data['buttons']['agree']}
+          buttonData={this.state.data.buttons['agree']}
           onClicked={() => this.transition({ type: 'agree' })}
           eyesFreeHover={this.handleEyesFreeHover}
           eyesFreeRelease={this.handleEyesFreeRelease}
@@ -770,7 +771,7 @@ class App extends Component {
       }
 
       return (
-        <EyesFreeButton class={eyesFreeClass} language={this.state.language} buttonData={data['buttons']['eyes-free']} onClicked={() => this.toggleEyesFree()} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
+        <EyesFreeButton class={eyesFreeClass} language={this.state.language} buttonData={this.state.data.buttons['eyes-free']} onClicked={() => this.toggleEyesFree()} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
       );
     }
 
@@ -778,30 +779,15 @@ class App extends Component {
 
   renderLanguageButton(state) {
     if(state === "welcome"){
+      let textObject = this.state.data.buttons.language.text;
+      let textArray = Object.keys(textObject).map(i => textObject[i]);
       if (!this.state.eyesFree){
         return(
-          <LanguageButton array={['Language',
-          "(sp) Language",
-          "(jp) Language",
-        "(pt) Language",
-        "(fr) Language",
-        "(it) Language",
-        "(mn) Language",
-        "(dt) Language"]}
-        class="language-button" language={this.state.language} buttonData={data['buttons']['language']} onClicked={() => this.transition({ type: 'language' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
+          <LanguageButton array={textArray} class="language-button" language={this.state.language} buttonData={this.state.data.buttons['language']} onClicked={() => this.transition({ type: 'language' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
         )
       }else if(this.state.eyesFree){
           return(
-            <LanguageButton
-              array={['Language',
-              "(sp) Language",
-              "(jp) Language",
-            "(pt) Language",
-            "(fr) Language",
-            "(it) Language",
-            "(mn) Language",
-            "(dt) Language"]}
-             class="language-button-inactive" language={this.state.language} buttonData={data['buttons']['language']} onClicked={this.doNothing()} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
+            <LanguageButton array={textArray} class="language-button-inactive" language={this.state.language} buttonData={this.state.data.buttons['language']} onClicked={this.doNothing()} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
           )
         }
 
@@ -898,6 +884,7 @@ class App extends Component {
   }
 
   setAudio(audio){
+    console.log(audio)
     this.setState({
       sound: audio,
 
@@ -905,8 +892,7 @@ class App extends Component {
   }
 
   handleEyesFreeHover(event) {
-    console.log(event.target);
-    this.setAudio(Chime);
+    this.setAudio(event.target.value);
   }
 
   handleEyesFreeRelease(event) {
@@ -1056,6 +1042,7 @@ class App extends Component {
 
   renderMainAudio(sound) {
     if (this.state.currentState === 'attract' || this.state.currentState === 'welcome' || (this.state.sound && this.state.eyesFree)) {
+      if(this.state.sound.length > 0){
       return (
         <Sound
       url={window.location.origin + this.state.sound}
@@ -1066,6 +1053,7 @@ class App extends Component {
       //onFinishedPlaying={this.handleMainAudioFinish}
     />
       )
+      }
     }
   }
 
@@ -1077,7 +1065,7 @@ class App extends Component {
       return(
         <div>
         <InputSuggestion class='suggestion' content={data['steps']['first-name']['suggestion'][this.state.language]}  input={this.state.firstname}/>
-        <ReactKeyboard eyesFree={this.state.eyesFree} value={this.state.firstname} layout={data['keyboards'][this.state.language]} onChange={this.onFirstNameInputChanged}/>
+        <ReactKeyboard eyesFree={this.state.eyesFree} value={this.state.firstname} layout={data['keyboards'][this.state.language]} onChange={this.onFirstNameInputChanged} audioData={this.state.data.keyboards.keys} onHover={this.setAudio}/>
         </div>
       )
     }
@@ -1090,7 +1078,7 @@ class App extends Component {
       return (
         <div>
         <InputSuggestion class='suggestion' content={data['steps']['last-name']['suggestion'][this.state.language]}  input={this.state.lastname}/>
-        <ReactKeyboard eyesFree={this.state.eyesFree} value={this.state.lastname} layout={data['keyboards'][this.state.language]} onChange={this.onLastNameInputChanged}/>
+        <ReactKeyboard eyesFree={this.state.eyesFree} value={this.state.lastname} layout={data['keyboards'][this.state.language]} onChange={this.onLastNameInputChanged} audioData={this.state.data.keyboards.keys} onHover={this.setAudio}/>
       </div>
       );
     }
@@ -1104,7 +1092,7 @@ class App extends Component {
       return (
       <div>
       <InputSuggestion class='suggestion' content={data['steps']['email']['suggestion'][this.state.language]}  input={this.state.email}/>
-      <ReactKeyboard eyesFree={this.state.eyesFree} value={this.state.email} layout={data['keyboards'][this.state.language]} onChange={this.onEmailInputChanged}/>
+      <ReactKeyboard eyesFree={this.state.eyesFree} value={this.state.email} layout={data['keyboards'][this.state.language]} onChange={this.onEmailInputChanged} audioData={this.state.data.keyboards.keys} onHover={this.setAudio}/>
         </div>
       );
     }
@@ -1129,7 +1117,7 @@ class App extends Component {
       return (
         <div>
         <InputSuggestion class={suggestionClass} content={locationSuggestion}  input={this.state.location}/>
-        <ReactKeyboard eyesFree={this.state.eyesFree} value={this.state.location} layout={data['keyboards'][this.state.language]} onChange={this.onLocationInputChanged}/>
+        <ReactKeyboard eyesFree={this.state.eyesFree} value={this.state.location} layout={data['keyboards'][this.state.language]} onChange={this.onLocationInputChanged} audioData={this.state.data.keyboards.keys} onHover={this.setAudio}/>
       </div>
       );
     }
