@@ -33,6 +33,58 @@ const data = {
       "native": "deutsch"
     }
   ],
+  "progress": {
+    "home":{
+      "english": "HOME",
+      "spanish": "INICIO",
+      "japanese": "ホーム",
+      "portuguese": "ECRÃ INICIAL",
+      "french": "ACCUEIL",
+      "italian": "HOME",
+      "mandarin": "主页",
+      "german": "STARTSEITE"
+    },
+    "about":{
+      "english": "ABOUT",
+      "spanish": "ACERCA DE",
+      "japanese": "ブースについて",
+      "portuguese": "SOBRE",
+      "french": "À PROPOS DE",
+      "italian": "CHI SIAMO",
+      "mandarin": "关于",
+      "german": "INFO"
+    },
+    "questions":{
+      "english": "QUESTIONS",
+      "spanish": "PREGUNTAS",
+      "japanese": "質問",
+      "portuguese": "PERGUNTAS",
+      "french": "QUESTIONS",
+      "italian": "DOMANDE",
+      "mandarin": "问题",
+      "german": "FRAGEN"
+    },
+    "record":{
+      "english": "RECORD",
+      "spanish": "GRABAR",
+      "japanese": "録画",
+      "portuguese": "GRAVAR",
+      "french": "ENREGISTRER",
+      "italian": "REGISTRA",
+      "mandarin": "录制",
+      "german": "AUFNAHME"
+    },
+    "submit":{
+      "english": "SUBMIT",
+      "spanish": "ENVIAR",
+      "japanese": "送信",
+      "portuguese": "SUBMETER",
+      "french": "ENVOYER",
+      "italian": "INVIA",
+      "mandarin": "提交",
+      "german": "ÜBERMITTELN"
+    },
+  },
   "steps": {
     "attract": {
       "teleprompter": {
@@ -178,7 +230,8 @@ const data = {
           "There will be a 10-second countdown before recording begins.",
           "A bright light will turn on in front of you when recording begins.",
           "You will have two minutes to record your story.",
-          "If you finish early, tap anywhere on the screen in front of you to stop the recording."
+          "If you finish early, tap anywhere on the screen in front of you to stop the recording.",
+          "You will first be asked to record your loved one’s name and your relationship to your loved one, followed by your remembrance."
         ],
         "spanish": [
           "Asegúrese de no tener nada en las manos ni entre los brazos.",
@@ -186,7 +239,8 @@ const data = {
           "Se iniciará una cuenta atrás de 10 segundos antes de que empiece la grabación.",
           "Se encenderá una luz delante de usted cuando la grabación comience.",
           "Dispone de dos minutos para grabar su historia.",
-          "Si termina antes, toque cualquier punto de la pantalla para detener la grabación."
+          "Si termina antes, toque cualquier punto de la pantalla para detener la grabación.",
+          "Primero se le pedirá que grabe el nombre de su persona querida y la relación que los unía y, a continuación, su recuerdo de ella."
         ],
         "japanese": [
           "手に物を持ったり膝の上に物を置いたりしないでください。",
@@ -194,15 +248,17 @@ const data = {
           "録画開始前に10秒間のカウントダウンが行われます。",
           "録画が開始したら、前方の明るい照明が付きます。",
           "お話しを録画していただけるのは2分間です。",
-          "早めに話し終えた場合は、前方のスクリーンのどこかをタップして録画を終了してください。"
+          "早めに話し終えた場合は、前方のスクリーンのどこかをタップして録画を終了してください。",
+          "まず、あなたの大切な方のお名前とあなたとの関係について述べた後に、追悼の言葉を録画するように聞かれます。"
         ],
         "portuguese": [
           "Assegure-se de que não tem nada nas mãos nem no colo.",
           "Olhe diretamente para este ecrã durante toda a gravação.",
           "Haverá uma contagem decrescente de 10 segundos antes da gravação começar.",
           "Uma luz intensa irá acender-se à sua frente quando a gravação começar.",
-          "Terá dois minutos para contar a sua história.",
-          "Se terminar antes, clique em qualquer local do ecrã à sua frente para parar a gravação."
+          "Terá dois minutos para contara sua história.",
+          "Se terminar antes, clique em qualquer local do ecrã à sua frente para parar a gravação.",
+          "Primeiro ser-lhe-á pedido para gravar o nome do seu ente querido e a sua relação com o seu ente querido, seguido da sua memória."
         ],
         "french": [
           "Assurez-vous de ne rien avoir à la main ou sur vos genoux.",
@@ -210,7 +266,8 @@ const data = {
           "Il y aura un compte à rebours de 10 secondes avant le début de l’enregistrement.",
           "Une lumière vive s’allumera devant vous pour signaler le début de l’enregistrement.",
           "Vous aurez deux minutes pour enregistrer votre histoire.",
-          "Si vous terminez plus tôt, appuyez n’importe où sur l’écran devant vous pour arrêter l’enregistrement."
+          "Si vous terminez plus tôt, appuyez n’importe où sur l’écran devant vous pour arrêter l’enregistrement.",
+          "Nous vous demanderons tout d’abord d’enregistrer le prénom de votre proche et la nature de votre relation, puis votre souvenir."
         ],
         "italian": [
           "Assicurati di non avere nulla in mano o sulle ginocchia.",
@@ -218,7 +275,8 @@ const data = {
           "Ci sarà un conto alla rovescia di 10 secondi prima che inizi la registrazione.",
           "La registrazione partirà quando vedrai accendersi una luce.",
           "Hai a disposizione due minuti per registrare la tua storia.",
-          "Se finisci prima, puoi interrompere la registrazione toccando un qualsiasi punto sullo schermo."
+          "Se finisci prima, puoi interrompere la registrazione toccando un qualsiasi punto sullo schermo.",
+          "Ti verrà dapprima chiesto di registrare il nome della persona cara e che tipo di legame avevate, e poi di parlare del tuo ricordo."
         ],
         "mandarin": [
           "确保您的手里或大腿上没有任何东西。",
@@ -226,7 +284,8 @@ const data = {
           "录制开始前会倒数 10 秒。",
           "录制开始时，您前面会亮起一盏灯。",
           "录制时长为两分钟。",
-          "如果您提前完成，请在您前面的屏幕上点击任意位置停止录制。"
+          "如果您提前完成，请在您前面的屏幕上点击任意位置停止录制。",
+          "您首先要说出要缅怀的人的姓名以及您与对方的关系，然后表达您的缅怀之情。"
         ],
         "german": [
           "Achten Sie darauf, dass Sie nichts in Ihren Händen oder auf dem Schoß halten.",
@@ -234,7 +293,8 @@ const data = {
           "Vor Aufnahmebeginn gibt es einen 10-minütigen Countdown.",
           "Mit Beginn der Aufnahme leuchtet vor Ihnen eine helle Lampe auf.",
           "Sie haben zwei Minuten Zeit, Ihre Geschichte aufzunehmen.",
-          "Wenn Sie vorher aufhören möchten, berühren Sie den Bildschirm, um die Aufnahme zu beenden."
+          "Wenn Sie vorher aufhören möchten, berühren Sie den Bildschirm, um die Aufnahme zu beenden.",
+          "Zuerst werden Sie gebeten, den Namen Ihres Angehörigen und Ihre Beziehung zu ihm anzugeben, gefolgt von Ihren Erinnerungen."
         ]
       },
       "buttonclass": "large",
@@ -273,19 +333,19 @@ const data = {
           "Please record your remembrance."
         ],
         "spanish": [
-          "(sp) Please record your loved one’s name.",
-          "(sp) Please record your relationship to your loved one. For example, “my mother.”",
-          "(sp) Please record your remembrance."
+          "Grabe el nombre de su persona querida.",
+          "Grabe la relación que lo unía con su persona querida. Por ejemplo: “mi madre”.",
+          "Grabe su recuerdo."
         ],
         "japanese": [
-          "(jp) Please record your loved one’s name.",
-          "(jp) Please record your relationship to your loved one. For example, “my mother.”",
-          "(jp) Please record your remembrance."
+          "大切な方のお名前を録画してください。",
+          "大切な方とあなたとの関係を録画してください。例えば、「私の母」など。",
+          "追悼の言葉を録画してください。"
         ],
         "portuguese": [
-          "(pt) Please record your loved one’s name.",
-          "(pt) Please record your relationship to your loved one. For example, “my mother.”",
-          "(pt) Please record your remembrance."
+          "Grave o nome do seu ente querido.",
+          "Grave a sua relação com o seu ente querido. Por exemplo, “a minha mãe.”",
+          "Grave a sua memória."
         ],
         "french": [
           "Veuillez enregistrer le prénom de votre proche.",
@@ -293,19 +353,19 @@ const data = {
           "Veuillez enregistrer votre souvenir."
         ],
         "italian": [
-          "(it) Please record your loved one’s name.",
-          "(it) Please record your relationship to your loved one. For example, “my mother.”",
-          "(it) Please record your remembrance."
+          "Registra il nome della persona cara.",
+          "Registra il tipo di legame con la persona cara. Ad esempio, “mia madre”.",
+          "Registra il tuo ricordo."
         ],
         "mandarin": [
-          "(mn) Please record your loved one’s name.",
-          "(mn) Please record your relationship to your loved one. For example, “my mother.”",
-          "(mn) Please record your remembrance."
+          "请说出您要缅怀的人的姓名。",
+          "请说出您与对方的关系。例如，“我的母亲”。",
+          "请表达您的缅怀之情。"
         ],
         "german": [
-          "(dt) Please record your loved one’s name.",
-          "(dt) Please record your relationship to your loved one. For example, “my mother.”",
-          "(dt) Please record your remembrance."
+          "Bitte nehmen Sie den Namen Ihres geliebten Menschen auf.",
+          "Bitte geben Sie die Beziehung zu dem geliebten Menschen an. Zum Beispiel: „meine Mutter”.",
+          "Bitte nehmen Sie Ihre Erinnerungen auf."
         ],
       },
       "stop": "review",
@@ -959,81 +1019,81 @@ const data = {
                 german: "Ich brauche keine Frage. Ich weiß, was sich sagen möchte."
               }
             },
-            {
-              audio: "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg",
-              nextQuestionId: 'record',
-              type: "How have you been affected by global terror attacks since 9/11?",
-              content: {
-                english: "How have you been affected by global terror attacks since 9/11?",
-                spanish: "¿Cuál es su experiencia con personas que sufren actualmente una enfermedad provocada por los atentados del 11S?",
-                japanese: "9/11アメリカ同時多発テロ事件に関連した疾病に苦しむ人と、どのような関わり合いがありますか？",
-                portuguese: "Qual é a sua experiência sobre o sofrimento de pessoas com doenças relacionadas com o 11 de setembro?",
-                french: "Quelle est votre expérience avec des individus qui souffrent de maladies liées au 11 septembre?",
-                italian: "Qual è la tua esperienza con persone affette da malattie correlate all'11 settembre?",
-                mandarin: "您对患有 9·11 事件相关疾病的人有什么感受？",
-                german: "Welche Erfahrungen haben Sie mit Personen gemacht, die aufgrund des 11. Septembers erkrankten?"
-              }
-            },
-            {
-              audio: "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg",
-              nextQuestionId: 'record',
-              type: "How have you shared your 9/11 story with those born after the attacks?",
-              content: {
-                english: "How have you shared your 9/11 story with those born after the attacks?",
-                spanish: "¿Cómo le han afectado los atentados terroristas sufridos en el mundo desde el 11S?",
-                japanese: "9/11アメリカ同時多発テロ事件以降の世界中でのテロ攻撃によって、どのような影響を受けましたか？",
-                portuguese: "De que forma foi afetado(a) pelos ataques terroristas mundiais desde o 11 de setembro?",
-                french: "Dans quelle mesure les attentats terroristes dans le monde vous ont-ils affecté depuis le 11 septembre?",
-                italian: "Quali ripercussioni hanno avuto sulla tua vita gli attacchi terroristici globali dell'11 settembre?",
-                mandarin: "9·11 事件后，您是否受到全球恐怖袭击的影响？",
-                german: "In welchem Maße sind Sie von den globalen Terrorangriffen seit dem 11. September betroffen?"
-              }
-            },
-            {
-              audio: "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg",
-              nextQuestionId: 'record',
-              type: "I do not need a question. I know what I would like to say.",
-              content: {
-                english:"I do not need a question. I know what I would like to say.",
-                spanish: "¿Cómo ha compartido su experiencia sobre el 11S con los nacidos después de los atentados?",
-                japanese: "9/11アメリカ同時多発テロ事件以降に生まれた人たちに、同事件についてどのように共有しましたか？",
-                portuguese: "De que forma partilhou a sua história do 11 de setembro com aqueles que nasceram após os ataques?",
-                french: "Comment avez-vous partagé votre vécu du 11 septembre avec les personnes nées après les attentats?",
-                italian: "In che modo hai raccontato quello che hai vissuto l’11 settembre a coloro nati dopo l’attentato?",
-                mandarin: "您如何与 9·11 袭击后出生的人分享您在这起事件中的经历？",
-                german: "Wie haben Sie Ihre Geschichte vom 11. September Personen erzählt, die nach den Angriffen geboren wurden?"
-              }
-            },
-            {
-              audio: "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg",
-              nextQuestionId: 'record',
-              type: "What did the return of sports after 9/11 mean to you?",
-              content: {
-                english:"What did the return of sports after 9/11 mean to you?",
-                spanish: "¿Qué significado tuvo para usted la vuelta del deporte después del 11S?",
-                japanese: "9/11アメリカ同時多発テロ事件以降のスポーツ再開は、あなたにとってどのような意味を持つものでしたか？",
-                portuguese: "O que significou para si o regresso do desporto depois do 11 de setembro?",
-                french: "Qu’est-ce que le retour du sport après le 11 septembre a signifié pour vous?",
-                italian: "Cosa ha significato per te ritornare allo sport dopo l’11 settembre?",
-                mandarin: "9·11 事件后运动的回归对您来说意味着什么？",
-                german: "Welche Bedeutung hatte die Rückkehr des Sports nach dem 11. September für Sie?"
-              }
-            },
-            {
-              audio: "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg",
-              nextQuestionId: 'record',
-              type: "What role do sports play after a national tragedy like 9/11?",
-              content: {
-                english:"What role do sports play after a national tragedy like 9/11?",
-                spanish: "¿Qué papel considera que desempeñan los deportes después de una tragedia nacional como el 11S?",
-                japanese: "9/11アメリカ同時多発テロ事件のような国家的悲劇の後に、スポーツはどのような役割を果たしますか？",
-                portuguese: "Que papel desempenha o desporto depois de uma tragédia nacional como o 11 de setembro?",
-                french: "Quel rôle joue le sport après une tragédie nationale comme le 11 septembre?",
-                italian: "Che ruolo ha rivestito lo sport dopo una tragedia nazionale come quella dell’11 settembre?",
-                mandarin: "发生 9·11 事件这样的全国性灾难后，运动起到什么作用？",
-                german: "Welche Rolle spielt der Sport nach einer nationalen Tragödie wie dem 11. September?"
-              }
-            }
+            // {
+            //   audio: "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg",
+            //   nextQuestionId: 'record',
+            //   type: "How have you been affected by global terror attacks since 9/11?",
+            //   content: {
+            //     english: "How have you been affected by global terror attacks since 9/11?",
+            //     spanish: "¿Cuál es su experiencia con personas que sufren actualmente una enfermedad provocada por los atentados del 11S?",
+            //     japanese: "9/11アメリカ同時多発テロ事件に関連した疾病に苦しむ人と、どのような関わり合いがありますか？",
+            //     portuguese: "Qual é a sua experiência sobre o sofrimento de pessoas com doenças relacionadas com o 11 de setembro?",
+            //     french: "Quelle est votre expérience avec des individus qui souffrent de maladies liées au 11 septembre?",
+            //     italian: "Qual è la tua esperienza con persone affette da malattie correlate all'11 settembre?",
+            //     mandarin: "您对患有 9·11 事件相关疾病的人有什么感受？",
+            //     german: "Welche Erfahrungen haben Sie mit Personen gemacht, die aufgrund des 11. Septembers erkrankten?"
+            //   }
+            // },
+            // {
+            //   audio: "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg",
+            //   nextQuestionId: 'record',
+            //   type: "How have you shared your 9/11 story with those born after the attacks?",
+            //   content: {
+            //     english: "How have you shared your 9/11 story with those born after the attacks?",
+            //     spanish: "¿Cómo le han afectado los atentados terroristas sufridos en el mundo desde el 11S?",
+            //     japanese: "9/11アメリカ同時多発テロ事件以降の世界中でのテロ攻撃によって、どのような影響を受けましたか？",
+            //     portuguese: "De que forma foi afetado(a) pelos ataques terroristas mundiais desde o 11 de setembro?",
+            //     french: "Dans quelle mesure les attentats terroristes dans le monde vous ont-ils affecté depuis le 11 septembre?",
+            //     italian: "Quali ripercussioni hanno avuto sulla tua vita gli attacchi terroristici globali dell'11 settembre?",
+            //     mandarin: "9·11 事件后，您是否受到全球恐怖袭击的影响？",
+            //     german: "In welchem Maße sind Sie von den globalen Terrorangriffen seit dem 11. September betroffen?"
+            //   }
+            // },
+            // {
+            //   audio: "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg",
+            //   nextQuestionId: 'record',
+            //   type: "I do not need a question. I know what I would like to say.",
+            //   content: {
+            //     english:"I do not need a question. I know what I would like to say.",
+            //     spanish: "¿Cómo ha compartido su experiencia sobre el 11S con los nacidos después de los atentados?",
+            //     japanese: "9/11アメリカ同時多発テロ事件以降に生まれた人たちに、同事件についてどのように共有しましたか？",
+            //     portuguese: "De que forma partilhou a sua história do 11 de setembro com aqueles que nasceram após os ataques?",
+            //     french: "Comment avez-vous partagé votre vécu du 11 septembre avec les personnes nées après les attentats?",
+            //     italian: "In che modo hai raccontato quello che hai vissuto l’11 settembre a coloro nati dopo l’attentato?",
+            //     mandarin: "您如何与 9·11 袭击后出生的人分享您在这起事件中的经历？",
+            //     german: "Wie haben Sie Ihre Geschichte vom 11. September Personen erzählt, die nach den Angriffen geboren wurden?"
+            //   }
+            // },
+            // {
+            //   audio: "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg",
+            //   nextQuestionId: 'record',
+            //   type: "What did the return of sports after 9/11 mean to you?",
+            //   content: {
+            //     english:"What did the return of sports after 9/11 mean to you?",
+            //     spanish: "¿Qué significado tuvo para usted la vuelta del deporte después del 11S?",
+            //     japanese: "9/11アメリカ同時多発テロ事件以降のスポーツ再開は、あなたにとってどのような意味を持つものでしたか？",
+            //     portuguese: "O que significou para si o regresso do desporto depois do 11 de setembro?",
+            //     french: "Qu’est-ce que le retour du sport après le 11 septembre a signifié pour vous?",
+            //     italian: "Cosa ha significato per te ritornare allo sport dopo l’11 settembre?",
+            //     mandarin: "9·11 事件后运动的回归对您来说意味着什么？",
+            //     german: "Welche Bedeutung hatte die Rückkehr des Sports nach dem 11. September für Sie?"
+            //   }
+            // },
+            // {
+            //   audio: "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg",
+            //   nextQuestionId: 'record',
+            //   type: "What role do sports play after a national tragedy like 9/11?",
+            //   content: {
+            //     english:"What role do sports play after a national tragedy like 9/11?",
+            //     spanish: "¿Qué papel considera que desempeñan los deportes después de una tragedia nacional como el 11S?",
+            //     japanese: "9/11アメリカ同時多発テロ事件のような国家的悲劇の後に、スポーツはどのような役割を果たしますか？",
+            //     portuguese: "Que papel desempenha o desporto depois de uma tragédia nacional como o 11 de setembro?",
+            //     french: "Quel rôle joue le sport après une tragédie nationale comme le 11 septembre?",
+            //     italian: "Che ruolo ha rivestito lo sport dopo una tragedia nazionale come quella dell’11 settembre?",
+            //     mandarin: "发生 9·11 事件这样的全国性灾难后，运动起到什么作用？",
+            //     german: "Welche Rolle spielt der Sport nach einer nationalen Tragödie wie dem 11. September?"
+            //   }
+            // }
         ]
     }
   ],

@@ -18,8 +18,12 @@ import InputSuggestion from './components/InputSuggestion';
 import Fade from './components/Fade';
 import ReactKeyboard from './components/ReactKeyboard';
 import Chime from './Assets/audio/chime.mp3';
+import jsonData from './data.json';
 
 const quizQuestions = data['questions'];
+
+
+
 
 
 
@@ -29,6 +33,7 @@ class App extends Component {
     super(props);
 
     this.state = {
+      data: jsonData,
       currentState: 'attract',
       language: 'english',
       eyesFree: false,
@@ -88,8 +93,9 @@ class App extends Component {
       buttonClass: "small",
       question: quizQuestions[0].question,
       answerOptions: quizQuestions[0].answers,
-      sound: Chime
+      sound: ""
     });
+    console.log(this.state.data.steps.welcome.audio);
   }
 
   // handleClick () {
@@ -258,7 +264,7 @@ class App extends Component {
         teleprompter: data['steps']['attract']["teleprompter"],
         touchscreen: data['steps']['attract']["touchscreen"],
         buttonClass: data['steps']['attract']["buttonclass"],
-        sound: Chime,
+        sound: "",
         inUseLight: false
       };
 
@@ -268,7 +274,7 @@ class App extends Component {
         teleprompter: data['steps']['welcome']["teleprompter"],
         touchscreen: data['steps']['welcome']["touchscreen"],
         buttonClass: data['steps']['welcome']["buttonclass"],
-        sound: Chime,
+        sound: this.state.data.steps.welcome.audio,
         inUseLight: true
       };
 
@@ -277,7 +283,7 @@ class App extends Component {
         teleprompter: data['steps']['language']["teleprompter"],
         touchscreen: data['steps']['language']["touchscreen"],
         buttonClass: data['steps']['language']["buttonclass"],
-        sound: Chime
+        sound: this.state.data.steps['language']["audio"]
       };
 
       case 'about-1':
@@ -285,7 +291,7 @@ class App extends Component {
         teleprompter: data['steps']['about-1']["teleprompter"],
         touchscreen: data['steps']['about-1']["touchscreen"],
         buttonClass: data['steps']['about-1']["buttonclass"],
-        sound: Chime
+        sound: this.state.data.steps['about-1']["audio"]
       };
 
       case 'about-2':
@@ -293,7 +299,7 @@ class App extends Component {
         teleprompter: data['steps']['about-2']["teleprompter"],
         touchscreen: data['steps']['about-2']["touchscreen"],
         buttonClass: data['steps']['about-2']["buttonclass"],
-        sound: Chime
+        sound: this.state.data.steps['about-2']["audio"]
       };
 
       case 'questions':
@@ -307,7 +313,7 @@ class App extends Component {
         answer: '',
         prompt: '',
         answerOptions: quizQuestions[0].answers,
-        sound: Chime,
+        sound: this.state.data.steps['questions']["audio"],
         prevQuestionArray: [],
         nextQuestionId: 0,
         questionId: 0
@@ -320,7 +326,7 @@ class App extends Component {
         touchscreen: data['steps']['record-intro-1']["touchscreen"],
         buttonClass: data['steps']['record-intro-1']["buttonclass"],
         answer: '',
-        sound: Chime
+        sound: this.state.data.steps['record-intro-1']["audio"]
       };
 
       case 'record-intro-2':
@@ -328,7 +334,7 @@ class App extends Component {
         teleprompter: data['steps']['record-intro-2']["teleprompter"],
         touchscreen: data['steps']['record-intro-2']["touchscreen"],
         buttonClass: data['steps']['record-intro-2']["buttonclass"],
-        sound: Chime
+        sound: this.state.data.steps['record-intro-2']["audio"]
       };
 
       case 'recording':
@@ -338,7 +344,7 @@ class App extends Component {
         teleprompter: {
         },
         touchscreen: data['steps']['recording']["touchscreen"],
-        sound: Chime,
+        sound: this.state.data.steps['recording']["audio"],
         videoLight: true
 
       };
@@ -349,7 +355,7 @@ class App extends Component {
         teleprompter: data['steps']['review']["teleprompter"],
         touchscreen: data['steps']['review']["touchscreen"],
         buttonClass: data['steps']['review']["buttonclass"],
-        sound: Chime
+        sound: this.state.data.steps['review']["audio"]
       };
 
       case 'user-agreement':
@@ -357,7 +363,7 @@ class App extends Component {
         teleprompter: data['steps']['user-agreement']["teleprompter"],
         touchscreen: data['steps']['user-agreement']["touchscreen"],
         buttonClass: data['steps']['user-agreement']["buttonclass"],
-        sound: Chime
+        sound: this.state.data.steps['user-agreement']["audio"]
       };
 
       case 'user-agreement-warning':
@@ -365,7 +371,7 @@ class App extends Component {
         teleprompter: data['steps']['user-agreement-warning']["teleprompter"],
         touchscreen: data['steps']['user-agreement-warning']["touchscreen"],
         buttonClass: data['steps']['user-agreement-warning']["buttonclass"],
-        sound: Chime
+        sound: this.state.data.steps['user-agreement-warning']["audio"]
       };
 
       case 'first-name':
@@ -374,7 +380,7 @@ class App extends Component {
         touchscreen: data['steps']['first-name']["touchscreen"],
         keyboard: data['steps']['first-name']["keyboard"],
         buttonClass: data['steps']['first-name']["buttonclass"],
-        sound: Chime
+        sound: this.state.data.steps['first-name']["audio"]
       };
 
       case 'last-name':
@@ -383,7 +389,7 @@ class App extends Component {
         touchscreen: data['steps']['last-name']["touchscreen"],
         keyboard: data['steps']['last-name']["keyboard"],
         buttonClass: data['steps']['last-name']["buttonclass"],
-        sound: Chime
+        sound: this.state.data.steps['last-name']["audio"]
       };
 
       case 'email':
@@ -392,7 +398,7 @@ class App extends Component {
         touchscreen: data['steps']['email']["touchscreen"],
         keyboard: data['steps']['email']["keyboard"],
         buttonClass: data['steps']['email']["buttonclass"],
-        sound: Chime
+        sound: this.state.data.steps['email']["audio"]
       };
 
       case 'location':
@@ -401,7 +407,7 @@ class App extends Component {
         touchscreen: data['steps']['location']["touchscreen"],
         keyboard: data['steps']['location']["keyboard"],
         buttonClass: data['steps']['location']["buttonclass"],
-        sound: Chime
+        sound: this.state.data.steps['location']["audio"]
       };
 
       case 'age':
@@ -410,7 +416,7 @@ class App extends Component {
         touchscreen: data['steps']['age']["touchscreen"],
         keyboard: data['steps']['age']["keyboard"],
         buttonClass: data['steps']['age']["buttonclass"],
-        sound: Chime
+        sound: this.state.data.steps['age']["audio"]
       };
 
       case 'end':
@@ -418,7 +424,7 @@ class App extends Component {
         teleprompter: data['steps']['end']["teleprompter"],
         touchscreen: data['steps']['end']["touchscreen"],
         buttonClass: data['steps']['end']["buttonclass"],
-        sound: Chime
+        sound: this.state.data.steps['end']["audio"]
       };
       default:
         break;
@@ -1004,7 +1010,7 @@ class App extends Component {
 
     }else{
       return (
-        <Progress currentState={this.state.currentState}/>
+        <Progress content={data['progress']} language={this.state.language} currentState={this.state.currentState}/>
       );
     }
 
@@ -1052,7 +1058,7 @@ class App extends Component {
     if (this.state.currentState === 'attract' || this.state.currentState === 'welcome' || (this.state.sound && this.state.eyesFree)) {
       return (
         <Sound
-      url={this.state.sound}
+      url={window.location.origin + this.state.sound}
       playStatus={Sound.status.PLAYING}
       // playFromPosition={300 /* in milliseconds */}
       // onLoading={this.handleSongLoading}
