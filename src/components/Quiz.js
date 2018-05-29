@@ -22,6 +22,8 @@ function Quiz(props) {
         onAnswerSelected={props.onAnswerSelected}
         onAnswerHover={props.onAnswerHover}
         eyesFree={props.eyesFree}
+        audioFunc={props.audioFunc}
+        audioFile={key.audio}
       />
     );
   }
@@ -42,8 +44,8 @@ function Quiz(props) {
     questionId: PropTypes.number.isRequired,
     questionTotal: PropTypes.number.isRequired,
     onAnswerSelected: PropTypes.func.isRequired,
-    onAnswerHover: PropTypes.func.isRequired,
-    eyesFree: PropTypes.bool.isRequired
+    eyesFree: PropTypes.bool.isRequired,
+    audioFunc: PropTypes.func.isRequired
   };
 
 

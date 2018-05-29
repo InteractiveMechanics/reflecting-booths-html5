@@ -13,7 +13,7 @@ class ReactKeyboard extends Component {
       eyesFree: props.eyesFree,
       onInputChanged: props.onChange,
       audio: props.audioData,
-      eyesFreeHover: props.onHover
+      audioFunc: props.audioFunc
     };
   }
 
@@ -30,15 +30,17 @@ class ReactKeyboard extends Component {
 
     if (this.state.eyesFree) {
 
+      //attach event listeners to each key
       var buttons = ReactDOM.findDOMNode(this.keyboard).getElementsByTagName('button');
       for (var i = 0; i < buttons.length; i++) {
           let char = buttons[i].getAttribute('data-value');
           let audioUrl = this.state.audio[char];
           //console.log(this.state.audio);
-          buttons[i].onmouseover = () => this.state.eyesFreeHover(audioUrl); //second console output
-      }
+          buttons[i].onmouseover = () => this.state.audioFunc(audioUrl); //set audio to url to play
+          buttons[i].onmouseleave = () => this.state.audioFunc(""); //set audio to empty string to stop
     }
   }
+}
 
 
 
@@ -85,7 +87,7 @@ ReactKeyboard.propTypes = {
   eyesFree: PropTypes.bool,
   onChange: PropTypes.func.isRequired,
   audioData: PropTypes.object.isRequired,
-  onHover: PropTypes.func.isRequired
+  audioFunc: PropTypes.func.isRequired
 };
 
 export default ReactKeyboard;

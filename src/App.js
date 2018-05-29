@@ -20,8 +20,12 @@ import ReactKeyboard from './components/ReactKeyboard';
 import Chime from './Assets/audio/chime.mp3';
 import jsonData from './data.json';
 
+
 const quizQuestions = data['questions'];
 
+//const quizQuestions = Array.from(jsonData.questions);
+
+console.log(quizQuestions);
 
 
 
@@ -34,7 +38,7 @@ class App extends Component {
 
     this.state = {
       data: jsonData,
-      currentState: 'first-name',
+      currentState: 'location',
       language: 'english',
       eyesFree: true,
       firstname: '',
@@ -75,11 +79,18 @@ class App extends Component {
     this.handleClick = this.handleClick.bind(this);
     this.handleEyesFreeHover = this.handleEyesFreeHover.bind(this);
     this.handleEyesFreeRelease = this.handleEyesFreeRelease.bind(this);
+    this.handleSelectEyesFreeHover = this.handleSelectEyesFreeHover.bind(this);
+    this.handleSelectEyesFreeRelease = this.handleSelectEyesFreeRelease.bind(this);
     this.handleMainAudioFinish = this.handleMainAudioFinish.bind(this);
     this.handleLocationQuery = this.handleLocationQuery.bind(this);
     this.handleLocationEntry = this.handleLocationEntry.bind(this);
     this.startRecording = this.startRecording.bind(this);
-    this.preRecordSteps = this.preRecordSteps.bind(this);
+    this.stopRecording = this.stopRecording.bind(this);
+    this.deleteRecording = this.deleteRecording.bind(this);
+    this.recordAgain = this.recordAgain.bind(this);
+    this.submitData = this.submitData.bind(this);
+    this.userDisagree = this.userDisagree.bind(this);
+    this.cameraOn = this.cameraOn.bind(this);
     this.inUseLightToggle = this.inUseLightToggle.bind(this);
     this.setAudio = this.setAudio.bind(this);
     //this.renderMainAudio = this.renderMainAudio.bind(this);
@@ -87,7 +98,7 @@ class App extends Component {
 
 
   componentWillMount() {
-    let startState = 'first-name'
+    let startState = 'location'
     this.setState({
       touchscreen: data['steps'][startState]["touchscreen"],
       teleprompter: data['steps'][startState]["teleprompter"],
@@ -107,21 +118,38 @@ class App extends Component {
   //   }))
   // }
 
-  preRecordSteps () {
-    this.transition({ type: 'record-intro-2' });
+  cameraOn () {
     axios.get('http://10.0.94.54:3000/activate-video')
     console.log('activated video');
   }
 
   startRecording () {
-    this.transition({ type: 'recording' });
     axios.put('http://10.0.94.50:3000/video/'+ this.state.sessionId);
+    this.transition({ type: 'recording' });
     console.log('start recording');
   }
 
-  stopRecording(state){
+  stopRecording(){
     axios.get('http://10.0.94.53:3000/activate-video');
     this.transition({ type: 'stop' });
+    console.log('stop recording');
+  }
+
+  recordAgain(){
+    this.deleteRecording();
+    this.transition({ type: 'record-again' });
+    console.log('record again');
+  }
+
+  userDisagree(){
+    this.deleteRecording();
+    this.transition({ type: 'disagree' });
+    console.log('disagree');
+  }
+
+  deleteRecording(){
+    axios.delete('http://10.0.94.50:3000/video/'+ this.state.sessionId);
+    console.log('delete recording');
   }
 
   inUseLightToggle(value){
@@ -166,7 +194,7 @@ class App extends Component {
         location: location.name+ ', ' + location.admin1_name + ', ' + location.country_name
       })
     }
-    this.transition({ type: 'next' })
+    this.transition({ type: 'next' });
   }
 
   //get autocomplete suggestion
@@ -202,6 +230,17 @@ class App extends Component {
         this.setState({
         sessionId: response.data
       })
+    )
+  }
+
+  submitData () {
+    console.log('submitting data');
+    const data = { name: this.state.language};
+    axios.post('http://localhost:8080/', { data })
+      .then(response => {
+        console.log(response)
+      }
+
     )
   }
 
@@ -331,6 +370,7 @@ class App extends Component {
       };
 
       case 'record-intro-2':
+      this.getSessionId();
       return {
         teleprompter: data['steps']['record-intro-2']["teleprompter"],
         touchscreen: data['steps']['record-intro-2']["touchscreen"],
@@ -339,7 +379,7 @@ class App extends Component {
       };
 
       case 'recording':
-      this.getSessionId();
+      this.startRecording();
       this.videoLightToggle('ON');
       return {
         teleprompter: {
@@ -351,6 +391,7 @@ class App extends Component {
       };
 
       case 'review':
+      this.stopRecording()
       this.videoLightToggle('OFF');
       return {
         teleprompter: data['steps']['review']["teleprompter"],
@@ -421,6 +462,7 @@ class App extends Component {
       };
 
       case 'end':
+      this.submitData();
       return {
         teleprompter: data['steps']['end']["teleprompter"],
         touchscreen: data['steps']['end']["touchscreen"],
@@ -684,7 +726,7 @@ class App extends Component {
   renderRecordAgain(state) {
     if (this.state.currentState === 'review'){
       return (
-        <ReflectingButton class="back-button" language={this.state.language} buttonData={this.state.data.buttons['retake-video']} onClicked={() => this.transition({ type: 'record-again' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
+        <ReflectingButton class="back-button" language={this.state.language} buttonData={this.state.data.buttons['retake-video']} onClicked={this.deleteRecording} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
       );
     }
     if (this.state.currentState === 'end'){
@@ -697,7 +739,7 @@ class App extends Component {
   renderDisagree(state) {
     if (this.state.currentState === 'user-agreement'){
       return (
-        <ReflectingButton class="disagree-button-small" language={this.state.language} buttonData={this.state.data.buttons['disagree']} onClicked={() => this.transition({ type: 'disagree' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
+        <ReflectingButton class="disagree-button-small" language={this.state.language} buttonData={this.state.data.buttons['disagree']} onClicked={this.userDisagree} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
       );
     }
   }
@@ -895,6 +937,13 @@ class App extends Component {
     this.setAudio(event.target.value);
   }
 
+  handleSelectEyesFreeHover(event) {
+    this.setAudio(event.target.value);
+  }
+  handleSelectEyesFreeRelease(event) {
+    this.setAudio(event.target.value);
+  }
+
   handleEyesFreeRelease(event) {
     console.log('press up');
     this.setAudio('');
@@ -965,6 +1014,7 @@ class App extends Component {
           onAnswerSelected={this.handleAnswerSelected}
           onAnswerHover={this.onEyesFreeHover}
           eyesFree={this.state.eyesFree}
+          audioFunc={this.setAudio}
         />
       );
     }
@@ -1065,7 +1115,7 @@ class App extends Component {
       return(
         <div>
         <InputSuggestion class='suggestion' content={data['steps']['first-name']['suggestion'][this.state.language]}  input={this.state.firstname}/>
-        <ReactKeyboard eyesFree={this.state.eyesFree} value={this.state.firstname} layout={data['keyboards'][this.state.language]} onChange={this.onFirstNameInputChanged} audioData={this.state.data.keyboards.keys} onHover={this.setAudio}/>
+        <ReactKeyboard eyesFree={this.state.eyesFree} value={this.state.firstname} layout={data['keyboards'][this.state.language]} onChange={this.onFirstNameInputChanged} audioData={this.state.data.keyboards.keys} audioFunc={this.setAudio}/>
         </div>
       )
     }
@@ -1078,7 +1128,7 @@ class App extends Component {
       return (
         <div>
         <InputSuggestion class='suggestion' content={data['steps']['last-name']['suggestion'][this.state.language]}  input={this.state.lastname}/>
-        <ReactKeyboard eyesFree={this.state.eyesFree} value={this.state.lastname} layout={data['keyboards'][this.state.language]} onChange={this.onLastNameInputChanged} audioData={this.state.data.keyboards.keys} onHover={this.setAudio}/>
+        <ReactKeyboard eyesFree={this.state.eyesFree} value={this.state.lastname} layout={data['keyboards'][this.state.language]} onChange={this.onLastNameInputChanged} audioData={this.state.data.keyboards.keys} audioFunc={this.setAudio}/>
       </div>
       );
     }
@@ -1092,7 +1142,7 @@ class App extends Component {
       return (
       <div>
       <InputSuggestion class='suggestion' content={data['steps']['email']['suggestion'][this.state.language]}  input={this.state.email}/>
-      <ReactKeyboard eyesFree={this.state.eyesFree} value={this.state.email} layout={data['keyboards'][this.state.language]} onChange={this.onEmailInputChanged} audioData={this.state.data.keyboards.keys} onHover={this.setAudio}/>
+      <ReactKeyboard eyesFree={this.state.eyesFree} value={this.state.email} layout={data['keyboards'][this.state.language]} onChange={this.onEmailInputChanged} audioData={this.state.data.keyboards.keys} audioFunc={this.setAudio}/>
         </div>
       );
     }
@@ -1117,7 +1167,7 @@ class App extends Component {
       return (
         <div>
         <InputSuggestion class={suggestionClass} content={locationSuggestion}  input={this.state.location}/>
-        <ReactKeyboard eyesFree={this.state.eyesFree} value={this.state.location} layout={data['keyboards'][this.state.language]} onChange={this.onLocationInputChanged} audioData={this.state.data.keyboards.keys} onHover={this.setAudio}/>
+        <ReactKeyboard eyesFree={this.state.eyesFree} value={this.state.location} layout={data['keyboards'][this.state.language]} onChange={this.onLocationInputChanged} audioData={this.state.data.keyboards.keys} audioFunc={this.setAudio}/>
       </div>
       );
     }
