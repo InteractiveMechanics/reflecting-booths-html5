@@ -49,12 +49,10 @@ import Hammer from 'react-hammerjs';
       optionClass = "answerOption active " + optionTextSize;
     }
 
-
       if (props.eyesFree) {
         return (
-
+          <Hammer onTap={false} onDoubleTap={console.log('doubletapped')} options={options}>
             <li className={optionClass} style={heightStyle}>
-
               <input
                 type="radio"
                 className="radioCustomButton"
@@ -62,15 +60,14 @@ import Hammer from 'react-hammerjs';
                 checked={props.answerContent === props.answer}
                 id={props.answerType}
                 value={props.answerContent}
-                onChange={props.onAnswerSelected}
+                //onChange={props.onAnswerSelected}
                 nextquestionid={props.nextQuestionId}
               />
               <label className="radioCustomLabel" htmlFor={props.answerContent}>
                 {content}
               </label>
-
             </li>
-
+          </Hammer>
         )
       } else {
         return (

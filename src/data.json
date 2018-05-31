@@ -736,7 +736,7 @@
 
 			},
 			"answers": [{
-					"audio": "/audio/QUESTION1-CLIP1/QUESTION1-CLIP2.mp3",
+					"audio": "/audio/QUESTION1-CLIP2/QUESTION1-CLIP2.mp3",
 					"nextQuestionId": 1,
 					"type": "I was at or near an attack site.",
 					"content": {
@@ -752,7 +752,7 @@
 					}
 				},
 				{
-					"audio": "/audio/QUESTION1-CLIP1/QUESTION1-CLIP3.mp3",
+					"audio": "/audio/QUESTION1-CLIP3/QUESTION1-CLIP3.mp3",
 					"nextQuestionId": 1,
 					"type": "I was elsewhere in the United States.",
 					"content": {
@@ -768,7 +768,7 @@
 					}
 				},
 				{
-					"audio": "/audio/QUESTION1-CLIP1/QUESTION1-CLIP4.mp3",
+					"audio": "/audio/QUESTION1-CLIP4/QUESTION1-CLIP4.mp3",
 					"nextQuestionId": 1,
 					"type": "I was elsewhere internationally.",
 					"content": {
@@ -783,7 +783,7 @@
 					}
 				},
 				{
-					"audio": "/audio/QUESTION1-CLIP1/QUESTION1-CLIP5.mp3",
+					"audio": "/audio/QUESTION1-CLIP5/QUESTION1-CLIP5.mp3",
 					"nextQuestionId": 2,
 					"type": "I was not born yet.",
 					"content": {

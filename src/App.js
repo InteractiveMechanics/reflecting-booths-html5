@@ -21,7 +21,7 @@ import Chime from './Assets/audio/chime.mp3';
 import jsonData from './data.json';
 
 
-const quizQuestions = data['questions'];
+const quizQuestions = jsonData.questions;
 
 //const quizQuestions = Array.from(jsonData.questions);
 
@@ -38,7 +38,7 @@ class App extends Component {
 
     this.state = {
       data: jsonData,
-      currentState: 'location',
+      currentState: 'questions',
       language: 'english',
       eyesFree: true,
       firstname: '',
@@ -98,7 +98,7 @@ class App extends Component {
 
 
   componentWillMount() {
-    let startState = 'location'
+    let startState = 'questions'
     this.setState({
       touchscreen: data['steps'][startState]["touchscreen"],
       teleprompter: data['steps'][startState]["teleprompter"],
@@ -919,10 +919,14 @@ class App extends Component {
     this.setUserAge(event.currentTarget.value);
   }
 
-  handleAnswerSelected(event) {
-    console.log(event.target);
-    this.setUserAnswer(event.currentTarget.value);
-    this.setNext(event.currentTarget.getAttribute('nextquestionid'));
+  handleAnswerSelected(audio) {
+    console.log("button pressed");
+    this.setState({
+      sound: audio,
+
+    });
+    //this.setUserAnswer(event.currentTarget.value);
+    //this.setNext(event.currentTarget.getAttribute('nextquestionid'));
   }
 
   setAudio(audio){
