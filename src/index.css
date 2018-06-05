@@ -373,7 +373,7 @@ top: -40px;
 
 .next-button h4{
   font-family: "ScalaSans", sans-serif;
-  font-size:52px;
+  font-size:45px;
   margin: auto;
 position: relative;
 text-align: center;
@@ -394,7 +394,7 @@ top: -80px;
 
 .delete-button h4{
   font-family: "ScalaSans", sans-serif;
-  font-size:52px;
+  font-size:45px;
   margin: auto;
 position: relative;
 text-align: center;
@@ -415,7 +415,7 @@ top: -80px;
 
 .save-button h4{
   font-family: "ScalaSans", sans-serif;
-  font-size:52px;
+  font-size:45px;
   margin: auto;
 position: relative;
 text-align: center;
@@ -436,7 +436,7 @@ top: -80px;
 
 .back-button h4{
   font-family: "ScalaSans", sans-serif;
-  font-size:52px;
+  font-size:45px;
   margin: auto;
 position: relative;
 text-align: center;
@@ -457,7 +457,7 @@ top: -80px;
 
 .record-again h4{
   font-family: "ScalaSans", sans-serif;
-  font-size:52px;
+  font-size:45px;
   margin: auto;
 position: relative;
 text-align: center;
@@ -478,7 +478,7 @@ top: -80px;
 
 .language-button h4{
   font-family: "ScalaSans", sans-serif;
-  font-size:52px;
+  font-size:45px;
   margin: auto;
 position: relative;
 text-align: center;
@@ -500,7 +500,7 @@ top: -40px;
 
 .language-button-inactive h4{
   font-family: "ScalaSans", sans-serif;
-  font-size:52px;
+  font-size:45px;
   margin: auto;
 position: relative;
 text-align: center;
@@ -521,7 +521,7 @@ top: -40px;
 
 .record-button h4{
   font-family: "ScalaSans", sans-serif;
-  font-size:52px;
+  font-size:45px;
   margin: auto;
 position: relative;
 text-align: center;
@@ -544,7 +544,7 @@ top: -80px;
 .record-stop h4{
   width: 430px;
   font-family: "ScalaSans-Bold", sans-serif;
-  font-size:52px;
+  font-size:45px;
   line-height:1.2;
   margin: auto;
   position: relative;
@@ -585,7 +585,7 @@ height: 100px;
 
 .eyes-free-on h4{
   font-family: "ScalaSans", sans-serif;
-  font-size:52px;
+  font-size:45px;
   margin: auto;
 position: relative;
 text-align: center;
@@ -606,7 +606,7 @@ top: -40px;
 
 .eyes-free-off h4{
   font-family: "ScalaSans", sans-serif;
-  font-size:52px;
+  font-size:45px;
   margin: auto;
 position: relative;
 text-align: center;
@@ -632,7 +632,7 @@ margin-right: 25px;
 
 #teleprompter h1{
   font-family: "ScalaSans", sans-serif;
-font-size: 52px;
+font-size: 45px;
 margin: auto;
 position: relative;
 text-align: center;
@@ -667,7 +667,7 @@ padding-right: 30px;
 
 .attract h1 span{
 font-family: "Gotham-Medium", sans-serif;
-font-size: 52px;
+font-size: 45px;
 padding: 40px 0px 30px 0px;
 letter-spacing: 6px;
 border-bottom: solid white 3px;
@@ -763,7 +763,7 @@ stroke: transparent;
 
 .timer h1{
   font-family: "ScalaSans-", sans-serif;
-font-size: 52px;
+font-size: 45px;
 margin: auto;
 position: relative;
 text-align: center;
@@ -866,7 +866,7 @@ h3.prompt{
 
 .home-button h4{
   font-family: "ScalaSans", sans-serif;
-  font-size:52px;
+  font-size:45px;
   margin: auto;
 position: relative;
 text-align: center;
@@ -1001,4 +1001,10 @@ li.light-line:after{
 
 div[data-state='age'] .answerOption {
   height: 200px;
+}
+
+/* focus outlining */
+textarea:focus, input:focus, button:focus{
+    outline: none;
+    border: none;
 }

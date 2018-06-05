@@ -56,6 +56,8 @@ function AnswerOption(props) {
     icon = selected;
   }
 
+  
+
   if (props.eyesFree) {
     return (
       <Hammer onTap={false} onDoubleTap={() => props.onAnswerSelected(props.content['english'], props.nextQuestionId)} onPress={() => props.onAnswerHover(props.audioFile)} onPressUp={props.onEyesFreeRelease}  options={options}>

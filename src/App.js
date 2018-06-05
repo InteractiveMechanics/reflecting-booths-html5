@@ -37,7 +37,7 @@ class App extends Component {
 
     this.state = {
       data: jsonData,
-      currentState: 'attract',
+      currentState: 'attract', //change this to skip around
       language: 'english',
       eyesFree: false,
       firstname: '',
@@ -45,11 +45,12 @@ class App extends Component {
       lastname: '',
       email: '',
       location: '',
+      geonameid: null,
       counter: 0,
       questionId: 0,
       nextQuestionId: 0,
-      question: '',
-      answerOptions: [],
+      question: quizQuestions[0].question,
+      answerOptions: quizQuestions[0].answers,
       answer: '',
       teleprompter: {},
       touchscreen: {},
@@ -67,7 +68,7 @@ class App extends Component {
       locationSuggestions: [],
       touchscreenClass: "fade fade-enter",
       teleprompterClass: "fade fade-enter",
-      remembrance: false,
+      remembrance: true,
       prevQuestionArray: []
     };
 
@@ -96,6 +97,9 @@ class App extends Component {
     this.setAudio = this.setAudio.bind(this);
     this.changeKeyboardInput = this.changeKeyboardInput.bind(this);
     //this.renderMainAudio = this.renderMainAudio.bind(this);
+
+    this.captureIP = "10.0.94.50";
+    this.interactiveIP = "10.0.94.49";
   }
 
 
@@ -104,28 +108,24 @@ class App extends Component {
     this.getSessionId();
     this.setState({
       touchscreen: data['steps'][startState]["touchscreen"],
-      teleprompter: data['steps'][startState]["teleprompter"],
-      buttonClass: "small",
-      question: quizQuestions[0].question,
-      answerOptions: quizQuestions[0].answers,
-      sound: ""
+      teleprompter: data['steps'][startState]["teleprompter"]
     });
     console.log(this.state.data.steps.welcome.audio);
   }
 
   cameraOn () {
-    axios.get('http://10.0.94.54:3000/activate-video')
+    axios.get("http://"+this.captureIP+":3000/activate-video");
     console.log('activated video');
   }
 
   startRecording () {
-    axios.put('http://10.0.94.50:3000/video/'+ this.state.sessionId);
+    axios.put("http://"+this.captureIP+":3000/video/"+ this.state.sessionId);
     this.transition({ type: 'recording' });
     console.log('start recording');
   }
 
   stopRecording(){
-    axios.get('http://10.0.94.53:3000/activate-video');
+    axios.get("http://"+this.captureIP+":3000/activate-video");
     this.transition({ type: 'stop' });
     console.log('stop recording');
   }
@@ -143,7 +143,7 @@ class App extends Component {
   }
 
   deleteRecording(){
-    axios.delete('http://10.0.94.50:3000/video/'+ this.state.sessionId);
+    axios.delete("http://"+this.captureIP+":3000/video"+ this.state.sessionId);
     console.log('delete recording');
   }
 
@@ -151,11 +151,11 @@ class App extends Component {
     switch(value){
       case 'ON':
         console.log('in-use light ON');
-        axios.get('http://10.0.94.53:3000/lights/in-use-up');
+        axios.get("http://"+this.interactiveIP+":3000/lights/in-use-up");
         break
       case 'OFF':
         console.log('in-use light OFF');
-        axios.get('http://10.0.94.53:3000/lights/in-use-down');
+        axios.get("http://"+this.interactiveIP+":3000/lights/in-use-down");
         break
       default:
       break
@@ -166,11 +166,11 @@ class App extends Component {
     switch(value){
       case 'ON':
         console.log('video light ON');
-        axios.get('http://10.0.94.53:3000/lights/up');
+        axios.get("http://"+this.interactiveIP+":3000/lights/up");
         break
       case 'OFF':
         console.log('video light OFF');
-        axios.get('http://10.0.94.53:3000/lights/down');
+        axios.get("http://"+this.interactiveIP+":3000/lights/down");
         break
       default:
       break
@@ -178,7 +178,7 @@ class App extends Component {
   }
 
   resetAllLights(){
-    axios.get('http://10.0.94.53:3000/lights/reset');
+    axios.get("http://"+this.interactiveIP+":3000/lights/reset");
   }
 
 
@@ -186,7 +186,8 @@ class App extends Component {
     let location = this.state.locationSuggestion;
     if (location){
       this.setState({
-        location: location.name+ ', ' + location.admin1_name + ', ' + location.country_name
+        location: location.name+ ', ' + location.admin1_name + ', ' + location.country_name,
+        geonameid: location.geonameid
       })
     }
     this.transition({ type: 'next' });
@@ -211,7 +212,7 @@ class App extends Component {
   getSessionId () {
     // should point to internal server address ** just for testing
     //axios.put('https://www.uuidgenerator.net/api/version1')
-    axios.get('https://www.uuidgenerator.net/api/version1')
+    axios.get("http://"+this.interactiveIP+":3000/session")
       .then(response =>
         this.setState({
         sessionId: response.data
@@ -221,8 +222,27 @@ class App extends Component {
 
   submitData () {
     console.log('submitting data');
-    const data = { name: this.state.language};
-    axios.post('http://localhost:8080/', { data })
+    let memoriam = null;
+    let remembrance = null;
+    if (this.state.remembrance){
+      memoriam = "In Memoriam",
+      remembrance = "Remembrance"
+    }
+    const data = {
+      uuid: this.state.sessionId,
+      params: {
+        firstname: this.state.firstname,
+        lastname: this.state.lastname,
+        email: this.state.email,
+        geonameid: this.state.geonameid,
+        place: this.state.location,
+        legal_selected: this.state.age,
+        legal: this.state.age,
+        uuid: this.state.sessionId,
+        exhibition: memoriam,
+        remembrance: remembrance
+      }};
+    axios.post("http://"+this.interactiveIP+":8080/", { data })
       .then(response => {
         console.log(response)
       }
@@ -261,17 +281,45 @@ class App extends Component {
   }
 
   idleReset() {
+    this.resetAll();
+  }
+
+  resetAll() {
     this.setState({
+      data: jsonData,
+      currentState: 'questions',
+      language: 'english',
+      eyesFree: false,
       firstname: '',
+      eyesfreefirstname: '',
       lastname: '',
       email: '',
       location: '',
-      age: '',
-      currentState: 'attract',
-      teleprompter: data['steps']['attract']["teleprompter"],
-      touchscreen: data['steps']['attract']["touchscreen"],
-      buttonClass: data['steps']['attract']["buttonclass"],
-      sound: ""
+      geonameid: null,
+      counter: 0,
+      questionId: 0,
+      nextQuestionId: 0,
+      question: quizQuestions[0].question,
+      answerOptions: quizQuestions[0].answers,
+      answer: '',
+      teleprompter: {},
+      touchscreen: {},
+      keyboard: {},
+      input: "",
+      buttonClass: "small",
+      age: "",
+      prompt: "",
+      username:"",
+      sessionId: "",
+      sound: "",
+      mainSound: "",
+      timeout: 180000,
+      attractFade: 0,
+      locationSuggestions: [],
+      touchscreenClass: "fade fade-enter",
+      teleprompterClass: "fade fade-enter",
+      remembrance: true,
+      prevQuestionArray: []
     })
   }
 
@@ -1135,7 +1183,7 @@ class App extends Component {
   renderInstructions(state) {
     if (state === 'record-intro-1'){
       return (
-        <Fade delay={1000} loop={false}
+        <Fade delay={1500} loop={false}
         duration={5400}
           class='prompt'
             array={data['steps']['record-intro-1']["instructions"][this.state.language]}
@@ -1232,11 +1280,12 @@ class App extends Component {
   }
 
   onFirstNameInputChanged = (data) => {
-    if (this.state.eyesFree){
-      this.setState({ eyesfreefirstname: this.state.eyesfreefirstname });
-    } else {
-      this.setState({ firstname: this.state.firstname });
-    }
+    // if (this.state.eyesFree){
+    //   this.setState({ eyesfreefirstname: this.state.eyesfreefirstname });
+    // } else {
+    //   this.setState({ firstname: this.state.firstname });
+    // }
+    this.setState({ firstname: data });
 
   }
 
@@ -1254,7 +1303,7 @@ class App extends Component {
       return(
         <div>
         <InputSuggestion class='suggestion' content={data['steps']['first-name']['suggestion'][this.state.language]}  input={this.state.firstname}/>
-        <ReactKeyboard eyesFree={this.state.eyesFree} value={value} layout={data['keyboards'][this.state.language]} onChange={this.onFirstNameInputChanged} audioData={this.state.data.keyboards.keys} audioFunc={this.setAudio} changeInputFunc={this.changeKeyboardInput}/>
+        <ReactKeyboard eyesFree={this.state.eyesFree} value={this.state.firstname} layout={data['keyboards'][this.state.language]} onChange={this.onFirstNameInputChanged} audioData={this.state.data.keyboards.keys} audioFunc={this.setAudio} changeInputFunc={this.changeKeyboardInput}/>
         </div>
       )
     }
@@ -1323,7 +1372,7 @@ class App extends Component {
       <div className="ui-app" data-state={currentState}>
 
 
-         <div id="touchscreen" className="">
+         <div id="touchscreen" className="mirrored">
          <div id="fadewrap" className={this.state.touchscreenClass}>
          {this.renderAttract(currentState)}
          {this.renderFirstNameKeyboard(keyboardInput, this.state.eyesFree)}
@@ -1351,7 +1400,7 @@ class App extends Component {
 
 
 
-        <div id="teleprompter" className="">
+        <div id="teleprompter" className="mirrored flipped">
         <div id="fadewrap" className={this.state.teleprompterClass}>
           {this.renderTeleprompter(teleprompterContent)}
           {this.renderTimer(currentState)}
