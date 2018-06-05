@@ -21,6 +21,7 @@ function Quiz(props) {
         nextQuestionId={key.nextQuestionId}
         onAnswerSelected={props.onAnswerSelected}
         onAnswerHover={props.onAnswerHover}
+        onEyesFreeRelease={props.onEyesFreeRelease}
         eyesFree={props.eyesFree}
         audioFunc={props.audioFunc}
         audioFile={key.audio}
@@ -44,6 +45,8 @@ function Quiz(props) {
     questionId: PropTypes.number.isRequired,
     questionTotal: PropTypes.number.isRequired,
     onAnswerSelected: PropTypes.func.isRequired,
+    onAnswerHover: PropTypes.func.isRequired,
+    onEyesFreeRelease: PropTypes.func.isRequired,
     eyesFree: PropTypes.bool.isRequired,
     audioFunc: PropTypes.func.isRequired
   };

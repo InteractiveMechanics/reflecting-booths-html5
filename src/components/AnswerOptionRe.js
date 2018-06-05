@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Hammer from 'react-hammerjs';
 
-import logo from '../Assets/icon-selected.png' // relative path to image
+import selected from '../Assets/icon-selected.png';
+import deselected from '../Assets/icon-deselected.png';
 
 function AnswerOption(props) {
   var options = {
@@ -49,16 +50,33 @@ function AnswerOption(props) {
   if (props.answerContent === props.answer){
     optionClass = "answerOption active " + optionTextSize;
   }
-  console.log(props.audioFile);
-        return (
-          <Hammer onTap={false} onDoubleTap={() => props.onAnswerSelected(props.audioFile)} options={options}>
-            <div>
-              <img src={logo} alt={"logo"}/>
-              {content}
-            </div>
 
-          </Hammer>
-        )
+  let icon = deselected;
+  if (props.answerContent === props.answer) {
+    icon = selected;
+  }
+
+  if (props.eyesFree) {
+    return (
+      <Hammer onTap={false} onDoubleTap={() => props.onAnswerSelected(props.content['english'], props.nextQuestionId)} onPress={() => props.onAnswerHover(props.audioFile)} onPressUp={props.onEyesFreeRelease}  options={options}>
+        <div className={optionClass} style={heightStyle}>
+          <img src={icon}/>
+          {content}
+        </div>
+
+      </Hammer>
+    )
+  } else {
+    return (
+      <Hammer onTap={() => props.onAnswerSelected(props.content['english'], props.nextQuestionId)} onDoubleTap={false} options={options}>
+        <div className={optionClass} style={heightStyle}>
+          <img src={icon}/>
+          {content}
+        </div>
+
+      </Hammer>
+    )
+  }
 }
 
 AnswerOption.propTypes = {
@@ -70,6 +88,7 @@ AnswerOption.propTypes = {
   answerContent: PropTypes.string.isRequired,
   answer: PropTypes.string.isRequired,
   onAnswerSelected: PropTypes.func.isRequired,
+  onAnswerHover: PropTypes.func.isRequired,
   content: PropTypes.object.isRequired,
   heightStyle: PropTypes.string.isRequired,
   nextQuestionId: PropTypes.oneOfType([

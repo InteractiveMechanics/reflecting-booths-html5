@@ -715,7 +715,7 @@
 			},
 			"buttonclass": "large",
 			"record-again": "questions",
-			"home": "attract",
+			"home": "welcome",
 			"audio": "/audio/SUBMIT-CLIP11/SUBMIT-CLIP11.mp3"
 		}
 	},
