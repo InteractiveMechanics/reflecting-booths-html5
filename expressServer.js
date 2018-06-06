@@ -18,7 +18,7 @@ app.post('/', function(request, respond) {
     });
 
     request.on('end', function (){
-        fs.appendFile(filePath, body, function() {
+        fs.appendFile(filePath, body + "\r\n", function() {
             respond.end();
         });
     });
