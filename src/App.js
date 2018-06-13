@@ -37,9 +37,9 @@ class App extends Component {
 
     this.state = {
       data: jsonData,
-      currentState: 'attract', //change this to skip around
+      currentState: 'record-intro-1', //change this to skip around
       language: 'english',
-      eyesFree: false,
+      eyesFree: true,
       firstname: '',
       eyesfreefirstname: '',
       lastname: '',
@@ -1185,6 +1185,7 @@ class App extends Component {
       return (
         <Fade delay={1500} loop={false}
         duration={5400}
+        endDelay={5000}
           class='prompt'
             array={data['steps']['record-intro-1']["instructions"][this.state.language]}
         />

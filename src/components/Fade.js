@@ -12,7 +12,8 @@ class Fade extends Component {
       animate: 'fade fade-exit',
       duration: props.duration,
       delay: props.delay,
-      stop: props.stop
+      stop: props.stop,
+      endDelay: props.endDelay
     };
     this.array = props.array;
     this.animate = true;
@@ -33,11 +34,30 @@ class Fade extends Component {
   }
 
   progressSlideshow(props) {
-    if (this.state.activeIndex < this.array.length-1){
-      this.setState({ activeIndex: this.state.activeIndex+1, animate: 'fade fade-enter' });
-      if(this.state.stop && (this.state.activeIndex === this.array.length-1)){
+    if (this.state.endDelay) {
+      if (this.state.activeIndex < this.array.length-1){
+        this.setState({ activeIndex: this.state.activeIndex+1, animate: 'fade fade-enter' });
+        if(this.state.activeIndex === this.array.length-2){
+          setTimeout(function (){
+            this.setState({ animate: 'fade fade-exit'})
+          }.bind(this), (this.state.duration-1000))
 
-      } else {
+          setTimeout(function () {
+            this.progressSlideshow();
+          }.bind(this), this.state.duration+this.state.endDelay);
+
+        } else {
+          setTimeout(function (){
+            this.setState({ animate: 'fade fade-exit'})
+          }.bind(this), (this.state.duration-1000))
+
+          setTimeout(function () {
+            this.progressSlideshow();
+          }.bind(this), this.state.duration);
+        }
+
+      } else if (this.state.loop === true) {
+        this.setState({ activeIndex: 0, animate: 'fade fade-enter' });
         setTimeout(function (){
           this.setState({ animate: 'fade fade-exit'})
         }.bind(this), (this.state.duration-1000))
@@ -46,17 +66,33 @@ class Fade extends Component {
           this.progressSlideshow();
         }.bind(this), this.state.duration);
       }
+    } else {
+      if (this.state.activeIndex < this.array.length-1){
+        this.setState({ activeIndex: this.state.activeIndex+1, animate: 'fade fade-enter' });
+        if(this.state.stop && (this.state.activeIndex === this.array.length-1)){
 
-    } else if (this.state.loop === true) {
-      this.setState({ activeIndex: 0, animate: 'fade fade-enter' });
-      setTimeout(function (){
-        this.setState({ animate: 'fade fade-exit'})
-      }.bind(this), (this.state.duration-1000))
+        } else {
+          setTimeout(function (){
+            this.setState({ animate: 'fade fade-exit'})
+          }.bind(this), (this.state.duration-1000))
 
-      setTimeout(function () {
-        this.progressSlideshow();
-      }.bind(this), this.state.duration);
+          setTimeout(function () {
+            this.progressSlideshow();
+          }.bind(this), this.state.duration);
+        }
+
+      } else if (this.state.loop === true) {
+        this.setState({ activeIndex: 0, animate: 'fade fade-enter' });
+        setTimeout(function (){
+          this.setState({ animate: 'fade fade-exit'})
+        }.bind(this), (this.state.duration-1000))
+
+        setTimeout(function () {
+          this.progressSlideshow();
+        }.bind(this), this.state.duration);
+      }
     }
+
   }
 
   render() {
@@ -76,7 +112,8 @@ Fade.propTypes = {
   class: PropTypes.string,
   duration: PropTypes.number.isRequired,
   delay: PropTypes.number,
-  stop: PropTypes.bool
+  stop: PropTypes.bool,
+  endDelay: PropTypes.number
 };
 
 export default Fade;

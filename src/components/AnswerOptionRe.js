@@ -56,12 +56,12 @@ function AnswerOption(props) {
     icon = selected;
   }
 
-  
+
 
   if (props.eyesFree) {
     return (
-      <Hammer onTap={false} onDoubleTap={() => props.onAnswerSelected(props.content['english'], props.nextQuestionId)} onPress={() => props.onAnswerHover(props.audioFile)} onPressUp={props.onEyesFreeRelease}  options={options}>
-        <div className={optionClass} style={heightStyle}>
+      <Hammer onTap={false} onDoubleTap={() => props.onAnswerSelected(props.content['english'], props.nextQuestionId)}   options={options}>
+        <div className={optionClass} style={heightStyle} onMouseLeave={props.onEyesFreeRelease} onMouseOver={() => props.onAnswerHover(props.audioFile)}>
           <img src={icon}/>
           {content}
         </div>
