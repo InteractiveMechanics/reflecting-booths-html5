@@ -12,10 +12,8 @@ function Quiz(props) {
       <AnswerOption
         key={key.content['english']}
         heightStyle={height}
-        answerContent={key.content['english']}
-        content={key.content}
         language={props.language}
-        answerType={key.type}
+        answerObject={key}
         answer={props.answer}
         questionId={props.questionId}
         nextQuestionId={key.nextQuestionId}
@@ -39,7 +37,7 @@ function Quiz(props) {
 }
   Quiz.propTypes = {
     language: PropTypes.string.isRequired,
-    answer: PropTypes.string.isRequired,
+    answer: PropTypes.object.isRequired,
     answerOptions: PropTypes.array.isRequired,
     question: PropTypes.object.isRequired,
     questionId: PropTypes.number.isRequired,

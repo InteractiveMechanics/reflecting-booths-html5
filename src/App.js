@@ -37,8 +37,8 @@ class App extends Component {
 
     this.state = {
       data: jsonData,
-      currentState: 'record-intro-1', //change this to skip around
-      language: 'english',
+      currentState: 'first-name', //change this to skip around
+      language: 'spanish',
       eyesFree: true,
       firstname: '',
       eyesfreefirstname: '',
@@ -51,14 +51,14 @@ class App extends Component {
       nextQuestionId: 0,
       question: quizQuestions[0].question,
       answerOptions: quizQuestions[0].answers,
-      answer: '',
+      answer: {},
       teleprompter: {},
       touchscreen: {},
       keyboard: {},
       input: "",
       buttonClass: "small",
       age: "",
-      prompt: "",
+      prompt: {},
       username:"",
       sessionId: "",
       sound: "",
@@ -68,7 +68,7 @@ class App extends Component {
       locationSuggestions: [],
       touchscreenClass: "fade fade-enter",
       teleprompterClass: "fade fade-enter",
-      remembrance: true,
+      remembrance: false,
       prevQuestionArray: []
     };
 
@@ -287,7 +287,7 @@ class App extends Component {
   resetAll() {
     this.setState({
       data: jsonData,
-      currentState: 'questions',
+      currentState: 'attract',
       language: 'english',
       eyesFree: false,
       firstname: '',
@@ -318,7 +318,7 @@ class App extends Component {
       locationSuggestions: [],
       touchscreenClass: "fade fade-enter",
       teleprompterClass: "fade fade-enter",
-      remembrance: true,
+      remembrance: false,
       prevQuestionArray: []
     })
   }
@@ -455,12 +455,16 @@ class App extends Component {
       //trackEvent('Recording', 'Recording-started', this.state.sessionId, 0)
       this.startRecording();
       this.videoLightToggle('ON');
+      let audio = this.state.data.steps['recording']["audio"];
+      if (this.state.remembrance){
+        audio = this.state.data.steps['recording'].remembranceAudio;
+      }
       return {
         teleprompter: {
         },
         touchscreen: data['steps']['recording']["touchscreen"],
-        sound: this.state.data.steps['recording']["audio"],
-        mainSound: this.state.data.steps['recording']["audio"],
+        sound: audio,
+        mainSound: audio,
         videoLight: true
 
       };
@@ -686,7 +690,7 @@ class App extends Component {
       return(
         <ReflectingButton class="next-button-small" language={this.state.language} buttonData={this.state.data.buttons['next']} onClicked={() => this.transition({ type: 'next' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree} />
       )
-    } else if (this.state.answer.length > 0){
+    } else if (this.state.answer){
         return(
           <ReflectingButton  class="next-button-small" language={this.state.language} buttonData={this.state.data.buttons['next']} onClicked={() => this.setNextQuestion()} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
         )
@@ -836,7 +840,7 @@ class App extends Component {
   renderRecordAgain(state) {
     if (this.state.currentState === 'review'){
       return (
-        <ReflectingButton class="back-button" language={this.state.language} buttonData={this.state.data.buttons['retake-video']} onClicked={this.deleteRecording} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
+        <ReflectingButton class="back-button" language={this.state.language} buttonData={this.state.data.buttons['retake-video']} onClicked={this.recordAgain} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
       );
     }
     if (this.state.currentState === 'end'){
@@ -975,28 +979,28 @@ class App extends Component {
 
 
 
-  setUserAnswer(answer) {
+  setUserAnswer(answerObj) {
     if (this.state.questionId === 3) {
-      if (answer === "Yes, let’s start recording."){
+      if (answerObj.type === "Yes, let’s start recording."){
         this.setState({
-          answer: answer,
+          answer: answerObj,
           remembrance: true
         });
       } else {
         this.setState({
-          answer: answer,
+          answer: answerObj,
           remembrance: false
         });
       }
 
     } else if (this.state.questionId === 4) {
       this.setState({
-        answer: answer,
-        prompt: answer
+        answer: answerObj,
+        prompt: answerObj
       });
     } else{
       this.setState({
-        answer: answer,
+        answer: answerObj,
       });
     }
   }
@@ -1041,9 +1045,9 @@ class App extends Component {
     //this.setNext(event.currentTarget.getAttribute('nextquestionid'));
   }
 
-  handleAnswerSelected(answer, next) {
+  handleAnswerSelected(answerObj, next) {
     console.log("answer Selected");
-    this.setUserAnswer(answer);
+    this.setUserAnswer(answerObj);
     console.log("next question:" + next)
     this.setNext(next);
     this.setAudio(Chime);
@@ -1151,7 +1155,7 @@ class App extends Component {
   renderPrompt() {
     if(this.state.prompt && (this.state.currentState === 'recording')){
       return (
-        <h3 className="prompt">{this.state.prompt}</h3>
+        <h3 className="prompt">{this.state.prompt.content[this.state.language]}</h3>
       );
     }
   }
@@ -1182,12 +1186,17 @@ class App extends Component {
 
   renderInstructions(state) {
     if (state === 'record-intro-1'){
+      //should be json data
+      let fadeArray = data['steps']['record-intro-1']["instructions"][this.state.language];
+      if (this.state.remembrance){
+        fadeArray = fadeArray.splice(-1,1);
+      }
       return (
         <Fade delay={1500} loop={false}
         duration={5400}
         endDelay={5000}
           class='prompt'
-            array={data['steps']['record-intro-1']["instructions"][this.state.language]}
+            array={fadeArray}
         />
       )
     }
@@ -1212,22 +1221,35 @@ class App extends Component {
   handleMainAudioFinish(sound) {
     this.clearAudioTimeouts();
     if (this.state.currentState !== "recording") {
-      if (this.state.questionId !== 0 && this.state.mainSound === this.state.data.steps[this.state.currentState].audio){
-        this.finishTimeout = setTimeout(function () {
-          //reference main audio for sound rendering
-          this.setState({ sound:  this.state.mainSound});
-        }.bind(this), 4000);
-      } else if (this.state.currentState === "questions" && sound === this.state.data.steps['questions'].audio && this.questionId === 0){ //play question audio after main audio for question 0
-            this.setState({
-              sound:  quizQuestions[0].question.audio,
-              mainSound: quizQuestions[0].question.audio
-            });
-      } else if (this.state.currentState === "questions" &&  this.state.mainSound  === quizQuestions[0].question.audio){
+      if(this.state.currentState === "questions"){
+        if (this.state.questionId !== 0 && this.state.mainSound === this.state.data.steps[this.state.currentState].audio){
+          this.finishTimeout = setTimeout(function () {
+            //reference main audio for sound rendering
+            this.setState({ sound:  this.state.mainSound});
+          }.bind(this), 4000);
+        } else if (sound === this.state.data.steps['questions'].audio && this.questionId === 0){ //play question audio after main audio for question 0
+              this.setState({
+                sound:  quizQuestions[0].question.audio,
+                mainSound: quizQuestions[0].question.audio
+              });
+        } else if (this.state.mainSound  === quizQuestions[0].question.audio){
+          this.finishTimeout = setTimeout(function () {
+            //reference main audio for sound rendering
+            this.setState({ sound:  this.state.mainSound});
+          }.bind(this), 4000);
+        }
+      } else {
         this.finishTimeout = setTimeout(function () {
           //reference main audio for sound rendering
           this.setState({ sound:  this.state.mainSound});
         }.bind(this), 4000);
       }
+
+    } else if (this.state.prompt && sound === this.state.mainSound) {
+      this.finishTimeout = setTimeout(function () {
+        //reference main audio for sound rendering
+        this.setState({ sound:  this.state.prompt.audio});
+      }.bind(this), 1000);
     }
 
   }
@@ -1301,10 +1323,12 @@ class App extends Component {
       if (eyesfree) {
         value = this.state.eyesfreefirstname;
       }
+      console.log(this.state.data.keyboards[this.state.language]);
       return(
+
         <div>
         <InputSuggestion class='suggestion' content={data['steps']['first-name']['suggestion'][this.state.language]}  input={this.state.firstname}/>
-        <ReactKeyboard eyesFree={this.state.eyesFree} value={this.state.firstname} layout={data['keyboards'][this.state.language]} onChange={this.onFirstNameInputChanged} audioData={this.state.data.keyboards.keys} audioFunc={this.setAudio} changeInputFunc={this.changeKeyboardInput}/>
+        <ReactKeyboard eyesFree={this.state.eyesFree} value={this.state.firstname} layout={this.state.data.keyboards[this.state.language]} onChange={this.onFirstNameInputChanged} audioData={this.state.data.keyboards.keys} audioFunc={this.setAudio}/>
         </div>
       )
     }

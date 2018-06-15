@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Keyboard from 'react-virtual-keyboard';
 import Hammer from 'hammerjs';
-import $ from 'jquery'; 
+import $ from 'jquery';
 
 
 
@@ -14,7 +14,7 @@ class ReactKeyboard extends Component {
       value: props.value,
       layout: props.layout,
       eyesFree: props.eyesFree,
-      onInputChanged: props.onChange,
+      onChange: props.onChange,
       audio: props.audioData,
       audioFunc: props.audioFunc,
       changeInput: props.changeInputFunc
@@ -35,11 +35,15 @@ class ReactKeyboard extends Component {
     };
 
 
+
     if (this.state.eyesFree) {
 
 
-      var buttons = ReactDOM.findDOMNode(this.keyboard).getElementsByTagName('button');
-      this.hammers = [];
+      //var buttons = ReactDOM.findDOMNode(this.keyboard).getElementsByTagName('button');
+      // this.hammers = [];
+      var buttons = this.keyboard;
+
+      console.log(buttons);
       for (var i = 0; i < buttons.length; i++) {
           let char = buttons[i].getAttribute('data-value');
           let audioUrl = this.state.audio[char];
@@ -89,9 +93,8 @@ class ReactKeyboard extends Component {
 
 
   render() {
-    let onChangeFunc = this.state.onInputChanged;
+    let onChangeFunc = this.state.onChange;
     if (this.state.eyesFree) {
-      onChangeFunc = (console.log('blocked input'));
     }
     return (
       <Keyboard
@@ -130,8 +133,7 @@ ReactKeyboard.propTypes = {
   eyesFree: PropTypes.bool,
   onChange: PropTypes.func.isRequired,
   audioData: PropTypes.object.isRequired,
-  audioFunc: PropTypes.func.isRequired,
-  changeInputFunc: PropTypes.func.isRequired
+  audioFunc: PropTypes.func.isRequired
 };
 
 export default ReactKeyboard;

@@ -34,46 +34,43 @@ function AnswerOption(props) {
     };
   }
 
-  let content = props.content[props.language];
+  let answerObject = props.answerObject;
   let optionTextSize = '';
   let heightStyle = {
     height:props.heightStyle+"px"
   };
 
-  if(content.length>50){
+  if(answerObject.content[props.language].length>50){
     optionTextSize = "option-size-2";
   }
 
 
 
   let optionClass = "answerOption " + optionTextSize;
-  if (props.answerContent === props.answer){
-    optionClass = "answerOption active " + optionTextSize;
-  }
-
   let icon = deselected;
-  if (props.answerContent === props.answer) {
+  console.log(answerObject);
+  console.log(props.answer);
+  if (answerObject === props.answer){
+    optionClass = "answerOption active " + optionTextSize;
     icon = selected;
   }
 
-
-
   if (props.eyesFree) {
     return (
-      <Hammer onTap={false} onDoubleTap={() => props.onAnswerSelected(props.content['english'], props.nextQuestionId)}   options={options}>
+      <Hammer onTap={false} onDoubleTap={() => props.onAnswerSelected(answerObject, props.nextQuestionId)}   options={options}>
         <div className={optionClass} style={heightStyle} onMouseLeave={props.onEyesFreeRelease} onMouseOver={() => props.onAnswerHover(props.audioFile)}>
           <img src={icon}/>
-          {content}
+          {answerObject.content[props.language]}
         </div>
 
       </Hammer>
     )
   } else {
     return (
-      <Hammer onTap={() => props.onAnswerSelected(props.content['english'], props.nextQuestionId)} onDoubleTap={false} options={options}>
+      <Hammer onTap={() => props.onAnswerSelected(answerObject, props.nextQuestionId)} onDoubleTap={false} options={options}>
         <div className={optionClass} style={heightStyle}>
           <img src={icon}/>
-          {content}
+          {answerObject.content[props.language]}
         </div>
 
       </Hammer>
@@ -86,12 +83,10 @@ AnswerOption.propTypes = {
   eyesFree: PropTypes.bool.isRequired,
   audioFunc: PropTypes.func.isRequired,
   audioFile: PropTypes.string.isRequired,
-  answerType: PropTypes.string.isRequired,
-  answerContent: PropTypes.string.isRequired,
-  answer: PropTypes.string.isRequired,
+  answerObject: PropTypes.object.isRequired,
+  answer: PropTypes.object.isRequired,
   onAnswerSelected: PropTypes.func.isRequired,
   onAnswerHover: PropTypes.func.isRequired,
-  content: PropTypes.object.isRequired,
   heightStyle: PropTypes.string.isRequired,
   nextQuestionId: PropTypes.oneOfType([
     PropTypes.string,
