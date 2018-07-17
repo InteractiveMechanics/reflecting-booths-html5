@@ -775,7 +775,11 @@ margin-top: 50px;
 margin-top: 70px;
 }
 
-.ui-keyboard-input, .suggestion{
+.eyes-free-keyboard .ui-keyboard-input{
+  visibility:hidden;
+}
+
+.ui-keyboard-input, .suggestion, .eyes-free-input{
   outline-style:none;
   box-shadow:none;
   border-color:transparent;
@@ -793,6 +797,11 @@ margin-top: 70px;
 .suggestion{
   font-family: "ScalaSans-Italic", sans-serif;
   opacity: 0.5;
+  position: absolute;
+  z-index:-2;
+}
+
+.eyes-free-input{
   position: absolute;
   z-index:-2;
 }

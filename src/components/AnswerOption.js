@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Hammer from 'react-hammerjs';
 
@@ -59,7 +59,7 @@ function AnswerOption(props) {
     return (
       <Hammer onTap={false} onDoubleTap={() => props.onAnswerSelected(answerObject, props.nextQuestionId)}   options={options}>
         <div className={optionClass} style={heightStyle} onMouseLeave={props.onEyesFreeRelease} onMouseOver={() => props.onAnswerHover(props.audioFile)}>
-          <img src={icon}/>
+          <img alt={icon} src={icon}/>
           {answerObject.content[props.language]}
         </div>
 
@@ -69,7 +69,7 @@ function AnswerOption(props) {
     return (
       <Hammer onTap={() => props.onAnswerSelected(answerObject, props.nextQuestionId)} onDoubleTap={false} options={options}>
         <div className={optionClass} style={heightStyle}>
-          <img src={icon}/>
+          <img alt={icon} src={icon}/>
           {answerObject.content[props.language]}
         </div>
 

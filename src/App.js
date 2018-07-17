@@ -4,7 +4,6 @@ import './Keyboard.css';
 import Teleprompter from './components/Teleprompter';
 import data from './data';
 import LanguageSelect from './components/LanguageSelect';
-import Keyboard from 'react-virtual-keyboard';
 import Quiz from './components/Quiz';
 import Timer from './components/Timer';
 import Progress from './components/Progress';
@@ -19,6 +18,7 @@ import Fade from './components/Fade';
 import ReactKeyboard from './components/ReactKeyboard';
 import Chime from './Assets/audio/chime-re.mp3';
 import jsonData from './data.json';
+const _paq = window._paq;
 
 const quizQuestions = jsonData.questions;
 
@@ -38,7 +38,7 @@ class App extends Component {
     this.state = {
       data: jsonData,
       currentState: 'first-name', //change this to skip around
-      language: 'spanish',
+      language: 'english',
       eyesFree: true,
       firstname: '',
       eyesfreefirstname: '',
@@ -95,7 +95,7 @@ class App extends Component {
     this.cameraOn = this.cameraOn.bind(this);
     this.inUseLightToggle = this.inUseLightToggle.bind(this);
     this.setAudio = this.setAudio.bind(this);
-    this.changeKeyboardInput = this.changeKeyboardInput.bind(this);
+    this.onEyesFreeFirstNameInputChanged = this.onEyesFreeFirstNameInputChanged.bind(this);
     //this.renderMainAudio = this.renderMainAudio.bind(this);
 
     this.captureIP = "10.0.94.50";
@@ -110,7 +110,7 @@ class App extends Component {
       touchscreen: data['steps'][startState]["touchscreen"],
       teleprompter: data['steps'][startState]["teleprompter"]
     });
-    console.log(this.state.data.steps.welcome.audio);
+    //get uuid?
   }
 
   cameraOn () {
@@ -225,8 +225,8 @@ class App extends Component {
     let memoriam = null;
     let remembrance = null;
     if (this.state.remembrance){
-      memoriam = "In Memoriam",
-      remembrance = "Remembrance"
+      memoriam = "In Memoriam";
+      remembrance = "Remembrance";
     }
     const data = {
       uuid: this.state.sessionId,
@@ -329,11 +329,11 @@ class App extends Component {
     switch (nextState) {
       case 'attract':
       if (this.state.currentState === 'end') {
-          //trackEvent('End', 'Back-to-home', this.state.sessionId, 0)
+          _paq.push(['trackEvent', 'End', 'Back-to-home', this.state.sessionId, 0]);
       }
       this.getSessionId();
       this.inUseLightToggle('OFF');
-      ////trackEvent(category, action, [name], [value])
+      //_paq.push(category, action, [name], [value])
       return {
         firstname: '',
         lastname: '',
@@ -352,10 +352,10 @@ class App extends Component {
       console.log(this.state.sessionId);
       this.inUseLightToggle('ON');
       if (this.state.currentState === 'attract'){
-        //trackEvent('Session', 'Start', this.state.sessionId, 0)
+        _paq.push(['trackEvent', 'Session', 'Start', this.state.sessionId, 0]);
       }
       if (this.state.currentState === 'about-1'){
-        //trackEvent('Session', 'Back-to-welcome', this.state.sessionId, 0)
+        _paq.push(['trackEvent', 'Session', 'Back-to-welcome', this.state.sessionId, 0]);
       }
 
 
@@ -369,7 +369,7 @@ class App extends Component {
       };
 
       case 'language':
-      //trackEvent('Language', 'Language', this.state.sessionId, 0)
+      _paq.push(['trackEvent', 'Language', 'Language', this.state.sessionId, 0])
       return {
         teleprompter: data['steps']['language']["teleprompter"],
         touchscreen: data['steps']['language']["touchscreen"],
@@ -379,7 +379,7 @@ class App extends Component {
       };
 
       case 'about-1':
-      //trackEvent('About', 'About-1', this.state.sessionId, 0)
+      _paq.push(['trackEvent', 'About', 'About-1', this.state.sessionId, 0])
       return {
         teleprompter: data['steps']['about-1']["teleprompter"],
         touchscreen: data['steps']['about-1']["touchscreen"],
@@ -389,7 +389,7 @@ class App extends Component {
       };
 
       case 'about-2':
-      //trackEvent('About', 'About-2', this.state.sessionId, 0)
+      _paq.push(['trackEvent', 'About', 'About-2', this.state.sessionId, 0])
       return {
         teleprompter: data['steps']['about-2']["teleprompter"],
         touchscreen: data['steps']['about-2']["touchscreen"],
@@ -400,11 +400,11 @@ class App extends Component {
 
       case 'questions':
       if (this.state.currentState === 'about-1'){
-        //trackEvent('About', 'Continue-to-questions', this.state.sessionId, 0)
+        _paq.push(['trackEvent', 'About', 'Continue-to-questions', this.state.sessionId, 0])
       }
       if (this.state.currentState === 'end'){
         this.getSessionId()
-        //trackEvent('End', 'Record-another', 0, 0)
+        _paq.push(['trackEvent', 'End', 'Record-another', 0, 0])
       }
       this.clearAudioTimeouts();
       return {
@@ -438,10 +438,10 @@ class App extends Component {
 
       case 'record-intro-2':
       if (this.state.currentState === 'record-intro-1'){
-        //trackEvent('Recording', 'Continue-to-Record-intro-2', this.state.sessionId, 0)
+        _paq.push(['trackEvent', 'Recording', 'Continue-to-Record-intro-2', this.state.sessionId, 0])
       }
       if (this.state.currentState === 'review'){
-        //trackEvent('Recording', 'Retake video', this.state.sessionId, 0)
+        _paq.push(['trackEvent', 'Recording', 'Retake video', this.state.sessionId, 0])
       }
       return {
         teleprompter: data['steps']['record-intro-2']["teleprompter"],
@@ -452,7 +452,7 @@ class App extends Component {
       };
 
       case 'recording':
-      //trackEvent('Recording', 'Recording-started', this.state.sessionId, 0)
+      _paq.push(['trackEvent', 'Recording', 'Recording-started', this.state.sessionId, 0])
       this.startRecording();
       this.videoLightToggle('ON');
       let audio = this.state.data.steps['recording']["audio"];
@@ -470,7 +470,7 @@ class App extends Component {
       };
 
       case 'review':
-      //trackEvent('Recording', 'Recording-complete', this.state.sessionId, 0)
+      _paq.push(['trackEvent', 'Recording', 'Recording-complete', this.state.sessionId, 0])
       this.stopRecording()
       this.videoLightToggle('OFF');
       return {
@@ -483,7 +483,7 @@ class App extends Component {
 
       case 'user-agreement':
       if (this.state.currentState === 'review'){
-        //trackEvent('Recording', 'Continue-to-submit', this.state.sessionId, 0)
+        _paq.push(['trackEvent', 'Recording', 'Continue-to-submit', this.state.sessionId, 0])
       }
       return {
         teleprompter: data['steps']['user-agreement']["teleprompter"],
@@ -494,7 +494,7 @@ class App extends Component {
       };
 
       case 'user-agreement-warning':
-        //trackEvent('Submit', 'Disagree', this.state.sessionId, 0)
+        _paq.push(['trackEvent', 'Submit', 'Disagree', this.state.sessionId, 0])
       return {
         teleprompter: data['steps']['user-agreement-warning']["teleprompter"],
         touchscreen: data['steps']['user-agreement-warning']["touchscreen"],
@@ -504,7 +504,7 @@ class App extends Component {
       };
 
       case 'first-name':
-      //trackEvent('Submit', 'agree', this.state.sessionId, 0)
+      _paq.push(['trackEvent', 'Submit', 'agree', this.state.sessionId, 0]);
       return {
         teleprompter: data['steps']['first-name']["teleprompter"],
         touchscreen: data['steps']['first-name']["touchscreen"],
@@ -515,8 +515,8 @@ class App extends Component {
       };
 
       case 'last-name':
-      //trackEvent('Submit', this.state.first-name, this.state.sessionId, 0)
-      //trackEvent('Submit', 'continue-to-last-name', this.state.sessionId, 0)
+      _paq.push(['trackEvent', 'Submit', this.state.firstname, this.state.sessionId, 0]);
+      _paq.push(['trackEvent', 'Submit', 'continue-to-last-name', this.state.sessionId, 0]);
       return {
         teleprompter: data['steps']['last-name']["teleprompter"],
         touchscreen: data['steps']['last-name']["touchscreen"],
@@ -527,8 +527,8 @@ class App extends Component {
       };
 
       case 'email':
-      //trackEvent('Submit', this.state.last-name, this.state.sessionId, 0)
-      //trackEvent('Submit', 'continue-to-email', this.state.sessionId, 0)
+      _paq.push(['trackEvent', 'Submit', this.state.lastname, this.state.sessionId, 0]);
+      _paq.push(['trackEvent', 'Submit', 'continue-to-email', this.state.sessionId, 0]);
       return {
         teleprompter: data['steps']['email']["teleprompter"],
         touchscreen: data['steps']['email']["touchscreen"],
@@ -539,8 +539,8 @@ class App extends Component {
       };
 
       case 'location':
-      //trackEvent('Submit', this.state.email, this.state.sessionId, 0)
-      //trackEvent('Submit', 'continue-to-location', this.state.sessionId, 0)
+      _paq.push(['trackEvent', 'Submit', this.state.email, this.state.sessionId, 0])
+      _paq.push(['trackEvent', 'Submit', 'continue-to-location', this.state.sessionId, 0])
 
       return {
         teleprompter: data['steps']['location']["teleprompter"],
@@ -552,8 +552,8 @@ class App extends Component {
       };
 
       case 'age':
-      //trackEvent('Submit', this.state.location, this.state.sessionId, 0)
-      //trackEvent('Submit', 'continue-to-age', this.state.sessionId, 0))
+      _paq.push(['trackEvent', 'Submit', this.state.location, this.state.sessionId, 0]);
+      _paq.push(['trackEvent', 'Submit', 'continue-to-age', this.state.sessionId, 0]);
       return {
         teleprompter: data['steps']['age']["teleprompter"],
         touchscreen: data['steps']['age']["touchscreen"],
@@ -564,7 +564,7 @@ class App extends Component {
       };
 
       case 'end':
-      //trackEvent('Submit', this.state.age, this.state.sessionId, 0)
+      _paq.push(['trackEvent', 'Submit', this.state.age, this.state.sessionId, 0])
       this.submitData();
       return {
         teleprompter: data['steps']['end']["teleprompter"],
@@ -589,7 +589,7 @@ class App extends Component {
     const target = event.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
-    //trackEvent('Session', 'Language-select', this.state.sessionId, name)
+    _paq.push(['trackEvent', 'Session', 'Language-select', this.state.sessionId, name])
     this.setState({
       [name]: value
     });
@@ -612,14 +612,14 @@ class App extends Component {
     this.fadeScreen();
     setTimeout(function(){
       if (this.state.nextQuestionId === 'record-intro-1'){
-        //trackEvent('Questions', 'Continue-to-record', this.state.sessionId, 0)
+        _paq.push(['trackEvent', 'Questions', 'Continue-to-record', this.state.sessionId, 0])
         this.setState({
           currentState: 'record-intro-1'
 
         })
       } else{
-        //trackEvent('Questions', 'Questions - '+this.state.question.english, this.state.sessionId, 0)
-        //trackEvent('Questions', this.state.answer, this.state.sessionId, 0)
+        _paq.push(['trackEvent', 'Questions', 'Questions - '+this.state.question.content.english, this.state.sessionId, 0])
+        _paq.push(['trackEvent', 'Questions', this.state.answer.content.english, this.state.sessionId, 0])
         const counter = this.state.counter + 1;
         const questionId = this.state.nextQuestionId;
         var prevArray = this.state.prevQuestionArray.slice();
@@ -676,7 +676,7 @@ class App extends Component {
 
   doNothing() {
     console.log('please choose an answer');
-    //trackEvent('Questions', 'Questions - no answer - '+this.state.question.english, this.state.sessionId, 0)
+    _paq.push(['trackEvent', 'Questions', 'Questions - no answer - '+this.state.question.english, this.state.sessionId, 0])
   }
 
   renderNextButton(state, buttonclass) {
@@ -907,14 +907,14 @@ class App extends Component {
 
   toggleEyesFree() {
     if(this.state.eyesFree === false){
-      //trackEvent('Session', 'Eyes-free mode on', this.state.sessionId, 0)
+      _paq.push(['trackEvent', 'Session', 'Eyes-free mode on', this.state.sessionId, 0])
       this.setState({
         eyesFree: true,
         language: 'english'
       });
     }else{
       this.setState({ eyesFree: false });
-      //trackEvent('Session', 'Eyes-free mode off', this.state.sessionId, 0)
+      _paq.push(['trackEvent', 'Session', 'Eyes-free mode off', this.state.sessionId, 0])
     }
 
   }
@@ -1256,7 +1256,7 @@ class App extends Component {
 
   handleMainAudioStop(sound) {
     this.clearAudioTimeouts();
-    if (this.state.currentState != "recording") {
+    if (this.state.currentState !== "recording") {
       if (this.state.sound === ""){
         this.stopTimeout = setTimeout(function () {
           //reference main audio for sound rendering
@@ -1312,23 +1312,29 @@ class App extends Component {
 
   }
 
-  changeKeyboardInput(char){
+  onEyesFreeFirstNameInputChanged(char){
     console.log("char");
     let oldString = this.state.eyesfreefirstname;
     this.setState({ eyesfreefirstname: oldString + char});
   }
+
   renderFirstNameKeyboard(keyboardInput, eyesfree) {
     if(this.state.currentState === 'first-name'){
-      let value = this.state.firstname;
+      let eyesFreeFirstNameInput = null;
+      let eyesFreeClass = null
       if (eyesfree) {
-        value = this.state.eyesfreefirstname;
+        eyesFreeClass = "eyes-free-keyboard"
+        eyesFreeFirstNameInput = <input value={this.state.eyesfreefirstname} className='eyes-free-input' type="text" disabled/>;
+
       }
+
       console.log(this.state.data.keyboards[this.state.language]);
       return(
 
-        <div>
+        <div className={eyesFreeClass}>
         <InputSuggestion class='suggestion' content={data['steps']['first-name']['suggestion'][this.state.language]}  input={this.state.firstname}/>
-        <ReactKeyboard eyesFree={this.state.eyesFree} value={this.state.firstname} layout={this.state.data.keyboards[this.state.language]} onChange={this.onFirstNameInputChanged} audioData={this.state.data.keyboards.keys} audioFunc={this.setAudio}/>
+        {eyesFreeFirstNameInput}
+        <ReactKeyboard eyesFree={this.state.eyesFree} value={this.state.firstname} layout={this.state.data.keyboards[this.state.language]} onChange={this.onFirstNameInputChanged} eyesFreeOnChange={this.onEyesFreeFirstNameInputChanged} audioData={this.state.data.keyboards.keys} audioFunc={this.setAudio}/>
         </div>
       )
     }

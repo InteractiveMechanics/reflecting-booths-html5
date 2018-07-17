@@ -1,5 +1,5 @@
 import React from 'react';
-import AnswerOption from '../components/AnswerOptionRe';
+import AnswerOption from '../components/AnswerOption';
 import PropTypes from 'prop-types';
 
 function Quiz(props) {

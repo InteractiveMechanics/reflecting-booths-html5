@@ -426,13 +426,13 @@
 			"touchscreen": {
 				"heading": {
 					"english": "Usage Agreement: Terms of Service",
-					"spanish": "Acuerdo de usuario: Condiciones de servicio",
+					"spanish": "Acuerdo de Uso: Condiciones de Servicio",
 					"japanese": "利用者による同意：利用規約",
 					"portuguese": "Contrato de utilização: condições de serviço",
-					"french": "Accord d'utilisation : conditions de service",
-					"italian": "(it) Usage Agreement: Terms of Service",
+					"french": "D'utilisation: Conditions de Service",
+					"italian": "Condizioni generali di utilizzo: Termini di servizio",
 					"mandarin": "用户协议：服务条款",
-					"german": "(dt) Usage Agreement: Terms of Service"
+					"german": "Nutzungsvereinbarung: Nutzungsbedingungen"
 				},
 				"agreement": {
 					"english": "I hereby assign my rights, title, and interest pertaining to the recorded interview and its transcript (the “content”) to the National September 11 Memorial and Museum at the World Trade Center, Inc. (“the 9/11 Memorial”) and release, discharge, and agree to hold harmless the 9/11 Memorial, its officers, directors, agents, employees, and assigns from and against any and all claims, demands, and causes of action which I, my successors or assigns, or anyone acting on my behalf might have arising from any actual or alleged violation of a right of publicity, invasion of privacy, copyright, trademark, defamation, libel, false advertising, intentional or negligent infliction of mental distress, or any other cause of action arising out of the publication, distribution, copying, modification, or exhibition, or any other use of the content as contemplated herein. Further, I hereby release the 9/11 Memorial from any claim for payment or any other compensation relating to such use of the content.",
@@ -956,6 +956,7 @@
 					"audio": "/audio/QUESTION5-CLIP2/QUESTION5-CLIP2.mp3",
 					"nextQuestionId": "record",
 					"type": "How has your life been affected by the events of 9/11?",
+					"active": true,
 					"content": {
 						"english": "How has your life been affected by the events of 9/11?",
 						"spanish": "¿Cómo se ha visto afectada su vida por los atentados del 11S?",
@@ -972,6 +973,7 @@
 					"audio": "/audio/QUESTION5-CLIP3/QUESTION5-CLIP3.mp3",
 					"nextQuestionId": "record",
 					"type": "How has 9/11 influenced your feelings about New York?",
+					"active": true,
 					"content": {
 						"english": "How has 9/11 influenced your feelings about New York?",
 						"spanish": "¿Cómo han incidido los atentados del 11S en sus sentimientos por Nueva York?",
@@ -987,6 +989,7 @@
 					"audio": "/audio/QUESTION5-CLIP4/QUESTION5-CLIP4.mp3",
 					"nextQuestionId": "record",
 					"type": "How has 9/11 been an inspiration for your own public service?",
+					"active": true,
 					"content": {
 						"english": "How has 9/11 been an inspiration for your own public service?",
 						"spanish": "¿En qué medida los atentados del 11S han inspirado su vocación de servicio público?",
@@ -1002,9 +1005,10 @@
 				{
 					"audio": "/audio/QUESTION5-CLIP5/QUESTION5-CLIP5.mp3",
 					"nextQuestionId": "record",
-					"type": "What is your experience with individuals suffering from 9/11-related illnesses?",
+					"type": "I do not need a question. I know what I would like to say.",
+					"active": true,
 					"content": {
-						"english": "What is your experience with individuals suffering from 9/11-related illnesses?",
+						"english": "I do not need a question. I know what I would like to say.",
 						"spanish": "No necesito ninguna pregunta. Tengo claro lo que quiero contar.",
 						"japanese": "質問は必要ありません。何を話したいかは決まっています。",
 						"portuguese": "Não preciso de uma pergunta. Sei o que gostaria de dizer.",
@@ -1018,6 +1022,7 @@
 					"audio": "/audio/QUESTION5ALTERNATE-CLIP1/QUESTION5ALTERNATE-CLIP1.mp3",
 					"nextQuestionId": "record",
 					"type": "How have you been affected by global terror attacks since 9/11?",
+					"active": false,
 					"content": {
 						"english": "How have you been affected by global terror attacks since 9/11?",
 						"spanish": "¿Cuál es su experiencia con personas que sufren actualmente una enfermedad provocada por los atentados del 11S?",
@@ -1033,6 +1038,7 @@
 					"audio": "/audio/QUESTION5ALTERNATE-CLIP2/QUESTION5ALTERNATE-CLIP2.mp3",
 					"nextQuestionId": "record",
 					"type": "How have you shared your 9/11 story with those born after the attacks?",
+					"active": false,
 					"content": {
 						"english": "How have you shared your 9/11 story with those born after the attacks?",
 						"spanish": "¿Cómo le han afectado los atentados terroristas sufridos en el mundo desde el 11S?",
@@ -1047,9 +1053,10 @@
 				{
 					"audio": "/audio/QUESTION5ALTERNATE-CLIP3/QUESTION5ALTERNATE-CLIP3.mp3",
 					"nextQuestionId": "record",
-					"type": "I do not need a question. I know what I would like to say.",
+					"type": "What is your experience with individuals suffering from 9/11-related illnesses?",
+					"active": false,
 					"content": {
-						"english": "I do not need a question. I know what I would like to say.",
+						"english": "What is your experience with individuals suffering from 9/11-related illnesses?",
 						"spanish": "¿Cómo ha compartido su experiencia sobre el 11S con los nacidos después de los atentados?",
 						"japanese": "9/11アメリカ同時多発テロ事件以降に生まれた人たちに、同事件についてどのように共有しましたか？",
 						"portuguese": "De que forma partilhou a sua história do 11 de setembro com aqueles que nasceram após os ataques?",
@@ -1063,6 +1070,7 @@
 					"audio": "",
 					"nextQuestionId": "record",
 					"type": "What did the return of sports after 9/11 mean to you?",
+					"active": false,
 					"content": {
 						"english": "What did the return of sports after 9/11 mean to you?",
 						"spanish": "¿Qué significado tuvo para usted la vuelta del deporte después del 11S?",
@@ -1078,6 +1086,7 @@
 					"audio": "",
 					"nextQuestionId": "record",
 					"type": "What role do sports play after a national tragedy like 9/11?",
+					"active": false,
 					"content": {
 						"english": "What role do sports play after a national tragedy like 9/11?",
 						"spanish": "¿Qué papel considera que desempeñan los deportes después de una tragedia nacional como el 11S?",
@@ -1337,40 +1346,61 @@
 			"normal": [
 				"1 2 3 4 5 6 7 8 9 0 {bksp}",
 				"q w e r t y u i o p -",
-				"a s d f g h j k l ' ~",
+				"{alt} a s d f g h j k l '",
 				"{shift} z x c v b n m , .",
 				"{space} \u0040 {enter}"
 			],
 			"shift": [
 				"1 2 3 4 5 6 7 8 9 0 {bksp}",
 				"Q W E R T Y U I O P -",
-				"A S D F G H J K L ' ~",
+				"{alt} A S D F G H J K L '",
 				"{shift} Z X C V B N M , .",
+				"{space} \u0040 {enter}"
+			],
+			"alt": [
+				"{empty} {empty} {empty} {empty} {empty} {empty} {empty} {empty} {empty} {empty} {bksp}",
+				"{empty} {empty} {empty} {empty} {empty} {empty} {empty} {empty} {empty} {empty} {empty}",
+				"{alt} á é í ñ ó ú ü {empty} {empty} {empty}",
+				"{shift} {empty} {empty} {empty} {empty} {empty} {empty} {empty} {empty} {empty}",
 				"{space} \u0040 {enter}"
 			]
 		},
 		"japanese": {
 			"normal": [
-				"\u306c:Nu \u3075:Hu \u3042:A \u3046:U \u3048:E \u304a:O \u3084:Ya \u3086:Yu \u3088:Yo \u308f:Wa {bksp}",
-				"\u305f:Ta \u3066:Te \u3044:I \u3059:Su \u304b:Ka \u3093:N \u306a:Na \u306b:Ni \u3089:Ra \u305b:Se ",
-				"\u3061:Ti \u3068:To \u3057:Si \u306f:Ha \u304D:Ki \u304f:Ku \u307e:Ma \u306e:No \u308a:Ri \u306d:Ne \u308b:Ru '",
-				"\u3064:Tu \u3055:Sa \u305d:So \u3072:Hi \u3053:Ko \u307f:Mi \u3082:Mo ",
-				"{space} - \u0040 {meta1}"
+				"1 2 3 4 5 6 7 8 9 0 {bksp}",
+				"q w e r t y u i o p -",
+				"a s d f g h j k l '",
+				"{shift} z x c v b n m , .",
+				"{space} \u0040 {enter}"
+			],
+			"shift": [
+				"1 2 3 4 5 6 7 8 9 0 {bksp}",
+				"Q W E R T Y U I O P -",
+				"A S D F G H J K L '",
+				"{shift} Z X C V B N M , .",
+				"{space} \u0040 {enter}"
 			]
 		},
 		"portuguese": {
 			"normal": [
 				"1 2 3 4 5 6 7 8 9 0 {bksp}",
 				"q w e r t y u i o p -",
-				"a s d f g h j k l ' ~",
+				"{alt} a s d f g h j k l '",
 				"{shift} z x c v b n m , .",
 				"{space} \u0040 {enter}"
 			],
 			"shift": [
 				"1 2 3 4 5 6 7 8 9 0 {bksp}",
 				"Q W E R T Y U I O P -",
-				"A S D F G H J K L ' ~",
+				"{alt} A S D F G H J K L '",
 				"{shift} Z X C V B N M , .",
+				"{space} \u0040 {enter}"
+			],
+			"alt": [
+				"{empty} {empty} {empty} {empty} {empty} {empty} {empty} {empty} {empty} {empty} {bksp}",
+				"à á ã ç é ê í ñ ó ú ü",
+				"{alt} {empty} {empty} {empty} {empty} {empty} {empty} {empty} {empty} {empty} {empty} {empty}",
+				"{shift} {empty} {empty} {empty} {empty} {empty} {empty} {empty} {empty} {empty}",
 				"{space} \u0040 {enter}"
 			]
 		},
@@ -1378,15 +1408,22 @@
 			"normal": [
 				"1 2 3 4 5 6 7 8 9 0 {bksp}",
 				"q z e r t y u i o p -",
-				"a s d f g h j k l ' ~",
+				"{alt} a s d f g h j k l '",
 				"{shift} w x c v b n m , .",
 				"{space} \u0040 {enter}"
 			],
 			"shift": [
 				"1 2 3 4 5 6 7 8 9 0 {bksp}",
 				"Q Z E R T Y U I O P -",
-				"A S D F G H J K L ' ~",
+				"{alt} A S D F G H J K L '",
 				"{shift} W X C V B N M , .",
+				"{space} \u0040 {enter}"
+			],
+			"alt": [
+				"{empty} {empty} {empty} {empty} {empty} {empty} {empty} {empty} {empty} {empty} {bksp}",
+				"à â æ ç è é ê ë î ï {empty}",
+				"{alt} ô œ ù û ü {empty} {empty} {empty} {empty} {empty}",
+				"{shift} {empty} {empty} {empty} {empty} {empty} {empty} {empty} {empty} {empty}",
 				"{space} \u0040 {enter}"
 			]
 		},
@@ -1394,40 +1431,61 @@
 			"normal": [
 				"1 2 3 4 5 6 7 8 9 0 {bksp}",
 				"q w e r t y u i o p -",
-				"a s d f g h j k l ' ~",
+				"{alt} a s d f g h j k l '",
 				"{shift} z x c v b n m , .",
 				"{space} \u0040 {enter}"
 			],
 			"shift": [
 				"1 2 3 4 5 6 7 8 9 0 {bksp}",
 				"Q W E R T Y U I O P -",
-				"A S D F G H J K L ' ~",
+				"{alt} A S D F G H J K L '",
 				"{shift} Z X C V B N M , .",
+				"{space} \u0040 {enter}"
+			],
+			"alt": [
+				"{empty} {empty} {empty} {empty} {empty} {empty} {empty} {empty} {empty} {empty} {bksp}",
+				"{empty} {empty} {empty} {empty} {empty} {empty} {empty} {empty} {empty} {empty} {empty}",
+				"{alt} à è é ì ò ù {empty} {empty} {empty} {empty}",
+				"{shift} {empty} {empty} {empty} {empty} {empty} {empty} {empty} {empty} {empty}",
 				"{space} \u0040 {enter}"
 			]
 		},
 		"mandarin": {
 			"normal": [
-				"\u3105 \u3109 \u02C7 \u02CB \u3113 \u02CA \u02D9 \u311A \u311E \u3122 {bksp}",
-				"\u3106 \u310A \u310D \u3110 \u3114 \u3117 \u3127 \u311B \u311F \u3123",
-				"\u3107 \u310B \u310E \u3111 \u3115 \u3118 \u3128 \u311C \u3120 , . '",
-				"\u3108 \u310C \u310F \u3112 \u3116 \u3119 \u3129 \u311D \u3121 \u3125",
-				"{space} - \u0040 {meta1}"
+				"1 2 3 4 5 6 7 8 9 0 {bksp}",
+				"q w e r t y u i o p -",
+				"a s d f g h j k l '",
+				"{shift} z x c v b n m , .",
+				"{space} \u0040 {enter}"
+			],
+			"shift": [
+				"1 2 3 4 5 6 7 8 9 0 {bksp}",
+				"Q W E R T Y U I O P -",
+				"A S D F G H J K L '",
+				"{shift} Z X C V B N M , .",
+				"{space} \u0040 {enter}"
 			]
 		},
 		"german": {
 			"normal": [
 				"1 2 3 4 5 6 7 8 9 0 {bksp}",
 				"q w e r t y u i o p -",
-				"a s d f g h j k l ' ~",
-				"{shift} z x c v b n m , .",
+				"a s d f g h j k l '",
+				"{alt} {shift} z x c v b n m , .",
 				"{space} \u0040 {enter}"
 			],
 			"shift": [
 				"1 2 3 4 5 6 7 8 9 0 {bksp}",
 				"Q W E R T Y U I O P -",
-				"A S D F G H J K L ' ~",
+				"{alt} A S D F G H J K L '",
 				"{shift} Z X C V B N M , .",
+				"{space} \u0040 {enter}"
+			],
+			"alt": [
+				"{empty} {empty} {empty} {empty} {empty} {empty} {empty} {empty} {empty} {empty} {bksp}",
+				"{empty} {empty} {empty} {empty} {empty} {empty} {empty} {empty} {empty} {empty} {empty}",
+				"{alt} ä é ö ü ß {empty} {empty} {empty} {empty} {empty}",
+				"{shift} {empty} {empty} {empty} {empty} {empty} {empty} {empty} {empty} {empty}",
 				"{space} \u0040 {enter}"
 			]
 		},
