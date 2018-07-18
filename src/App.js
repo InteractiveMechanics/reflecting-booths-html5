@@ -1148,9 +1148,11 @@ class App extends Component {
 
   renderPrompt() {
     if(this.state.prompt && (this.state.currentState === 'recording')){
-      return (
-        <h3 className="prompt">{this.state.prompt.content[this.state.language]}</h3>
-      );
+      if (this.state.prompt.content){
+        return (
+          <h3 className="prompt">{this.state.prompt.content[this.state.language]}</h3>
+        );
+      }
     }
   }
 

@@ -810,6 +810,7 @@ margin-top: 70px;
 }
 
 .keyboard-wrapper{
+  overflow: hidden;
   z-index:-2;
 }
 
