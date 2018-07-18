@@ -161,10 +161,6 @@ body {
 
 }
 
-.answerOption .radioCustomLabel{
-
-}
-
 .languageOption .radioCustomLabel{
   font-size: 40px;
   font-family: "ScalaSans-Bold", sans-serif;
@@ -173,7 +169,7 @@ body {
   text-transform: capitalize;
 }
 .answerOption.option-size-2{
-  font-size: 22px;
+  font-size: 26px;
 }
 
 /* Animation */
@@ -993,6 +989,10 @@ li.light-line:after{
 }
 .ui-keyboard-shift{
   width:100px;
+  text-transform: lowercase;
+  letter-spacing: 2px;
+}
+.ui-keyboard-alt{
   text-transform: lowercase;
   letter-spacing: 2px;
 }

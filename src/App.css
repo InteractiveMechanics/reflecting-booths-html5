@@ -30,3 +30,7 @@
 #fadewrap, .attract{
   height: 100%;
 }
+
+.ui-keyboard-keyset{
+  width: 100%;
+}

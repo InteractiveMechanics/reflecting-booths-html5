@@ -38,7 +38,6 @@ class ReactKeyboard extends Component {
       for (var i = 0; i < buttons.length; i++) {
           let char = buttons[i].getAttribute('data-value');
           let audioUrl = this.state.audio[char];
-          console.log(this.state.audio);
           buttons[i].onmouseover = () => this.state.audioFunc(audioUrl); //set audio to url to play
           buttons[i].onmouseleave = () => this.state.audioFunc(""); //set audio to empty string to stop
           //add double tap input
