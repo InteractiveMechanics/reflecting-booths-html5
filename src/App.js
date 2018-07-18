@@ -56,7 +56,7 @@ class App extends Component {
       input: "",
       buttonClass: "small",
       age: "",
-      prompt: {},
+      prompt: null,
       username:"",
       sessionId: "",
       sound: "",
@@ -1421,7 +1421,6 @@ class App extends Component {
 
   render() {
     const currentState = this.state.currentState;
-    const teleprompterContent = this.state.teleprompter;
     const keyboardInput = this.state.firstname;
     const buttonClass = this.state.buttonClass;
 
@@ -1460,7 +1459,7 @@ class App extends Component {
 
         <div id="teleprompter" className="">
         <div id="fadewrap" className={this.state.teleprompterClass}>
-          {this.renderTeleprompter(teleprompterContent)}
+          {this.renderTeleprompter(this.state.teleprompter)}
           {this.renderTimer(currentState)}
           {this.renderPrompt()}
           {this.renderRemembrance()}

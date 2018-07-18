@@ -87,7 +87,7 @@
 	"steps": {
 		"attract": {
 			"teleprompter": {
-				"videosrc": ""
+				"videosrc": true
 			},
 			"touchscreen": {
 				"text": [
