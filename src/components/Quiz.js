@@ -3,10 +3,22 @@ import AnswerOption from '../components/AnswerOption';
 import PropTypes from 'prop-types';
 
 function Quiz(props) {
-  function renderAnswerOptions(key) {
-    //const answerText = key.content[props.language];
+  let filteredAnswerOptions = props.answerOptions;
+  if(props.questionId === 4){
+    filteredAnswerOptions = [];
+    for (var i = 0; i < props.answerOptions.length; i++){
+      if (props.answerOptions[i].active){
+        filteredAnswerOptions.push(props.answerOptions[i]);
+      }
+    }
+    console.log(filteredAnswerOptions);
+  }
 
-    let height = (400/props.answerOptions.length).toString();
+
+
+  function renderAnswerOptions(key) {
+
+    let height = (400/filteredAnswerOptions.length).toString();
 
     return (
       <AnswerOption
@@ -30,7 +42,7 @@ function Quiz(props) {
 
     <div key={props.questionId}>
       <ul className="answerOptions">
-        {props.answerOptions.map(renderAnswerOptions)}
+        {filteredAnswerOptions.map(renderAnswerOptions)}
       </ul>
     </div>
 );

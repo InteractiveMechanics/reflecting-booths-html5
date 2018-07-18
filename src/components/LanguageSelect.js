@@ -3,21 +3,8 @@ import LanguageOption from '../components/LanguageOption';
 import PropTypes from 'prop-types';
 
 function LanguageSelect(props) {
-  // function renderLanguageOptions(key) {
-  //   console.log(key)
-  //   return (
-  //     <LanguageOption
-  //       key={key}
-  //       languageValue={key}
-  //       language={props.language}
-  //       onLanguageSelected={props.onLanguageSelected}
-  //     />
-  //   );
-  // }
-
 
   const languageOptions = props.languageOptions;
-  console.log(languageOptions);
   return (
 
     <div>

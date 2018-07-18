@@ -660,7 +660,7 @@
 				}
 			},
 			"touchscreen": {
-				"age-select": {
+				"ageselect": {
 					"yes": {
 						"english": "Yes, I am 18 or older.",
 						"spanish": "Sí, tengo 18 o más.",

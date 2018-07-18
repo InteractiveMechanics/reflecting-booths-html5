@@ -48,8 +48,6 @@ function AnswerOption(props) {
 
   let optionClass = "answerOption " + optionTextSize;
   let icon = deselected;
-  console.log(answerObject);
-  console.log(props.answer);
   if (answerObject === props.answer){
     optionClass = "answerOption active " + optionTextSize;
     icon = selected;

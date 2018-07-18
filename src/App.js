@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './App.css';
 import './Keyboard.css';
 import Teleprompter from './components/Teleprompter';
-import data from './data';
 import LanguageSelect from './components/LanguageSelect';
 import Quiz from './components/Quiz';
 import Timer from './components/Timer';
@@ -22,10 +21,6 @@ const _paq = window._paq;
 
 const quizQuestions = jsonData.questions;
 
-//const quizQuestions = Array.from(jsonData.questions);
-
-console.log(quizQuestions);
-
 
 
 
@@ -43,8 +38,11 @@ class App extends Component {
       firstname: '',
       eyesfreefirstname: '',
       lastname: '',
+      eyesfreelastname: '',
       email: '',
+      eyesfreeemail: '',
       location: '',
+      eyesfreelocation: '',
       geonameid: null,
       counter: 0,
       questionId: 0,
@@ -96,6 +94,9 @@ class App extends Component {
     this.inUseLightToggle = this.inUseLightToggle.bind(this);
     this.setAudio = this.setAudio.bind(this);
     this.onEyesFreeFirstNameInputChanged = this.onEyesFreeFirstNameInputChanged.bind(this);
+    this.onEyesFreeLastNameInputChanged = this.onEyesFreeLastNameInputChanged.bind(this);
+    this.onEyesFreeEmailInputChanged = this.onEyesFreeEmailInputChanged.bind(this);
+    this.onEyesFreeLocationInputChanged = this.onEyesFreeLocationInputChanged.bind(this);
     //this.renderMainAudio = this.renderMainAudio.bind(this);
 
     this.captureIP = "10.0.94.50";
@@ -107,8 +108,8 @@ class App extends Component {
     let startState = this.state.currentState;
     this.getSessionId();
     this.setState({
-      touchscreen: data['steps'][startState]["touchscreen"],
-      teleprompter: data['steps'][startState]["teleprompter"]
+      touchscreen: jsonData.steps[startState].touchscreen,
+      teleprompter: jsonData.steps[startState].teleprompter
     });
     //get uuid?
   }
@@ -267,7 +268,7 @@ class App extends Component {
     this.fadeScreen();
     setTimeout(function(){
       const currentGalleryState = this.state.currentState;
-      const nextGalleryState = data['steps'][currentGalleryState][action.type];
+      const nextGalleryState = jsonData.steps[currentGalleryState][action.type];
       if (nextGalleryState) {
         const nextState = this.command(nextGalleryState, action);
 
@@ -280,11 +281,8 @@ class App extends Component {
     console.log('transition triggered');
   }
 
-  idleReset() {
-    this.resetAll();
-  }
 
-  resetAll() {
+  idleReset() {
     this.setState({
       data: jsonData,
       currentState: 'attract',
@@ -302,13 +300,13 @@ class App extends Component {
       question: quizQuestions[0].question,
       answerOptions: quizQuestions[0].answers,
       answer: '',
-      teleprompter: {},
-      touchscreen: {},
+      teleprompter: jsonData.steps.attract.teleprompter,
+      touchscreen: jsonData.steps.attract.touchscreen,
       keyboard: {},
       input: "",
       buttonClass: "small",
       age: "",
-      prompt: "",
+      prompt: {},
       username:"",
       sessionId: "",
       sound: "",
@@ -340,15 +338,15 @@ class App extends Component {
         email: '',
         location: '',
         age: '',
-        teleprompter: data['steps']['attract']["teleprompter"],
-        touchscreen: data['steps']['attract']["touchscreen"],
-        buttonClass: data['steps']['attract']["buttonclass"],
+        teleprompter: jsonData.steps.attract.teleprompter,
+        touchscreen: jsonData.steps.attract.touchscreen,
+        buttonClass: jsonData.steps.attract.buttonclass,
         sound: "",
         inUseLight: false
       };
 
       case 'welcome':
-
+      // testing uuid generation
       console.log(this.state.sessionId);
       this.inUseLightToggle('ON');
       if (this.state.currentState === 'attract'){
@@ -360,20 +358,20 @@ class App extends Component {
 
 
       return {
-        teleprompter: data['steps']['welcome']["teleprompter"],
-        touchscreen: data['steps']['welcome']["touchscreen"],
-        buttonClass: data['steps']['welcome']["buttonclass"],
-        sound: this.state.data.steps.welcome.audio,
-        mainSound: this.state.data.steps.welcome.audio,
+        teleprompter: jsonData.steps.welcome.teleprompter,
+        touchscreen: jsonData.steps.welcome.touchscreen,
+        buttonClass: jsonData.steps.welcome.buttonclass,
+        sound: jsonData.steps.welcome.audio,
+        mainSound: jsonData.steps.welcome.audio,
         inUseLight: true
       };
 
       case 'language':
       _paq.push(['trackEvent', 'Language', 'Language', this.state.sessionId, 0])
       return {
-        teleprompter: data['steps']['language']["teleprompter"],
-        touchscreen: data['steps']['language']["touchscreen"],
-        buttonClass: data['steps']['language']["buttonclass"],
+        teleprompter: jsonData.steps['language']["teleprompter"],
+        touchscreen: jsonData.steps['language']["touchscreen"],
+        buttonClass: jsonData.steps['language']["buttonclass"],
         sound: this.state.data.steps['language']["audio"],
         mainSound: this.state.data.steps['language']["audio"]
       };
@@ -381,9 +379,9 @@ class App extends Component {
       case 'about-1':
       _paq.push(['trackEvent', 'About', 'About-1', this.state.sessionId, 0])
       return {
-        teleprompter: data['steps']['about-1']["teleprompter"],
-        touchscreen: data['steps']['about-1']["touchscreen"],
-        buttonClass: data['steps']['about-1']["buttonclass"],
+        teleprompter: jsonData.steps['about-1']["teleprompter"],
+        touchscreen: jsonData.steps['about-1']["touchscreen"],
+        buttonClass: jsonData.steps['about-1']["buttonclass"],
         sound: this.state.data.steps['about-1']["audio"],
         mainSound: this.state.data.steps['about-1']["audio"]
       };
@@ -391,9 +389,9 @@ class App extends Component {
       case 'about-2':
       _paq.push(['trackEvent', 'About', 'About-2', this.state.sessionId, 0])
       return {
-        teleprompter: data['steps']['about-2']["teleprompter"],
-        touchscreen: data['steps']['about-2']["touchscreen"],
-        buttonClass: data['steps']['about-2']["buttonclass"],
+        teleprompter: jsonData.steps['about-2']["teleprompter"],
+        touchscreen: jsonData.steps['about-2']["touchscreen"],
+        buttonClass: jsonData.steps['about-2']["buttonclass"],
         sound: this.state.data.steps['about-2']["audio"],
         mainSound: this.state.data.steps['about-2']["audio"]
       };
@@ -411,11 +409,11 @@ class App extends Component {
         teleprompter: {
           heading: quizQuestions[0].question.content,
         },
-        touchscreen: data['steps']['questions']["touchscreen"],
-        buttonClass: data['steps']['questions']["buttonclass"],
+        touchscreen: jsonData.steps['questions']["touchscreen"],
+        buttonClass: jsonData.steps['questions']["buttonclass"],
         question: quizQuestions[0].question,
         answer: '',
-        prompt: '',
+        prompt: {},
         answerOptions: quizQuestions[0].answers,
         sound: this.state.data.steps['questions']["audio"],
         mainSound:  quizQuestions[0].question.audio,
@@ -428,9 +426,9 @@ class App extends Component {
       case 'record-intro-1':
 
       return {
-        teleprompter: data['steps']['record-intro-1']["teleprompter"],
-        touchscreen: data['steps']['record-intro-1']["touchscreen"],
-        buttonClass: data['steps']['record-intro-1']["buttonclass"],
+        teleprompter: jsonData.steps['record-intro-1']["teleprompter"],
+        touchscreen: jsonData.steps['record-intro-1']["touchscreen"],
+        buttonClass: jsonData.steps['record-intro-1']["buttonclass"],
         answer: '',
         sound: this.state.data.steps['record-intro-1']["audio"],
         mainSound: this.state.data.steps['record-intro-1']["audio"]
@@ -444,9 +442,9 @@ class App extends Component {
         _paq.push(['trackEvent', 'Recording', 'Retake video', this.state.sessionId, 0])
       }
       return {
-        teleprompter: data['steps']['record-intro-2']["teleprompter"],
-        touchscreen: data['steps']['record-intro-2']["touchscreen"],
-        buttonClass: data['steps']['record-intro-2']["buttonclass"],
+        teleprompter: jsonData.steps['record-intro-2']["teleprompter"],
+        touchscreen: jsonData.steps['record-intro-2']["touchscreen"],
+        buttonClass: jsonData.steps['record-intro-2']["buttonclass"],
         sound: this.state.data.steps['record-intro-2']["audio"],
         mainSound: this.state.data.steps['record-intro-1']["audio"]
       };
@@ -462,7 +460,7 @@ class App extends Component {
       return {
         teleprompter: {
         },
-        touchscreen: data['steps']['recording']["touchscreen"],
+        touchscreen: jsonData.steps['recording']["touchscreen"],
         sound: audio,
         mainSound: audio,
         videoLight: true
@@ -474,9 +472,9 @@ class App extends Component {
       this.stopRecording()
       this.videoLightToggle('OFF');
       return {
-        teleprompter: data['steps']['review']["teleprompter"],
-        touchscreen: data['steps']['review']["touchscreen"],
-        buttonClass: data['steps']['review']["buttonclass"],
+        teleprompter: jsonData.steps['review']["teleprompter"],
+        touchscreen: jsonData.steps['review']["touchscreen"],
+        buttonClass: jsonData.steps['review']["buttonclass"],
         sound: this.state.data.steps['review']["audio"],
         mainSound: this.state.data.steps['review']["audio"]
       };
@@ -486,9 +484,9 @@ class App extends Component {
         _paq.push(['trackEvent', 'Recording', 'Continue-to-submit', this.state.sessionId, 0])
       }
       return {
-        teleprompter: data['steps']['user-agreement']["teleprompter"],
-        touchscreen: data['steps']['user-agreement']["touchscreen"],
-        buttonClass: data['steps']['user-agreement']["buttonclass"],
+        teleprompter: jsonData.steps['user-agreement']["teleprompter"],
+        touchscreen: jsonData.steps['user-agreement']["touchscreen"],
+        buttonClass: jsonData.steps['user-agreement']["buttonclass"],
         sound: this.state.data.steps['user-agreement']["audio"],
         mainSound: this.state.data.steps['user-agreement']["audio"]
       };
@@ -496,9 +494,9 @@ class App extends Component {
       case 'user-agreement-warning':
         _paq.push(['trackEvent', 'Submit', 'Disagree', this.state.sessionId, 0])
       return {
-        teleprompter: data['steps']['user-agreement-warning']["teleprompter"],
-        touchscreen: data['steps']['user-agreement-warning']["touchscreen"],
-        buttonClass: data['steps']['user-agreement-warning']["buttonclass"],
+        teleprompter: jsonData.steps['user-agreement-warning']["teleprompter"],
+        touchscreen: jsonData.steps['user-agreement-warning']["touchscreen"],
+        buttonClass: jsonData.steps['user-agreement-warning']["buttonclass"],
         sound: this.state.data.steps['user-agreement-warning']["audio"],
         mainSound: this.state.data.steps['user-agreement-warning']["audio"]
       };
@@ -506,10 +504,10 @@ class App extends Component {
       case 'first-name':
       _paq.push(['trackEvent', 'Submit', 'agree', this.state.sessionId, 0]);
       return {
-        teleprompter: data['steps']['first-name']["teleprompter"],
-        touchscreen: data['steps']['first-name']["touchscreen"],
-        keyboard: data['steps']['first-name']["keyboard"],
-        buttonClass: data['steps']['first-name']["buttonclass"],
+        teleprompter: jsonData.steps['first-name']["teleprompter"],
+        touchscreen: jsonData.steps['first-name']["touchscreen"],
+        keyboard: jsonData.steps['first-name']["keyboard"],
+        buttonClass: jsonData.steps['first-name']["buttonclass"],
         sound: this.state.data.steps['first-name']["audio"],
         mainSound: this.state.data.steps['first-name']["audio"]
       };
@@ -518,10 +516,10 @@ class App extends Component {
       _paq.push(['trackEvent', 'Submit', this.state.firstname, this.state.sessionId, 0]);
       _paq.push(['trackEvent', 'Submit', 'continue-to-last-name', this.state.sessionId, 0]);
       return {
-        teleprompter: data['steps']['last-name']["teleprompter"],
-        touchscreen: data['steps']['last-name']["touchscreen"],
-        keyboard: data['steps']['last-name']["keyboard"],
-        buttonClass: data['steps']['last-name']["buttonclass"],
+        teleprompter: jsonData.steps['last-name']["teleprompter"],
+        touchscreen: jsonData.steps['last-name']["touchscreen"],
+        keyboard: jsonData.steps['last-name']["keyboard"],
+        buttonClass: jsonData.steps['last-name']["buttonclass"],
         sound: this.state.data.steps['last-name']["audio"],
         mainSound: this.state.data.steps['last-name']["audio"]
       };
@@ -530,10 +528,10 @@ class App extends Component {
       _paq.push(['trackEvent', 'Submit', this.state.lastname, this.state.sessionId, 0]);
       _paq.push(['trackEvent', 'Submit', 'continue-to-email', this.state.sessionId, 0]);
       return {
-        teleprompter: data['steps']['email']["teleprompter"],
-        touchscreen: data['steps']['email']["touchscreen"],
-        keyboard: data['steps']['email']["keyboard"],
-        buttonClass: data['steps']['email']["buttonclass"],
+        teleprompter: jsonData.steps['email']["teleprompter"],
+        touchscreen: jsonData.steps['email']["touchscreen"],
+        keyboard: jsonData.steps['email']["keyboard"],
+        buttonClass: jsonData.steps['email']["buttonclass"],
         sound: this.state.data.steps['email']["audio"],
         mainSound: this.state.data.steps['email']["audio"]
       };
@@ -543,10 +541,10 @@ class App extends Component {
       _paq.push(['trackEvent', 'Submit', 'continue-to-location', this.state.sessionId, 0])
 
       return {
-        teleprompter: data['steps']['location']["teleprompter"],
-        touchscreen: data['steps']['location']["touchscreen"],
-        keyboard: data['steps']['location']["keyboard"],
-        buttonClass: data['steps']['location']["buttonclass"],
+        teleprompter: jsonData.steps['location']["teleprompter"],
+        touchscreen: jsonData.steps['location']["touchscreen"],
+        keyboard: jsonData.steps['location']["keyboard"],
+        buttonClass: jsonData.steps['location']["buttonclass"],
         sound: this.state.data.steps['location']["audio"],
         mainSound: this.state.data.steps['location']["audio"]
       };
@@ -555,10 +553,10 @@ class App extends Component {
       _paq.push(['trackEvent', 'Submit', this.state.location, this.state.sessionId, 0]);
       _paq.push(['trackEvent', 'Submit', 'continue-to-age', this.state.sessionId, 0]);
       return {
-        teleprompter: data['steps']['age']["teleprompter"],
-        touchscreen: data['steps']['age']["touchscreen"],
-        keyboard: data['steps']['age']["keyboard"],
-        buttonClass: data['steps']['age']["buttonclass"],
+        teleprompter: jsonData.steps['age']["teleprompter"],
+        touchscreen: jsonData.steps['age']["touchscreen"],
+        keyboard: jsonData.steps['age']["keyboard"],
+        buttonClass: jsonData.steps['age']["buttonclass"],
         sound: this.state.data.steps['age']["audio"],
         mainSound: this.state.data.steps['age']["audio"]
       };
@@ -567,9 +565,9 @@ class App extends Component {
       _paq.push(['trackEvent', 'Submit', this.state.age, this.state.sessionId, 0])
       this.submitData();
       return {
-        teleprompter: data['steps']['end']["teleprompter"],
-        touchscreen: data['steps']['end']["touchscreen"],
-        buttonClass: data['steps']['end']["buttonclass"],
+        teleprompter: jsonData.steps['end']["teleprompter"],
+        touchscreen: jsonData.steps['end']["touchscreen"],
+        buttonClass: jsonData.steps['end']["buttonclass"],
         sound: this.state.data.steps['end']["audio"],
         mainSound: this.state.data.steps['end']["audio"]
       };
@@ -597,7 +595,7 @@ class App extends Component {
 
   renderLanguageSelect(state) {
     if(state === "language"){
-      var languages = data['languages'];
+      var languages = jsonData.languages;
       console.log(languages);
       return (
         <LanguageSelect
@@ -669,9 +667,9 @@ class App extends Component {
 
   }
 
-  emailValidation() {
+  emailValidation(email) {
     var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(String(this.state.email).toLowerCase());
+    return re.test(String(email).toLowerCase());
   }
 
   doNothing() {
@@ -722,11 +720,11 @@ class App extends Component {
 
     //dirty
     if (state === 'first-name'){
-      if (this.state.firstname.length > 0){
+      if ((this.state.firstname.length > 0 && !this.state.eyesFree) || (this.state.eyesfreefirstname.length > 0 && this.state.eyesFree)){
         return(
           <ReflectingButton class="next-button-small" language={this.state.language} buttonData={this.state.data.buttons['next']} onClicked={() => this.transition({ type: 'next' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
         )
-      }else {
+      } else {
         return(
           <ReflectingButton class="next-button-small-inactive" language={this.state.language} buttonData={this.state.data.buttons['next']} onClicked={this.doNothing()} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
         )
@@ -744,7 +742,7 @@ class App extends Component {
       }
     }
     if (state === 'email'){
-      if (this.emailValidation()){
+      if ( (!this.state.eyesFree && this.emailValidation(this.state.email)) || (this.state.eyesFree && this.emailValidation(this.state.eyesfreeemail)) ){
         return(
           <ReflectingButton class="next-button-small" language={this.state.language} buttonData={this.state.data.buttons['next']} onClicked={() => this.transition({ type: 'next' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
         )
@@ -765,7 +763,7 @@ class App extends Component {
           <ReflectingButton class="next-button-small-inactive" language={this.state.language} buttonData={this.state.data.buttons['next']} onClicked={this.doNothing()} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
         )
       }
-    } else if (data['steps'][this.state.currentState]["next"]){
+    } else if (jsonData.steps[this.state.currentState].next){
 
       var btnClass;
       if(buttonclass === "small"){
@@ -782,7 +780,7 @@ class App extends Component {
   }
 
   renderBackButton(state, buttonclass) {
-    if (data['steps'][this.state.currentState]["back"]){
+    if (jsonData.steps[this.state.currentState].back){
       var btnClass;
     if(buttonclass === "small"){
       btnClass = "back-button-small";
@@ -971,7 +969,7 @@ class App extends Component {
         <h1> <span>RECORDING BOOTH</span> </h1>
         <Fade loop={true}
           duration={4000}
-          array={data['steps']['attract']['touchscreen']['text']} />
+          array={jsonData.steps.attract.touchscreen.text} />
         </div>
       );
     }
@@ -1046,15 +1044,12 @@ class App extends Component {
   }
 
   handleAnswerSelected(answerObj, next) {
-    console.log("answer Selected");
     this.setUserAnswer(answerObj);
-    console.log("next question:" + next)
     this.setNext(next);
     this.setAudio(Chime);
   }
 
   setAudio(audio){
-    console.log(audio);
     this.clearAudioTimeouts();
     this.setState({
       sound: audio,
@@ -1076,7 +1071,6 @@ class App extends Component {
   }
 
   handleEyesFreeRelease(event) {
-    console.log('press up');
     this.setAudio('');
   }
 
@@ -1096,7 +1090,7 @@ class App extends Component {
             onChange={this.handleAgeSelected}
           />
           <label className="radioCustomLabel" htmlFor="yes">
-            {data['steps']['age']['touchscreen']['age-select']['yes'][this.state.language]}
+            {jsonData.steps.age.touchscreen.ageselect.yes[this.state.language]}
           </label>
         </li>
         <li className="answerOption">
@@ -1111,7 +1105,7 @@ class App extends Component {
             onChange={this.handleAgeSelected}
           />
           <label className="radioCustomLabel" htmlFor="no">
-            {data['steps']['age']['touchscreen']['age-select']['no'][this.state.language]}
+            {jsonData.steps.age.touchscreen.ageselect.no[this.state.language]}
           </label>
         </li>
         </ul>
@@ -1127,7 +1121,7 @@ class App extends Component {
   renderTimer(state) {
     if(state === "recording"){
       return (
-        <Timer language={this.state.language} content={data['steps']['recording']["timer"]} seconds={10} stopRecording={this.stopRecording}/>
+        <Timer language={this.state.language} content={jsonData.steps.recording.timer} seconds={10} stopRecording={this.stopRecording}/>
       );
     }
   }
@@ -1166,7 +1160,7 @@ class App extends Component {
         <Fade delay={10000} loop={false}
         duration={5400} stop={true}
           class='prompt'
-            array={data['steps']['recording']["remembranceText"][this.state.language]}
+            array={jsonData.steps.recording.remembranceText[this.state.language]}
         />
       );
     }
@@ -1178,23 +1172,27 @@ class App extends Component {
 
     }else{
       return (
-        <Progress content={data['progress']} language={this.state.language} currentState={this.state.currentState}/>
+        <Progress content={jsonData.progress} language={this.state.language} currentState={this.state.currentState}/>
       );
     }
 
   }
 
-  renderInstructions(state) {
-    if (state === 'record-intro-1'){
+  renderInstructions() {
+    if (this.state.currentState === 'record-intro-1'){
       //should be json data
-      let fadeArray = data['steps']['record-intro-1']["instructions"][this.state.language];
-      if (this.state.remembrance){
-        fadeArray = fadeArray.splice(-1,1);
+      let fadeArray = jsonData.steps['record-intro-1']["instructions"][this.state.language];
+      let endDelay = 5000;
+      console.log(fadeArray);
+      if (!this.state.remembrance){
+        let remembrance = fadeArray.pop();
+        endDelay = 0;
+        console.log(fadeArray);
       }
       return (
         <Fade delay={1500} loop={false}
         duration={5400}
-        endDelay={5000}
+        endDelay={endDelay}
           class='prompt'
             array={fadeArray}
         />
@@ -1263,19 +1261,6 @@ class App extends Component {
           this.setState({ sound:  this.state.mainSound});
         }.bind(this), 4000);
       }
-      //needed?
-      // else if (this.state.currentState === "questions" &&  sound === this.state.data.steps['questions'].audio &&  this.questionId === 0){ //play question audio after main audio for question 0
-      //         this.setState({
-      //           sound:  quizQuestions[0].question.audio,
-      //           mainSound: quizQuestions[0].question.audio
-      //         });
-      // }
-      // else if (this.state.currentState === "questions" &&  this.state.mainSound  === quizQuestions[0].question.audio){
-      //   this.stopTimeout = setTimeout(function () {
-      //     //reference main audio for sound rendering
-      //     this.setState({ sound:  this.state.mainSound});
-      //   }.bind(this), 4000);
-      // }
     }
   }
 
@@ -1303,17 +1288,10 @@ class App extends Component {
   }
 
   onFirstNameInputChanged = (data) => {
-    // if (this.state.eyesFree){
-    //   this.setState({ eyesfreefirstname: this.state.eyesfreefirstname });
-    // } else {
-    //   this.setState({ firstname: this.state.firstname });
-    // }
     this.setState({ firstname: data });
-
   }
 
   onEyesFreeFirstNameInputChanged(char){
-    console.log("char");
     let oldString = this.state.eyesfreefirstname;
     this.setState({ eyesfreefirstname: oldString + char});
   }
@@ -1327,70 +1305,119 @@ class App extends Component {
         eyesFreeFirstNameInput = <input value={this.state.eyesfreefirstname} className='eyes-free-input' type="text" disabled/>;
 
       }
-
-      console.log(this.state.data.keyboards[this.state.language]);
       return(
 
         <div className={eyesFreeClass}>
-        <InputSuggestion class='suggestion' content={data['steps']['first-name']['suggestion'][this.state.language]}  input={this.state.firstname}/>
+        <InputSuggestion class='suggestion' content={jsonData.steps['first-name'].suggestion[this.state.language]}  input={this.state.firstname}/>
         {eyesFreeFirstNameInput}
         <ReactKeyboard eyesFree={this.state.eyesFree} value={this.state.firstname} layout={this.state.data.keyboards[this.state.language]} onChange={this.onFirstNameInputChanged} eyesFreeOnChange={this.onEyesFreeFirstNameInputChanged} audioData={this.state.data.keyboards.keys} audioFunc={this.setAudio}/>
         </div>
       )
     }
   }
+
   onLastNameInputChanged = (data) => {
-  this.setState({ lastname: data });
+    this.setState({ lastname: data });
   }
-  renderLastNameKeyboard(keyboardInput) {
+
+  onEyesFreeLastNameInputChanged(char){
+    let oldString = this.state.eyesfreelastname;
+    this.setState({ eyesfreelastname: oldString + char});
+  }
+
+  renderLastNameKeyboard(keyboardInput, eyesfree) {
     if(this.state.currentState === 'last-name'){
-      return (
-        <div>
-        <InputSuggestion class='suggestion' content={data['steps']['last-name']['suggestion'][this.state.language]}  input={this.state.lastname}/>
-        <ReactKeyboard eyesFree={this.state.eyesFree} value={this.state.lastname} layout={data['keyboards'][this.state.language]} onChange={this.onLastNameInputChanged} audioData={this.state.data.keyboards.keys} audioFunc={this.setAudio}/>
-      </div>
-      );
+      let eyesFreeLastNameInput = null;
+      let eyesFreeClass = null
+      if (eyesfree) {
+        eyesFreeClass = "eyes-free-keyboard"
+        eyesFreeLastNameInput = <input value={this.state.eyesfreelastname} className='eyes-free-input' type="text" disabled/>;
+
+      }
+      return(
+
+        <div className={eyesFreeClass}>
+        <InputSuggestion class='suggestion' content={jsonData.steps['last-name'].suggestion[this.state.language]}  input={this.state.lastname}/>
+        {eyesFreeLastNameInput}
+        <ReactKeyboard eyesFree={this.state.eyesFree} value={this.state.lastname} layout={this.state.data.keyboards[this.state.language]} onChange={this.onLastNameInputChanged} eyesFreeOnChange={this.onEyesFreeLastNameInputChanged} audioData={this.state.data.keyboards.keys} audioFunc={this.setAudio}/>
+        </div>
+      )
     }
   }
+
   //email
   onEmailInputChanged = (data) => {
-  this.setState({ email: data });
+    this.setState({ email: data });
   }
-  renderEmailKeyboard(keyboardInput) {
+
+  onEyesFreeEmailInputChanged(char){
+    let oldString = this.state.eyesfreeemail;
+    this.setState({ eyesfreeemail: oldString + char});
+  }
+
+  renderEmailKeyboard(keyboardInput, eyesfree) {
     if(this.state.currentState === 'email'){
-      return (
-      <div>
-      <InputSuggestion class='suggestion' content={data['steps']['email']['suggestion'][this.state.language]}  input={this.state.email}/>
-      <ReactKeyboard eyesFree={this.state.eyesFree} value={this.state.email} layout={data['keyboards'][this.state.language]} onChange={this.onEmailInputChanged} audioData={this.state.data.keyboards.keys} audioFunc={this.setAudio}/>
+      let eyesFreeEmailInput = null;
+      let eyesFreeClass = null
+      if (eyesfree) {
+        eyesFreeClass = "eyes-free-keyboard"
+        eyesFreeEmailInput = <input value={this.state.eyesfreeemail} className='eyes-free-input' type="text" disabled/>;
+
+      }
+      return(
+
+        <div className={eyesFreeClass}>
+        <InputSuggestion class='suggestion' content={jsonData.steps['email'].suggestion[this.state.language]}  input={this.state.lastname}/>
+        {eyesFreeEmailInput}
+        <ReactKeyboard eyesFree={this.state.eyesFree} value={this.state.email} layout={this.state.data.keyboards[this.state.language]} onChange={this.onEmailInputChanged} eyesFreeOnChange={this.onEyesFreeEmailInputChanged} audioData={this.state.data.keyboards.keys} audioFunc={this.setAudio}/>
         </div>
-      );
+      )
     }
   }
+
   //location
   onLocationInputChanged = (data) => {
     this.handleLocationQuery(data);
-  //this.setState({ location: data });
   }
-  renderLocationKeyboard(keyboardInput) {
+
+  onEyesFreeLocationInputChanged(char){
+    let oldString = this.state.eyesfreelocation;
+    this.handleLocationQuery(oldString + char);
+    this.setState({ eyesfreelocation: oldString + char});
+  }
+
+  renderLocationKeyboard(keyboardInput, eyesfree) {
     let location = this.state.locationSuggestion;
     let suggestionClass = 'suggestion';
     if(this.state.currentState === 'location'){
-      let locationSuggestion = data['steps']['location']['suggestion'][this.state.language];
+      //
+      let locationSuggestion = jsonData.steps['location']['suggestion'][this.state.language];
       if ( location ) {
         suggestionClass = 'suggestion suggestion-normal';
         locationSuggestion = location.name+ ', ' + location.admin1_name + ', ' + location.country_name;
       } else {
         suggestionClass = 'suggestion';
-        locationSuggestion = data['steps']['location']['suggestion'][this.state.language];
+        locationSuggestion = jsonData.steps['location']['suggestion'][this.state.language];
       }
-      return (
-        <div>
-        <InputSuggestion class={suggestionClass} content={locationSuggestion}  input={this.state.location}/>
-        <ReactKeyboard eyesFree={this.state.eyesFree} value={this.state.location} layout={data['keyboards'][this.state.language]} onChange={this.onLocationInputChanged} audioData={this.state.data.keyboards.keys} audioFunc={this.setAudio}/>
-      </div>
-      );
+
+      let eyesFreeLocationInput = null;
+      let eyesFreeClass = null
+      if (eyesfree) {
+        eyesFreeClass = "eyes-free-keyboard"
+        eyesFreeLocationInput = <input value={this.state.eyesfreelocation} className='eyes-free-input' type="text" disabled/>;
+
+      }
+      return(
+
+        <div className={eyesFreeClass}>
+        <InputSuggestion class='suggestion' content={jsonData.steps['location'].suggestion[this.state.language]}  input={this.state.location}/>
+        {eyesFreeLocationInput}
+        <ReactKeyboard eyesFree={this.state.eyesFree} value={this.state.location} layout={this.state.data.keyboards[this.state.language]} onChange={this.onLocationInputChanged} eyesFreeOnChange={this.onEyesFreeLocationInputChanged} audioData={this.state.data.keyboards.keys} audioFunc={this.setAudio}/>
+        </div>
+      )
     }
   }
+
 
   render() {
     const currentState = this.state.currentState;
@@ -1403,13 +1430,13 @@ class App extends Component {
       <div className="ui-app" data-state={currentState}>
 
 
-         <div id="touchscreen" className="mirrored">
+         <div id="touchscreen" className="">
          <div id="fadewrap" className={this.state.touchscreenClass}>
          {this.renderAttract(currentState)}
          {this.renderFirstNameKeyboard(keyboardInput, this.state.eyesFree)}
-         {this.renderLastNameKeyboard(keyboardInput)}
-         {this.renderEmailKeyboard(keyboardInput)}
-         {this.renderLocationKeyboard(keyboardInput)}
+         {this.renderLastNameKeyboard(keyboardInput, this.state.eyesFree)}
+         {this.renderEmailKeyboard(keyboardInput, this.state.eyesFree)}
+         {this.renderLocationKeyboard(keyboardInput, this.state.eyesFree)}
          {this.renderEyesFree(currentState)}
          {this.renderLanguageButton(currentState)}
          {this.renderLanguageSelect(currentState)}
@@ -1431,14 +1458,14 @@ class App extends Component {
 
 
 
-        <div id="teleprompter" className="mirrored flipped">
+        <div id="teleprompter" className="">
         <div id="fadewrap" className={this.state.teleprompterClass}>
           {this.renderTeleprompter(teleprompterContent)}
           {this.renderTimer(currentState)}
           {this.renderPrompt()}
           {this.renderRemembrance()}
           {this.renderProgress(this.state.currentState)}
-          {this.renderInstructions(this.state.currentState)}
+          {this.renderInstructions()}
           </div>
         </div>
         {this.renderMainAudio(this.state.sound)}
