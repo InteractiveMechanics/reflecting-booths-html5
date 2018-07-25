@@ -838,6 +838,7 @@ h3.prompt{
   background: none;
   border: none;
   z-index:0;
+  overflow: hidden;
 }
 
 .ui-keyboard span {
