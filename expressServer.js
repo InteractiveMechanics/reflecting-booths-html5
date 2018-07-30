@@ -4,7 +4,9 @@ var express = require("express"),
   url = require('url');
 var myParser = require("body-parser");
 var app = express();
+var cors = require('cors')
 
+app.use(cors())
 app.use(myParser.urlencoded({extended : true}));
 app.use('/public', express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/public'));

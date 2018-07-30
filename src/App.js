@@ -32,7 +32,7 @@ class App extends Component {
 
     this.state = {
       data: jsonData,
-      currentState: 'attract', //change this to skip around
+      currentState: 'first-name', //change this to skip around
       language: 'english',
       eyesFree: false,
       firstname: '',
@@ -99,8 +99,10 @@ class App extends Component {
     this.onEyesFreeLocationInputChanged = this.onEyesFreeLocationInputChanged.bind(this);
     //this.renderMainAudio = this.renderMainAudio.bind(this);
 
-    this.captureIP = "10.0.94.50";
-    this.interactiveIP = "10.0.94.49";
+    // this.captureIP = "10.0.94.50";
+    // this.interactiveIP = "10.0.94.49";
+    this.captureIP = "192.168.1.12";
+    this.interactiveIP = "192.168.1.12";
   }
 
 
@@ -673,8 +675,7 @@ class App extends Component {
   }
 
   doNothing() {
-    console.log('please choose an answer');
-    _paq.push(['trackEvent', 'Questions', 'Questions - no answer - '+this.state.question.english, this.state.sessionId, 0])
+    //_paq.push(['trackEvent', 'Questions', 'Questions - no answer - '+this.state.question.english, this.state.sessionId, 0])
   }
 
   renderNextButton(state, buttonclass) {
@@ -1294,8 +1295,18 @@ class App extends Component {
   }
 
   onEyesFreeFirstNameInputChanged(char){
-    let oldString = this.state.eyesfreefirstname;
-    this.setState({ eyesfreefirstname: oldString + char});
+    if (char === 'bksp'){
+      let oldString = this.state.eyesfreefirstname;
+      let newString = oldString.slice(0, -1);
+      this.setState({ eyesfreefirstname: newString});
+    } else if (char === 'enter'){
+      let oldString = this.state.eyesfreefirstname;
+      this.setState({ eyesfreefirstname: oldString + '.com'});
+    } else {
+      let oldString = this.state.eyesfreefirstname;
+      this.setState({ eyesfreefirstname: oldString + char});
+    }
+
   }
 
   renderFirstNameKeyboard(keyboardInput, eyesfree) {
