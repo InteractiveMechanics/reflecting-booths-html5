@@ -40,11 +40,16 @@ class ReactKeyboard extends Component {
           let audioUrl = this.state.audio[char];
           buttons[i].onmouseover = () => this.state.audioFunc(audioUrl); //set audio to url to play
           buttons[i].onmouseleave = () => this.state.audioFunc(""); //set audio to empty string to stop
+          buttons[i].onmouseup = () => this.state.audioFunc("");
           //add double tap input
           this.hammers[i] = Hammer(buttons[i]);
           this.hammers[i].on('doubletap', () => this.state.eyesFreeOnChange(char));
     }
   }
+  }
+
+  componentWillUnmount() {
+
   }
 
 

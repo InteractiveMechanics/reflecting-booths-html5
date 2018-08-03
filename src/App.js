@@ -32,7 +32,7 @@ class App extends Component {
 
     this.state = {
       data: jsonData,
-      currentState: 'first-name', //change this to skip around
+      currentState: 'attract', //change this to skip around
       language: 'english',
       eyesFree: false,
       firstname: '',
@@ -99,10 +99,15 @@ class App extends Component {
     this.onEyesFreeLocationInputChanged = this.onEyesFreeLocationInputChanged.bind(this);
     //this.renderMainAudio = this.renderMainAudio.bind(this);
 
-    // this.captureIP = "10.0.94.50";
-    // this.interactiveIP = "10.0.94.49";
-    this.captureIP = "192.168.1.12";
-    this.interactiveIP = "192.168.1.12";
+    //booth 1 install addresses
+    //this.captureIP = "10.0.94.50";
+    //this.interactiveIP = "10.0.94.49";
+
+    //dev addresses
+    //this.captureIP = "192.168.1.12";
+    this.interactiveIP = "192.168.29.126";
+    //dev captureIP
+    this.captureIP = "10.10.0.53";
   }
 
 
@@ -154,11 +159,11 @@ class App extends Component {
     switch(value){
       case 'ON':
         console.log('in-use light ON');
-        axios.get("http://"+this.interactiveIP+":3000/lights/in-use-up");
+        axios.get("http://"+this.captureIP+":3001/lights/in-use-up");
         break
       case 'OFF':
         console.log('in-use light OFF');
-        axios.get("http://"+this.interactiveIP+":3000/lights/in-use-down");
+        axios.get("http://"+this.captureIP+":3001/lights/in-use-down");
         break
       default:
       break
@@ -169,11 +174,11 @@ class App extends Component {
     switch(value){
       case 'ON':
         console.log('video light ON');
-        axios.get("http://"+this.interactiveIP+":3000/lights/up");
+        axios.get("http://"+this.captureIP+":3001/lights/up");
         break
       case 'OFF':
         console.log('video light OFF');
-        axios.get("http://"+this.interactiveIP+":3000/lights/down");
+        axios.get("http://"+this.captureIP+":3001/lights/down");
         break
       default:
       break
@@ -181,7 +186,7 @@ class App extends Component {
   }
 
   resetAllLights(){
-    axios.get("http://"+this.interactiveIP+":3000/lights/reset");
+    axios.get("http://"+this.captureIP+":3001/lights/reset");
   }
 
 
@@ -214,8 +219,8 @@ class App extends Component {
 
   getSessionId () {
     // should point to internal server address ** just for testing
-    //axios.put('https://www.uuidgenerator.net/api/version1')
-    axios.get("http://"+this.interactiveIP+":3000/session")
+    axios.get('https://www.uuidgenerator.net/api/version1')
+    //axios.put("http://"+this.captureIP+":3000/session")
       .then(response =>
         this.setState({
         sessionId: response.data
@@ -301,7 +306,7 @@ class App extends Component {
       nextQuestionId: 0,
       question: quizQuestions[0].question,
       answerOptions: quizQuestions[0].answers,
-      answer: '',
+      answer: {},
       teleprompter: jsonData.steps.attract.teleprompter,
       touchscreen: jsonData.steps.attract.touchscreen,
       keyboard: {},
@@ -329,7 +334,8 @@ class App extends Component {
     switch (nextState) {
       case 'attract':
       if (this.state.currentState === 'end') {
-          _paq.push(['trackEvent', 'End', 'Back-to-home', this.state.sessionId, 0]);
+          _paq.push(['trackEvent', 'Step-End', 'Back-to-home', this.state.sessionId]);
+
       }
       this.getSessionId();
       this.inUseLightToggle('OFF');
@@ -352,10 +358,10 @@ class App extends Component {
       console.log(this.state.sessionId);
       this.inUseLightToggle('ON');
       if (this.state.currentState === 'attract'){
-        _paq.push(['trackEvent', 'Session', 'Start', this.state.sessionId, 0]);
+        _paq.push(['trackEvent', 'Screen-Attract', 'Start', this.state.sessionId]);
       }
       if (this.state.currentState === 'about-1'){
-        _paq.push(['trackEvent', 'Session', 'Back-to-welcome', this.state.sessionId, 0]);
+        _paq.push(['trackEvent', 'Screen-About-1', 'Back-to-welcome', this.state.sessionId]);
       }
 
 
@@ -369,7 +375,7 @@ class App extends Component {
       };
 
       case 'language':
-      _paq.push(['trackEvent', 'Language', 'Language', this.state.sessionId, 0])
+      _paq.push(['trackEvent', 'Screen-Welcome', 'Language', this.state.sessionId])
       return {
         teleprompter: jsonData.steps['language']["teleprompter"],
         touchscreen: jsonData.steps['language']["touchscreen"],
@@ -379,7 +385,12 @@ class App extends Component {
       };
 
       case 'about-1':
-      _paq.push(['trackEvent', 'About', 'About-1', this.state.sessionId, 0])
+      if (this.state.currentState === 'welcome'){
+      _paq.push(['trackEvent', 'Screen-Welcome', 'About-1', this.state.sessionId])
+      }
+      if (this.state.currentState === 'about-2'){
+      _paq.push(['trackEvent', 'Screen-About-2', 'Back-to-About-1', this.state.sessionId])
+      }
       return {
         teleprompter: jsonData.steps['about-1']["teleprompter"],
         touchscreen: jsonData.steps['about-1']["touchscreen"],
@@ -389,7 +400,12 @@ class App extends Component {
       };
 
       case 'about-2':
-      _paq.push(['trackEvent', 'About', 'About-2', this.state.sessionId, 0])
+      if (this.state.currentState === 'about-1'){
+      _paq.push(['trackEvent', 'Screen-About-1', 'About-2', this.state.sessionId])
+      }
+      if (this.state.currentState === 'questions'){
+        _paq.push(['trackEvent', 'Screen-Questions', 'Back-to-About-2', this.state.sessionId])
+      }
       return {
         teleprompter: jsonData.steps['about-2']["teleprompter"],
         touchscreen: jsonData.steps['about-2']["touchscreen"],
@@ -399,12 +415,12 @@ class App extends Component {
       };
 
       case 'questions':
-      if (this.state.currentState === 'about-1'){
-        _paq.push(['trackEvent', 'About', 'Continue-to-questions', this.state.sessionId, 0])
+      if (this.state.currentState === 'about-2'){
+        _paq.push(['trackEvent', 'Screen-About-2', 'Continue-to-questions', this.state.sessionId])
       }
       if (this.state.currentState === 'end'){
         this.getSessionId()
-        _paq.push(['trackEvent', 'End', 'Record-another', 0, 0])
+        _paq.push(['trackEvent', 'Screen-End', 'Record-another', this.state.sessionId])
       }
       this.clearAudioTimeouts();
       return {
@@ -414,7 +430,7 @@ class App extends Component {
         touchscreen: jsonData.steps['questions']["touchscreen"],
         buttonClass: jsonData.steps['questions']["buttonclass"],
         question: quizQuestions[0].question,
-        answer: '',
+        answer: {},
         prompt: {},
         answerOptions: quizQuestions[0].answers,
         sound: this.state.data.steps['questions']["audio"],
@@ -426,22 +442,27 @@ class App extends Component {
       };
 
       case 'record-intro-1':
-
+      if (this.state.currentState === 'questions'){
+        _paq.push(['trackEvent', 'Screen-Questions', 'Continue-to-Record-Intro-1', this.state.sessionId])
+      }
+      if (this.state.currentState === 'review'){
+        _paq.push(['trackEvent', 'Screen-Record-Intro-2', 'Back-to-Record-Intro-1', this.state.sessionId])
+      }
       return {
         teleprompter: jsonData.steps['record-intro-1']["teleprompter"],
         touchscreen: jsonData.steps['record-intro-1']["touchscreen"],
         buttonClass: jsonData.steps['record-intro-1']["buttonclass"],
-        answer: '',
+        answer: {},
         sound: this.state.data.steps['record-intro-1']["audio"],
         mainSound: this.state.data.steps['record-intro-1']["audio"]
       };
 
       case 'record-intro-2':
       if (this.state.currentState === 'record-intro-1'){
-        _paq.push(['trackEvent', 'Recording', 'Continue-to-Record-intro-2', this.state.sessionId, 0])
+        _paq.push(['trackEvent', 'Screen-Record-Intro-1', 'Continue-to-Record-Intro-2', this.state.sessionId])
       }
       if (this.state.currentState === 'review'){
-        _paq.push(['trackEvent', 'Recording', 'Retake video', this.state.sessionId, 0])
+        _paq.push(['trackEvent', 'Screen-Review', 'Retake-video', this.state.sessionId])
       }
       return {
         teleprompter: jsonData.steps['record-intro-2']["teleprompter"],
@@ -452,7 +473,7 @@ class App extends Component {
       };
 
       case 'recording':
-      _paq.push(['trackEvent', 'Recording', 'Recording-started', this.state.sessionId, 0])
+      _paq.push(['trackEvent', 'Screen-Recording', 'Recording-started', this.state.sessionId])
       this.startRecording();
       this.videoLightToggle('ON');
       let audio = this.state.data.steps['recording']["audio"];
@@ -470,7 +491,7 @@ class App extends Component {
       };
 
       case 'review':
-      _paq.push(['trackEvent', 'Recording', 'Recording-complete', this.state.sessionId, 0])
+      _paq.push(['trackEvent', 'Screen-Review', 'Recording-complete', this.state.sessionId])
       this.stopRecording()
       this.videoLightToggle('OFF');
       return {
@@ -483,7 +504,7 @@ class App extends Component {
 
       case 'user-agreement':
       if (this.state.currentState === 'review'){
-        _paq.push(['trackEvent', 'Recording', 'Continue-to-submit', this.state.sessionId, 0])
+        _paq.push(['trackEvent', 'Screen-Review', 'Continue-to-User-Agreement', this.state.sessionId])
       }
       return {
         teleprompter: jsonData.steps['user-agreement']["teleprompter"],
@@ -494,7 +515,7 @@ class App extends Component {
       };
 
       case 'user-agreement-warning':
-        _paq.push(['trackEvent', 'Submit', 'Disagree', this.state.sessionId, 0])
+        _paq.push(['trackEvent', 'Screen-Submit-Agreement', 'Disagree', this.state.sessionId])
       return {
         teleprompter: jsonData.steps['user-agreement-warning']["teleprompter"],
         touchscreen: jsonData.steps['user-agreement-warning']["touchscreen"],
@@ -504,7 +525,7 @@ class App extends Component {
       };
 
       case 'first-name':
-      _paq.push(['trackEvent', 'Submit', 'agree', this.state.sessionId, 0]);
+      _paq.push(['trackEvent', 'Screen-Submit-Agreement', 'Agree', this.state.sessionId]);
       return {
         teleprompter: jsonData.steps['first-name']["teleprompter"],
         touchscreen: jsonData.steps['first-name']["touchscreen"],
@@ -515,8 +536,8 @@ class App extends Component {
       };
 
       case 'last-name':
-      _paq.push(['trackEvent', 'Submit', this.state.firstname, this.state.sessionId, 0]);
-      _paq.push(['trackEvent', 'Submit', 'continue-to-last-name', this.state.sessionId, 0]);
+      _paq.push(['trackEvent', 'Screen-Submit-First-Name', this.state.firstname, this.state.sessionId]);
+      _paq.push(['trackEvent', 'Screen-Submit-First-Name', 'continue-to-last-name', this.state.sessionId]);
       return {
         teleprompter: jsonData.steps['last-name']["teleprompter"],
         touchscreen: jsonData.steps['last-name']["touchscreen"],
@@ -527,8 +548,8 @@ class App extends Component {
       };
 
       case 'email':
-      _paq.push(['trackEvent', 'Submit', this.state.lastname, this.state.sessionId, 0]);
-      _paq.push(['trackEvent', 'Submit', 'continue-to-email', this.state.sessionId, 0]);
+      _paq.push(['trackEvent', 'Screen-Submit-Last-Name', this.state.lastname, this.state.sessionId]);
+      _paq.push(['trackEvent', 'Screen-Submit-Last-Name', 'continue-to-email', this.state.sessionId]);
       return {
         teleprompter: jsonData.steps['email']["teleprompter"],
         touchscreen: jsonData.steps['email']["touchscreen"],
@@ -539,8 +560,8 @@ class App extends Component {
       };
 
       case 'location':
-      _paq.push(['trackEvent', 'Submit', this.state.email, this.state.sessionId, 0])
-      _paq.push(['trackEvent', 'Submit', 'continue-to-location', this.state.sessionId, 0])
+      _paq.push(['trackEvent', 'Screen-Submit-Email', this.state.email, this.state.sessionId])
+      _paq.push(['trackEvent', 'Screen-Submit-Email', 'continue-to-location', this.state.sessionId])
 
       return {
         teleprompter: jsonData.steps['location']["teleprompter"],
@@ -552,8 +573,8 @@ class App extends Component {
       };
 
       case 'age':
-      _paq.push(['trackEvent', 'Submit', this.state.location, this.state.sessionId, 0]);
-      _paq.push(['trackEvent', 'Submit', 'continue-to-age', this.state.sessionId, 0]);
+      _paq.push(['trackEvent', 'Screen-Submit-Location', this.state.location, this.state.sessionId]);
+      _paq.push(['trackEvent', 'Screen-Submit-Location', 'continue-to-age', this.state.sessionId]);
       return {
         teleprompter: jsonData.steps['age']["teleprompter"],
         touchscreen: jsonData.steps['age']["touchscreen"],
@@ -564,7 +585,8 @@ class App extends Component {
       };
 
       case 'end':
-      _paq.push(['trackEvent', 'Submit', this.state.age, this.state.sessionId, 0])
+      _paq.push(['trackEvent', 'Screen-Submit-Age', this.state.age, this.state.sessionId]);
+      _paq.push(['trackEvent', 'Screen-Submit-Age', 'continue-to-end', this.state.sessionId]);
       this.submitData();
       return {
         teleprompter: jsonData.steps['end']["teleprompter"],
@@ -589,7 +611,7 @@ class App extends Component {
     const target = event.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
-    _paq.push(['trackEvent', 'Session', 'Language-select', this.state.sessionId, name])
+    _paq.push(['trackEvent', 'Screen-Language', 'Language-select-' + target.value, this.state.sessionId])
     this.setState({
       [name]: value
     });
@@ -612,14 +634,9 @@ class App extends Component {
     this.fadeScreen();
     setTimeout(function(){
       if (this.state.nextQuestionId === 'record-intro-1'){
-        _paq.push(['trackEvent', 'Questions', 'Continue-to-record', this.state.sessionId, 0])
-        this.setState({
-          currentState: 'record-intro-1'
-
-        })
+        this.transition({ type: 'record-intro-1' });
       } else{
-        _paq.push(['trackEvent', 'Questions', 'Questions - '+this.state.question.content.english, this.state.sessionId, 0])
-        _paq.push(['trackEvent', 'Questions', this.state.answer.content.english, this.state.sessionId, 0])
+        _paq.push(['trackEvent', 'Screen-Question-'+this.state.questionId, this.state.answer.content.english, this.state.sessionId]);
         const counter = this.state.counter + 1;
         const questionId = this.state.nextQuestionId;
         var prevArray = this.state.prevQuestionArray.slice();
@@ -631,7 +648,7 @@ class App extends Component {
           questionId: questionId,
           question: quizQuestions[questionId].question,
           answerOptions: quizQuestions[questionId].answers,
-          answer: '',
+          answer: {},
           teleprompter: {
             heading: quizQuestions[questionId].question.content,
           },
@@ -656,7 +673,7 @@ class App extends Component {
           questionId: questionId,
           question: quizQuestions[questionId].question,
           answerOptions: quizQuestions[questionId].answers,
-          answer: '',
+          answer: {},
           teleprompter: {
             heading: quizQuestions[questionId].question.content,
           },
@@ -906,14 +923,14 @@ class App extends Component {
 
   toggleEyesFree() {
     if(this.state.eyesFree === false){
-      _paq.push(['trackEvent', 'Session', 'Eyes-free mode on', this.state.sessionId, 0])
+      _paq.push(['trackEvent', 'Screen-Welcome', 'Eyes-free mode on', this.state.sessionId])
       this.setState({
         eyesFree: true,
         language: 'english'
       });
     }else{
       this.setState({ eyesFree: false });
-      _paq.push(['trackEvent', 'Session', 'Eyes-free mode off', this.state.sessionId, 0])
+      _paq.push(['trackEvent', 'Screen-Welcome', 'Eyes-free mode off', this.state.sessionId])
     }
 
   }
@@ -1181,9 +1198,8 @@ class App extends Component {
 
   }
 
-  renderInstructions() {
-    if (this.state.currentState === 'record-intro-1'){
-      //should be json data
+  renderInstructions(state) {
+    if (state === 'record-intro-1'){
       let fadeArray = jsonData.steps['record-intro-1']["instructions"][this.state.language];
       let endDelay = 5000;
       console.log(fadeArray);
@@ -1477,7 +1493,7 @@ class App extends Component {
           {this.renderPrompt()}
           {this.renderRemembrance()}
           {this.renderProgress(this.state.currentState)}
-          {this.renderInstructions()}
+          {this.renderInstructions(this.state.currentState)}
           </div>
         </div>
         {this.renderMainAudio(this.state.sound)}

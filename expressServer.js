@@ -14,7 +14,9 @@ app.use(express.static(__dirname + '/public'));
 
 app.post('/', function(request, respond) {
     var body = '';
-    filePath = __dirname + '/public/data.txt';
+    filePath = '../data.txt'
+    //prevArray
+    //filePath = __dirname + '/public/data.txt';
     request.on('data', function(data) {
         body += data;
     });

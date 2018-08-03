@@ -8,3 +8,4 @@
 {
   "appname": "jon"
 }
+{"data":{"uuid":"","params":{"firstname":"fh","lastname":"ft","email":"fg@n.com","geonameid":null,"place":"","legal_selected":"Yes","legal":"Yes","uuid":"","exhibition":null,"remembrance":null}}}
