@@ -1458,7 +1458,7 @@ class App extends Component {
       <div className="ui-app" data-state={currentState}>
 
 
-         <div id="touchscreen" className="">
+         <div id="touchscreen" className="flipped">
          <div id="fadewrap" className={this.state.touchscreenClass}>
          {this.renderAttract(currentState)}
          {this.renderFirstNameKeyboard(keyboardInput, this.state.eyesFree)}
@@ -1486,7 +1486,7 @@ class App extends Component {
 
 
 
-        <div id="teleprompter" className="">
+        <div id="teleprompter" className="flipped mirrored">
         <div id="fadewrap" className={this.state.teleprompterClass}>
           {this.renderTeleprompter(this.state.teleprompter)}
           {this.renderTimer(currentState)}
