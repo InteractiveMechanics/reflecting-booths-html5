@@ -27,7 +27,7 @@
   to { transform: rotate(360deg); }
 }
 
-#fadewrap, .attract{
+.attract{
   height: 100%;
 }
 

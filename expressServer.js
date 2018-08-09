@@ -4,12 +4,14 @@ var express = require("express"),
   url = require('url');
 var myParser = require("body-parser");
 var app = express();
-var cors = require('cors')
+var cors = require('cors');
+var bodyParser = require('body-parser');
 
 app.use(cors())
 app.use(myParser.urlencoded({extended : true}));
 app.use('/public', express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/public'));
+app.use(bodyParser.text());
 
 
 app.post('/', function(request, respond) {
@@ -19,6 +21,10 @@ app.post('/', function(request, respond) {
     //filePath = __dirname + '/public/data.txt';
     request.on('data', function(data) {
         body += data;
+        console.log(body);
+        body.slice(0,9);
+        body.slice(-2,-1);
+        console.log(body);
     });
 
     request.on('end', function (){

@@ -33,7 +33,7 @@ class App extends Component {
 
     this.state = {
       data: jsonData,
-      currentState: 'location', //change this to skip around
+      currentState: 'attract', //change this to skip around
       language: 'english',
       eyesFree: false,
       firstname: '',
@@ -102,14 +102,14 @@ class App extends Component {
     //this.renderMainAudio = this.renderMainAudio.bind(this);
 
     //booth 1 install addresses
-    //this.captureIP = "10.0.94.50";
-    //this.interactiveIP = "10.0.94.49";
+    this.captureIP = "10.0.94.50";
+    this.interactiveIP = "10.0.94.49";
 
     //dev addresses
     //this.captureIP = "192.168.1.12";
-    this.interactiveIP = "192.168.29.126";
+    //this.interactiveIP = "192.168.29.126";
     //dev captureIP
-    this.captureIP = "10.10.0.53";
+    //this.captureIP = "10.10.0.53";
   }
 
 
@@ -222,8 +222,8 @@ class App extends Component {
 
   getSessionId () {
     // should point to internal server address ** just for testing
-    axios.get('https://www.uuidgenerator.net/api/version1')
-    //axios.put("http://"+this.captureIP+":3000/session")
+    //axios.get('https://www.uuidgenerator.net/api/version1')
+    axios.put("http://"+this.captureIP+":3000/session")
       .then(response =>
         this.setState({
         sessionId: response.data
@@ -282,8 +282,9 @@ class App extends Component {
       // csv.unshift(header.join(','))
       // csv = csv.join('\r\n')
 
-      console.log(data)
-      axios.post("http://"+this.interactiveIP+":8080/", { data })
+      console.log(values);
+      // axios.post("http://"+this.interactiveIP+":8080/", { values })
+      axios.post("http://localhost:8080/", { values })
         .then(response => {
           console.log(response)
         }
@@ -819,7 +820,8 @@ class App extends Component {
       }
     }
     if (state === 'location'){
-      if (this.state.locationSuggestion){
+      //if (this.state.locationSuggestion){
+        if (state){
         return(
           <ReflectingButton class="next-button-small" language={this.state.language} buttonData={this.state.data.buttons['next']} onClicked={this.handleLocationEntry} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
         )

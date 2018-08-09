@@ -76,7 +76,7 @@ AnswerOptionYesNo.propTypes = {
   audioFunc: PropTypes.func.isRequired,
   audioFile: PropTypes.string.isRequired,
   answerObject: PropTypes.object.isRequired,
-  answer: PropTypes.object.isRequired,
+  answer: PropTypes.object,
   onYesNoSelected: PropTypes.func.isRequired,
   onAnswerHover: PropTypes.func.isRequired
 };
