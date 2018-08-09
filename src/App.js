@@ -239,25 +239,54 @@ class App extends Component {
       memoriam = "In Memoriam";
       remembrance = "Remembrance";
     }
-    const data = {
-      uuid: this.state.sessionId,
-      params: {
-        firstname: this.state.firstname,
-        lastname: this.state.lastname,
-        email: this.state.email,
-        geonameid: this.state.geonameid,
-        place: this.state.location,
-        legal_selected: this.state.age,
-        legal: this.state.age,
-        uuid: this.state.sessionId,
-        exhibition: memoriam,
-        remembrance: remembrance
-      }};
-    axios.post("http://"+this.interactiveIP+":8080/", { data })
-      .then(response => {
-        console.log(response)
+    // const data = {
+    //   uuid: this.state.sessionId,
+    //   params: {
+    //     firstname: this.state.firstname,
+    //     lastname: this.state.lastname,
+    //     email: this.state.email,
+    //     geonameid: this.state.geonameid,
+    //     place: this.state.location,
+    //     legal_selected: this.state.age,
+    //     legal: this.state.age,
+    //     uuid: this.state.sessionId,
+    //     exhibition: memoriam,
+    //     remembrance: remembrance
+    //   }};
+
+      const header = "firstname,lastname, email, geonameid, place, legal_selected, legal, uuid, exhibition, remembrance";
+
+      const values =
+        this.state.sessionId+ ', ' +
+        this.state.firstname+ ', ' +
+        this.state.lastname+ ', ' +
+        this.state.email+ ', ' +
+        this.state.geonameid+ ', ' +
+        this.state.location+ ', ' +
+        this.state.age+ ', ' +
+        this.state.age+ ', ' +
+        this.state.sessionId+ ', ' +
+        memoriam+ ', ' +
+        remembrance
+      ;
+
+      const data = {
+        header: header,
+        values: values
       }
 
+
+      // const replacer = (key, value) => value === null ? '' : value // specify how you want to handle null values here
+      // const header = Object.keys(data[0])
+      // let csv = items.map(row => header.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(','))
+      // csv.unshift(header.join(','))
+      // csv = csv.join('\r\n')
+
+      console.log(data)
+      axios.post("http://"+this.interactiveIP+":8080/", { data })
+        .then(response => {
+          console.log(response)
+        }
     )
   }
 
