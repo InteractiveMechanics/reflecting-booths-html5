@@ -33,7 +33,7 @@ class App extends Component {
 
     this.state = {
       data: jsonData,
-      currentState: 'attract', //change this to skip around
+      currentState: 'location', //change this to skip around
       language: 'english',
       eyesFree: false,
       firstname: '',
@@ -50,13 +50,13 @@ class App extends Component {
       nextQuestionId: 0,
       question: quizQuestions[0].question,
       answerOptions: quizQuestions[0].answers,
-      answer: {},
+      answer: null,
       teleprompter: {},
       touchscreen: {},
       keyboard: {},
       input: "",
       buttonClass: "small",
-      age: "",
+      age: null,
       prompt: null,
       username:"",
       sessionId: "",
@@ -292,7 +292,7 @@ class App extends Component {
   }
 
 
-  idleReset() {
+  reset() {
     this.setState({
       data: jsonData,
       currentState: 'attract',
@@ -309,13 +309,13 @@ class App extends Component {
       nextQuestionId: 0,
       question: quizQuestions[0].question,
       answerOptions: quizQuestions[0].answers,
-      answer: {},
+      answer: null,
       teleprompter: jsonData.steps.attract.teleprompter,
       touchscreen: jsonData.steps.attract.touchscreen,
       keyboard: {},
       input: "",
       buttonClass: "small",
-      age: "",
+      age: null,
       prompt: {},
       username:"",
       sessionId: "",
@@ -364,6 +364,9 @@ class App extends Component {
         _paq.push(['trackEvent', 'Screen-Attract', 'Start', this.state.sessionId]);
       }
       if (this.state.currentState === 'about-1'){
+        _paq.push(['trackEvent', 'Screen-About-1', 'Back-to-welcome', this.state.sessionId]);
+      }
+      if (this.state.currentState === 'end'){
         _paq.push(['trackEvent', 'Screen-About-1', 'Back-to-welcome', this.state.sessionId]);
       }
 
@@ -433,7 +436,7 @@ class App extends Component {
         touchscreen: jsonData.steps['questions']["touchscreen"],
         buttonClass: jsonData.steps['questions']["buttonclass"],
         question: quizQuestions[0].question,
-        answer: {},
+        answer: null,
         prompt: {},
         answerOptions: quizQuestions[0].answers,
         sound: this.state.data.steps['questions']["audio"],
@@ -455,7 +458,7 @@ class App extends Component {
         teleprompter: jsonData.steps['record-intro-1']["teleprompter"],
         touchscreen: jsonData.steps['record-intro-1']["touchscreen"],
         buttonClass: jsonData.steps['record-intro-1']["buttonclass"],
-        answer: {},
+        answer: null,
         sound: this.state.data.steps['record-intro-1']["audio"],
         mainSound: this.state.data.steps['record-intro-1']["audio"]
       };
@@ -620,12 +623,6 @@ class App extends Component {
     }
   }
 
-  handleSubmit(e) {
-    e.persist();
-    e.preventDefault();
-
-    this.transition({ type: 'NEXT', query: this.state.query });
-  }
 
   handleLanguageSelected(event) {
     const target = event.target;
@@ -668,7 +665,7 @@ class App extends Component {
           questionId: questionId,
           question: quizQuestions[questionId].question,
           answerOptions: quizQuestions[questionId].answers,
-          answer: {},
+          answer: null,
           teleprompter: {
             heading: quizQuestions[questionId].question.content,
           },
@@ -686,14 +683,15 @@ class App extends Component {
     setTimeout(function(){
         var prevArray = this.state.prevQuestionArray.slice();
         const counter = this.state.counter - 1;
-        const questionId = prevArray.pop();;
+        const questionId = prevArray.pop();
+        console.log(questionId);
         this.setState({
           prevQuestionArray: prevArray,
           counter: counter,
           questionId: questionId,
           question: quizQuestions[questionId].question,
           answerOptions: quizQuestions[questionId].answers,
-          answer: {},
+          answer: null,
           teleprompter: {
             heading: quizQuestions[questionId].question.content,
           },
@@ -743,7 +741,7 @@ class App extends Component {
         && this.state.lastname.length > 0
         && this.state.email.length > 0
         && this.state.location.length > 0
-        && this.state.age === 'Yes'){
+        && this.state.age){
           return(
          <ReflectingButton class="next-button" language={this.state.language} buttonData={this.state.data.buttons['next']} onClicked={() => this.transition({ type: 'skip' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
        )
@@ -792,12 +790,22 @@ class App extends Component {
       }
     }
     if (state === 'location'){
-      //if (this.state.locationSuggestion){
-      if (state){
+      if (this.state.locationSuggestion){
         return(
           <ReflectingButton class="next-button-small" language={this.state.language} buttonData={this.state.data.buttons['next']} onClicked={this.handleLocationEntry} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
         )
       } else {
+        return(
+          <ReflectingButton class="next-button-small-inactive" language={this.state.language} buttonData={this.state.data.buttons['next']} onClicked={this.doNothing()} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
+        )
+      }
+    }
+    if (state === 'age'){
+      if (this.state.age){
+        return(
+          <ReflectingButton class="next-button-small" language={this.state.language} buttonData={this.state.data.buttons['next']} onClicked={() => this.transition({ type: 'next' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
+        )
+      }else {
         return(
           <ReflectingButton class="next-button-small-inactive" language={this.state.language} buttonData={this.state.data.buttons['next']} onClicked={this.doNothing()} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
         )
@@ -905,7 +913,7 @@ class App extends Component {
   renderHomeButton(state) {
     if (this.state.currentState === 'end'){
       return (
-        <ReflectingButton class="home-button" language={this.state.language} buttonData={this.state.data.buttons['back-to-home']} onClicked={() => this.transition({ type: 'home' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
+        <ReflectingButton class="home-button" language={this.state.language} buttonData={this.state.data.buttons['back-to-home']} onClicked={() => this.reset()} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
       );
     }
   }
@@ -1549,7 +1557,7 @@ class App extends Component {
           ref="idleTimer"
           element={document}
           //activeAction={this._onActive}
-          idleAction={() => this.idleReset()}
+          idleAction={() => this.reset()}
           timeout={this.state.timeout}
           format="MM-DD-YYYY HH:MM:ss.SSS">
         </IdleTimer>
