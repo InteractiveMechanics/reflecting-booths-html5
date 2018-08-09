@@ -33,9 +33,9 @@ class App extends Component {
 
     this.state = {
       data: jsonData,
-      currentState: 'age', //change this to skip around
+      currentState: 'attract', //change this to skip around
       language: 'english',
-      eyesFree: true,
+      eyesFree: false,
       firstname: '',
       eyesfreefirstname: '',
       lastname: '',
@@ -205,6 +205,7 @@ class App extends Component {
 
   //get autocomplete suggestion
   handleLocationQuery (string) {
+    console.log(string);
     if (string.length>0){
       axios.get('http://10.0.61.18/locate', { params: { name: string, limit: 1 }})
         .then(response =>
@@ -528,6 +529,7 @@ class App extends Component {
 
       case 'first-name':
       _paq.push(['trackEvent', 'Screen-Submit-Agreement', 'Agree', this.state.sessionId]);
+
       return {
         teleprompter: jsonData.steps['first-name']["teleprompter"],
         touchscreen: jsonData.steps['first-name']["touchscreen"],
@@ -577,7 +579,22 @@ class App extends Component {
       case 'age':
       _paq.push(['trackEvent', 'Screen-Submit-Location', this.state.location, this.state.sessionId]);
       _paq.push(['trackEvent', 'Screen-Submit-Location', 'continue-to-age', this.state.sessionId]);
+      let firstname = this.state.firstname;
+      let lastname = this.state.lastname;
+      let email = this.state.email;
+      let location = this.state.location;
+      if (this.state.eyesFree){
+        console.log('eyes free to normal data');
+        firstname = this.state.eyesfreefirstname;
+        lastname = this.state.eyesfreelastname;
+        email = this.state.eyesfreeemail;
+        location = this.state.location;
+      }
       return {
+        firstname: firstname,
+        lastname: lastname,
+        email: email,
+        location: location,
         teleprompter: jsonData.steps['age']["teleprompter"],
         touchscreen: jsonData.steps['age']["touchscreen"],
         keyboard: jsonData.steps['age']["keyboard"],
@@ -589,6 +606,7 @@ class App extends Component {
       case 'end':
       _paq.push(['trackEvent', 'Screen-Submit-Age', this.state.age, this.state.sessionId]);
       _paq.push(['trackEvent', 'Screen-Submit-Age', 'continue-to-end', this.state.sessionId]);
+
       this.submitData();
       return {
         teleprompter: jsonData.steps['end']["teleprompter"],
@@ -741,6 +759,7 @@ class App extends Component {
     //dirty
     if (state === 'first-name'){
       if ((this.state.firstname.length > 0 && !this.state.eyesFree) || (this.state.eyesfreefirstname.length > 0 && this.state.eyesFree)){
+
         return(
           <ReflectingButton class="next-button-small" language={this.state.language} buttonData={this.state.data.buttons['next']} onClicked={() => this.transition({ type: 'next' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
         )
@@ -1424,7 +1443,9 @@ class App extends Component {
 
   //location
   onLocationInputChanged = (data) => {
-    this.handleLocationQuery(data);
+    if(!this.state.eyesFree){
+      this.handleLocationQuery(data);
+    }
   }
 
   onEyesFreeLocationInputChanged(char){
@@ -1466,7 +1487,7 @@ class App extends Component {
       return(
 
         <div className={eyesFreeClass}>
-        <InputSuggestion class='suggestion' content={jsonData.steps['location'].suggestion[this.state.language]}  input={this.state.location}/>
+        <InputSuggestion class='suggestion' content={locationSuggestion}  input={this.state.location}/>
         {eyesFreeLocationInput}
         <ReactKeyboard eyesFree={this.state.eyesFree} value={this.state.location} layout={this.state.data.keyboards[this.state.language]} onChange={this.onLocationInputChanged} eyesFreeOnChange={this.onEyesFreeLocationInputChanged} audioData={this.state.data.keyboards.keys} audioFunc={this.setAudio}/>
         </div>
