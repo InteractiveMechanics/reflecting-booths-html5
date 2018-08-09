@@ -17,6 +17,7 @@ import Fade from './components/Fade';
 import ReactKeyboard from './components/ReactKeyboard';
 import Chime from './Assets/audio/chime-re.mp3';
 import jsonData from './data.json';
+import AnswerOptionYesNo from './components/AnswerOptionYesNo';
 const _paq = window._paq;
 
 const quizQuestions = jsonData.questions;
@@ -32,9 +33,9 @@ class App extends Component {
 
     this.state = {
       data: jsonData,
-      currentState: 'attract', //change this to skip around
+      currentState: 'age', //change this to skip around
       language: 'english',
-      eyesFree: false,
+      eyesFree: true,
       firstname: '',
       eyesfreefirstname: '',
       lastname: '',
@@ -73,6 +74,7 @@ class App extends Component {
     this.handleLanguageSelected = this.handleLanguageSelected.bind(this);
     this.prevQuestion = this.prevQuestion.bind(this);
     this.handleAnswerSelected = this.handleAnswerSelected.bind(this);
+    this.handleYesNo = this.handleYesNo.bind(this);
     this.handleAnswerHover = this.handleAnswerHover.bind(this);
     this.handleAgeSelected = this.handleAgeSelected.bind(this);
     this.stopRecording = this.stopRecording.bind(this);
@@ -1067,6 +1069,14 @@ class App extends Component {
     this.setAudio(Chime);
   }
 
+  handleYesNo(answerObj) {
+    this.setState({
+      age: answerObj.value,
+      answer: answerObj
+    });
+    this.setAudio(Chime);
+  }
+
   setAudio(audio){
     this.clearAudioTimeouts();
     this.setState({
@@ -1095,39 +1105,29 @@ class App extends Component {
   renderAgeSelect(state){
     if(state === "age"){
       return (
+
         <ul className="answerOptions">
-        <li className="answerOption">
-          <input
-            type="radio"
-            className="radioCustomButton"
-            name="language"
-            checked={"Yes" === this.state.age}
-            id="yes"
-            value="Yes"
-
-            onChange={this.handleAgeSelected}
+          <AnswerOptionYesNo
+            language= {this.state.language}
+            eyesFree= {this.state.eyesFree}
+            audioFunc= {this.setAudio}
+            audioFile= {jsonData.steps.age.touchscreen.ageselect.yes.audio}
+            answerObject= {jsonData.steps.age.touchscreen.ageselect.yes}
+            answer= {this.state.answer}
+            onYesNoSelected= {this.handleYesNo}
+            onAnswerHover= {this.handleAnswerHover}
           />
-          <label className="radioCustomLabel" htmlFor="yes">
-            {jsonData.steps.age.touchscreen.ageselect.yes[this.state.language]}
-          </label>
-        </li>
-        <li className="answerOption">
-          <input
-            type="radio"
-            className="radioCustomButton"
-            name="language"
-            checked={"No" === this.state.age}
-            id="no"
-            value="No"
-
-            onChange={this.handleAgeSelected}
+          <AnswerOptionYesNo
+            language= {this.state.language}
+            eyesFree= {this.state.eyesFree}
+            audioFunc= {this.setAudio}
+            audioFile= {jsonData.steps.age.touchscreen.ageselect.no.audio}
+            answerObject= {jsonData.steps.age.touchscreen.ageselect.no}
+            answer= {this.state.answer}
+            onYesNoSelected= {this.handleYesNo}
+            onAnswerHover= {this.handleAnswerHover}
           />
-          <label className="radioCustomLabel" htmlFor="no">
-            {jsonData.steps.age.touchscreen.ageselect.no[this.state.language]}
-          </label>
-        </li>
         </ul>
-
     );
 
     }
@@ -1350,8 +1350,17 @@ class App extends Component {
   }
 
   onEyesFreeLastNameInputChanged(char){
-    let oldString = this.state.eyesfreelastname;
-    this.setState({ eyesfreelastname: oldString + char});
+    if (char === 'bksp'){
+      let oldString = this.state.eyesfreelastname;
+      let newString = oldString.slice(0, -1);
+      this.setState({ eyesfreelastname: newString});
+    } else if (char === 'enter'){
+      let oldString = this.state.eyesfreelastname;
+      this.setState({ eyesfreelastname: oldString + '.com'});
+    } else {
+      let oldString = this.state.eyesfreelastname;
+      this.setState({ eyesfreelastname: oldString + char});
+    }
   }
 
   renderLastNameKeyboard(keyboardInput, eyesfree) {
@@ -1380,8 +1389,17 @@ class App extends Component {
   }
 
   onEyesFreeEmailInputChanged(char){
-    let oldString = this.state.eyesfreeemail;
-    this.setState({ eyesfreeemail: oldString + char});
+    if (char === 'bksp'){
+      let oldString = this.state.eyesfreeemail;
+      let newString = oldString.slice(0, -1);
+      this.setState({ eyesfreeemail: newString});
+    } else if (char === 'enter'){
+      let oldString = this.state.eyesfreeemail;
+      this.setState({ eyesfreeemail: oldString + '.com'});
+    } else {
+      let oldString = this.state.eyesfreeemail;
+      this.setState({ eyesfreeemail: oldString + char});
+    }
   }
 
   renderEmailKeyboard(keyboardInput, eyesfree) {
@@ -1410,9 +1428,18 @@ class App extends Component {
   }
 
   onEyesFreeLocationInputChanged(char){
-    let oldString = this.state.eyesfreelocation;
-    this.handleLocationQuery(oldString + char);
-    this.setState({ eyesfreelocation: oldString + char});
+    if (char === 'bksp'){
+      let oldString = this.state.eyesfreelocation;
+      let newString = oldString.slice(0, -1);
+      this.setState({ eyesfreelocation: newString});
+    } else if (char === 'enter'){
+      let oldString = this.state.eyesfreelocation;
+      this.setState({ eyesfreelocation: oldString + '.com'});
+    } else {
+      let oldString = this.state.eyesfreelocation;
+      this.setState({ eyesfreelocation: oldString + char});
+    }
+    this.handleLocationQuery(this.state.eyesfreelocation);
   }
 
   renderLocationKeyboard(keyboardInput, eyesfree) {

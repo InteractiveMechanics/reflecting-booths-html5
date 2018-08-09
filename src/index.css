@@ -775,6 +775,12 @@ margin-top: 70px;
   visibility:hidden;
 }
 
+/* focus outlining,  removed input: focus*/
+textarea:focus, button:focus{
+    outline: none;
+    border: none;
+}
+
 .ui-keyboard-input, .suggestion, .eyes-free-input{
   outline-style:none;
   box-shadow:none;
@@ -1012,10 +1018,4 @@ li.light-line:after{
 
 div[data-state='age'] .answerOption {
   height: 200px;
-}
-
-/* focus outlining */
-textarea:focus, input:focus, button:focus{
-    outline: none;
-    border: none;
 }

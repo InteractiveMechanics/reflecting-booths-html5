@@ -670,7 +670,8 @@
 						"italian": "Sì, sono maggiorenne.",
 						"mandarin": "是，我年满 18 岁。",
 						"german": "Ja, ich bin mindestens 18 Jahre alt.",
-						"audio": "/audio/SUBMIT-CLIP9/SUBMIT-CLIP9.mp3"
+						"audio": "/audio/SUBMIT-CLIP9/SUBMIT-CLIP9.mp3",
+						"value": "yes"
 					},
 					"no": {
 						"english": "No, I am under 18.",
@@ -681,7 +682,8 @@
 						"italian": "No, sono minorenne.",
 						"mandarin": "否，我未满 18 岁。",
 						"german": "Nein, ich bin jünger als 18 Jahre.",
-						"audio": "/audio/SUBMIT-CLIP10/SUBMIT-CLIP10.mp3"
+						"audio": "/audio/SUBMIT-CLIP10/SUBMIT-CLIP10.mp3",
+						"value": "no"
 					}
 				}
 			},
