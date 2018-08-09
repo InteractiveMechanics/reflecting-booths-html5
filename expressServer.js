@@ -11,7 +11,7 @@ app.use(cors())
 app.use(myParser.urlencoded({extended : true}));
 app.use('/public', express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/public'));
-app.use(bodyParser.text());
+//app.use(bodyParser.text());
 
 
 app.post('/', function(request, respond) {
@@ -22,9 +22,9 @@ app.post('/', function(request, respond) {
     request.on('data', function(data) {
         body += data;
         console.log(body);
-        body.slice(0,9);
-        body.slice(-2,-1);
-        console.log(body);
+        // body.slice(0,9);
+        // body.slice(-2,-1);
+        console.log(request.body);
     });
 
     request.on('end', function (){
