@@ -176,6 +176,7 @@
 			"buttonclass": "large",
 			"next": "about-2",
 			"back": "welcome",
+			"defaultaudio": "/audio/ABOUT-CLIP1/ABOUT-CLIP1.mp3",
 			"audio": "/audio/ABOUT-CLIP1/ABOUT-CLIP1.mp3"
 
 		},
@@ -205,6 +206,7 @@
 			"buttonclass": "large",
 			"next": "questions",
 			"back": "about-1",
+			"defaultaudio": "/audio/ABOUT-CLIP2/ABOUT-CLIP2.mp3",
 			"audio": "/audio/ABOUT-CLIP2/ABOUT-CLIP2.mp3"
 		},
 		"questions": {

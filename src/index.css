@@ -82,6 +82,7 @@ body {
   display: flex;
   justify-content: left;
   align-items: center;
+  padding-left: 20px;
 }
 
 .answerOption img {
@@ -162,7 +163,7 @@ body {
 }
 
 .languageOption .radioCustomLabel{
-  font-size: 40px;
+  font-size: 36px;
   font-family: "ScalaSans-Bold", sans-serif;
   line-height: 1;
   padding: 32px 28px 32px 111px;
@@ -821,7 +822,7 @@ textarea:focus, button:focus{
 }
 
 h4.prompt{
-  position: absolute;
+  position: fixed;
   bottom: 0px;
   font-family: "ScalaSans", sans-serif;
   font-size: 40px;

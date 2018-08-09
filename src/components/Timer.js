@@ -8,7 +8,7 @@ import 'react-circular-progressbar/dist/styles.css';
 class Timer extends Component {
   constructor(props) {
     super(props);
-    this.state = { time: {}, seconds: props.seconds, totalTime: props.seconds, secondTimer: false };
+    this.state = { time: {}, seconds: props.seconds, totalTime: props.seconds, secondTimer: false, delay:props.delay };
     this.timer = 0;
     this.startTimer = this.startTimer.bind(this);
     this.countDown = this.countDown.bind(this);
@@ -46,7 +46,14 @@ class Timer extends Component {
   componentDidMount() {
     let timeLeftVar = this.secondsToTime(this.state.seconds);
     this.setState({ time: timeLeftVar });
-    this.startTimer();
+    if(this.state.delay){
+      setTimeout(()=> {
+        this.startTimer();
+      }, this.state.delay);
+    } else {
+      this.startTimer();
+    }
+
   }
 
   startTimer() {
@@ -137,6 +144,7 @@ Timer.propTypes = {
   seconds: PropTypes.number.isRequired,
   stopRecording: PropTypes.func.isRequired,
   language: PropTypes.string.isRequired,
-  content: PropTypes.object.isRequired
+  content: PropTypes.object.isRequired,
+  delay: PropTypes.number
 };
 export default Timer;

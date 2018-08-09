@@ -87,7 +87,6 @@ class App extends Component {
     this.handleLocationQuery = this.handleLocationQuery.bind(this);
     this.handleLocationEntry = this.handleLocationEntry.bind(this);
     this.startRecording = this.startRecording.bind(this);
-    this.stopRecording = this.stopRecording.bind(this);
     this.deleteRecording = this.deleteRecording.bind(this);
     this.recordAgain = this.recordAgain.bind(this);
     this.submitData = this.submitData.bind(this);
@@ -135,7 +134,8 @@ class App extends Component {
   }
 
   stopRecording(){
-    axios.get("http://"+this.captureIP+":3000/activate-video");
+    console.log(this.state.sessionId);
+    axios.post("http://"+this.captureIP+":3000/video/"+ this.state.sessionId);
     this.transition({ type: 'stop' });
     console.log('stop recording');
   }
@@ -153,7 +153,7 @@ class App extends Component {
   }
 
   deleteRecording(){
-    axios.delete("http://"+this.captureIP+":3000/video"+ this.state.sessionId);
+    axios.delete("http://"+this.captureIP+":3000/video/"+ this.state.sessionId);
     console.log('delete recording');
   }
 
@@ -226,7 +226,7 @@ class App extends Component {
     axios.put("http://"+this.captureIP+":3000/session")
       .then(response =>
         this.setState({
-        sessionId: response.data
+        sessionId: response.data.uuid
       })
     )
   }
@@ -256,7 +256,7 @@ class App extends Component {
 
       const header = "firstname,lastname, email, geonameid, place, legal_selected, legal, uuid, exhibition, remembrance";
 
-      const values =
+      let values =
         this.state.sessionId+ ', ' +
         this.state.firstname+ ', ' +
         this.state.lastname+ ', ' +
@@ -270,10 +270,10 @@ class App extends Component {
         remembrance
       ;
 
-      const data = {
-        header: header,
-        values: values
-      }
+      // const data = {
+      //   header: header,
+      //   values: values
+      // }
 
 
       // const replacer = (key, value) => value === null ? '' : value // specify how you want to handle null values here
@@ -323,6 +323,7 @@ class App extends Component {
 
 
   reset() {
+    this.resetAllLights();
     this.setState({
       data: jsonData,
       currentState: 'attract',
@@ -427,12 +428,16 @@ class App extends Component {
       if (this.state.currentState === 'about-2'){
       _paq.push(['trackEvent', 'Screen-About-2', 'Back-to-About-1', this.state.sessionId])
       }
+      let aboutsound1 = this.state.data.steps['about-1']["defaultaudio"]
+      if (this.state.eyesFree){
+        aboutsound1 = this.state.data.steps['about-1']["audio"]
+      }
       return {
         teleprompter: jsonData.steps['about-1']["teleprompter"],
         touchscreen: jsonData.steps['about-1']["touchscreen"],
         buttonClass: jsonData.steps['about-1']["buttonclass"],
-        sound: this.state.data.steps['about-1']["audio"],
-        mainSound: this.state.data.steps['about-1']["audio"]
+        sound: aboutsound1,
+        mainSound: aboutsound1
       };
 
       case 'about-2':
@@ -442,12 +447,16 @@ class App extends Component {
       if (this.state.currentState === 'questions'){
         _paq.push(['trackEvent', 'Screen-Questions', 'Back-to-About-2', this.state.sessionId])
       }
+      let aboutsound2 = this.state.data.steps['about-2']["defaultaudio"]
+      if (this.state.eyesFree){
+        aboutsound2 = this.state.data.steps['about-2']["audio"]
+      }
       return {
         teleprompter: jsonData.steps['about-2']["teleprompter"],
         touchscreen: jsonData.steps['about-2']["touchscreen"],
         buttonClass: jsonData.steps['about-2']["buttonclass"],
-        sound: this.state.data.steps['about-2']["audio"],
-        mainSound: this.state.data.steps['about-2']["audio"]
+        sound: aboutsound2,
+        mainSound: aboutsound2
       };
 
       case 'questions':
@@ -1196,9 +1205,18 @@ class App extends Component {
 
   renderTimer(state) {
     if(state === "recording"){
-      return (
+      if(this.state.eyesFree){
+
+            return (
+              <Timer language={this.state.language} content={jsonData.steps.recording.timer} seconds={10} stopRecording={this.stopRecording} delay={5000}/>
+            );
+
+      } else {
+        return (
         <Timer language={this.state.language} content={jsonData.steps.recording.timer} seconds={10} stopRecording={this.stopRecording}/>
-      );
+        );
+      }
+
     }
   }
 
@@ -1349,7 +1367,7 @@ class App extends Component {
 
 
   renderMainAudio(sound) {
-    if (this.state.currentState === 'attract' || this.state.currentState === 'welcome' || (this.state.sound && this.state.eyesFree)) {
+    if ((this.state.currentState === 'attract' || this.state.currentState === 'welcome' || this.state.currentState ==='about-1' || this.state.currentState ==='about-2' || (this.state.sound && this.state.eyesFree)) && this.state.language === 'english') {
 
       if(sound.length > 0){
         return (
