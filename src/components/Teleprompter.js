@@ -9,9 +9,9 @@ function Teleprompter(props) {
   let paragraph;
   let contentClass = "content";
   if (props.content.videosrc){
-    videoFile = <video width="800" height="600" src={attractVideo} autoPlay loop type="video/mp4"/>
+    videoFile = <video width="800" height="600" src={attractVideo} autoPlay muted loop type="video/mp4"/>
   }else if (props.content.recordvideo){
-    videoFile = <video width="800" height="600" src={recordVideo} autoPlay type="video/mp4"/>
+    videoFile = <video width="800" height="600" src={recordVideo} autoPlay muted type="video/mp4"/>
   }else{
     videoFile = null;
   };

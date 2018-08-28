@@ -82,6 +82,7 @@ body {
   display: flex;
   justify-content: left;
   align-items: center;
+  padding-left: 20px;
 }
 
 .answerOption img {
@@ -98,10 +99,10 @@ body {
   color:#2E2E2E;
 }
 
-.answerOption:hover {
+/* .answerOption:hover {
   background-color: rgba(255,255,255, 0.9);
   color:#2E2E2E;
-}
+} */
 
 .radioCustomButton {
     position: absolute;
@@ -162,7 +163,7 @@ body {
 }
 
 .languageOption .radioCustomLabel{
-  font-size: 40px;
+  font-size: 36px;
   font-family: "ScalaSans-Bold", sans-serif;
   line-height: 1;
   padding: 32px 28px 32px 111px;
@@ -775,6 +776,12 @@ margin-top: 70px;
   visibility:hidden;
 }
 
+/* focus outlining,  removed input: focus*/
+textarea:focus, button:focus{
+    outline: none;
+    border: none;
+}
+
 .ui-keyboard-input, .suggestion, .eyes-free-input{
   outline-style:none;
   box-shadow:none;
@@ -815,7 +822,7 @@ margin-top: 70px;
 }
 
 h4.prompt{
-  position: absolute;
+  position: fixed;
   bottom: 0px;
   font-family: "ScalaSans", sans-serif;
   font-size: 40px;
@@ -1012,10 +1019,4 @@ li.light-line:after{
 
 div[data-state='age'] .answerOption {
   height: 200px;
-}
-
-/* focus outlining */
-textarea:focus, input:focus, button:focus{
-    outline: none;
-    border: none;
 }

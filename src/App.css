@@ -27,10 +27,12 @@
   to { transform: rotate(360deg); }
 }
 
-#fadewrap, .attract{
+.attract{
   height: 100%;
 }
 
 .ui-keyboard-keyset{
   width: 100%;
 }
+
+html * {cursor:none}

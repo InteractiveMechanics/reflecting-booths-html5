@@ -33,24 +33,34 @@ class ReactKeyboard extends Component {
     if (this.state.eyesFree) {
 
       //attach event listeners to each key
-      var buttons = ReactDOM.findDOMNode(this.keyboard).getElementsByTagName('button');
+      this.buttons = ReactDOM.findDOMNode(this.keyboard).getElementsByTagName('button');
       this.hammers = [];
-      for (var i = 0; i < buttons.length; i++) {
-          let char = buttons[i].getAttribute('data-value');
+      for (var i = 0; i < this.buttons.length; i++) {
+          let char = this.buttons[i].getAttribute('data-value');
           let audioUrl = this.state.audio[char];
-          buttons[i].onmouseover = () => this.state.audioFunc(audioUrl); //set audio to url to play
-          buttons[i].onmouseleave = () => this.state.audioFunc(""); //set audio to empty string to stop
-          buttons[i].onmouseup = () => this.state.audioFunc("");
+          this.buttons[i].onmouseover = () => this.state.audioFunc(audioUrl); //set audio to url to play
+          this.buttons[i].onmouseleave = () => this.state.audioFunc(""); //set audio to empty string to stop
+          this.buttons[i].onmouseup = () => this.state.audioFunc("");
           //add double tap input
-          this.hammers[i] = Hammer(buttons[i]);
+          this.hammers[i] = Hammer(this.buttons[i]);
           this.hammers[i].on('doubletap', () => this.state.eyesFreeOnChange(char));
     }
   }
   }
 
-  componentWillUnmount() {
 
+  componentWillUnmount() {
+    //remove manually added event lsiteners
+    if (this.state.eyesFree) {
+      for (var i = 0; i < this.buttons.length; i++) {
+          this.buttons[i].onmouseover = null;
+          this.buttons[i].onmouseleave = null;
+          this.buttons[i].onmouseup = null;
+          //remove doubletap event listener
+          this.hammers[i].off('doubletap');
+    }
   }
+}
 
 
 
