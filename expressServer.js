@@ -19,23 +19,18 @@ app.post('/', function(request, respond) {
     console.log(request.body.values);
 
     var body = '';
-    filePath = '../data.csv'
-    //prevArray
-    //filePath = __dirname + '/public/data.txt';
-    // request.on('data', function(data) {
-    //     body += data;
-    // });
-    //
-    // request.on('end', function (){
+    var header = "uuid, datetime, language, eyesfree, firstname, lastname, email, geonameid, location, usage, age, exhibiiton, remembrance";
 
-
-      // var newBody = JSON.stringify(body);
-      // newBody.slice(0,9);
-      // newBody.slice(-2,-1);
+    filePath = '../data.csv';
+    if (fs.existsSync(filePath)) {
         fs.appendFile(filePath, request.body.values + "\r\n", function() {
             respond.end();
         });
-    // });
+    } else {
+        fs.appendFile(filePath, header + "\r\n" + request.body.values + "\r\n", function() {
+            respond.end();
+        });
+    }
 });
 
 //Start the server and make it listen for connections on port 8080

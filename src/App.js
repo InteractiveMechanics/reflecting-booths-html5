@@ -124,47 +124,47 @@ class App extends Component {
 
   cameraOn () {
     axios.get("http://"+this.captureIP+":3000/activate-video");
-    console.log('activated video');
+    // console.log('activated video');
   }
 
   startRecording () {
     axios.put("http://"+this.captureIP+":3000/video/"+ this.state.sessionId);
     this.transition({ type: 'recording' });
-    console.log('start recording');
+    // console.log('start recording');
   }
 
   stopRecording(){
-    console.log(this.state.sessionId);
+    // console.log(this.state.sessionId);
     axios.post("http://"+this.captureIP+":3000/video/"+ this.state.sessionId);
     this.transition({ type: 'stop' });
-    console.log('stop recording');
+    // console.log('stop recording');
   }
 
   recordAgain(){
     this.deleteRecording();
     this.transition({ type: 'record-again' });
-    console.log('record again');
+    // console.log('record again');
   }
 
   userDisagree(){
     this.deleteRecording();
     this.transition({ type: 'disagree' });
-    console.log('disagree');
+    // console.log('disagree');
   }
 
   deleteRecording(){
     axios.delete("http://"+this.captureIP+":3000/video/"+ this.state.sessionId);
-    console.log('delete recording');
+    // console.log('delete recording');
   }
 
   inUseLightToggle(value){
     switch(value){
       case 'ON':
-        console.log('in-use light ON');
+        // console.log('in-use light ON');
         axios.get("http://"+this.captureIP+":3001/lights/in-use-up");
         break
       case 'OFF':
-        console.log('in-use light OFF');
+        // console.log('in-use light OFF');
         axios.get("http://"+this.captureIP+":3001/lights/in-use-down");
         break
       default:
@@ -175,11 +175,11 @@ class App extends Component {
   videoLightToggle(value){
     switch(value){
       case 'ON':
-        console.log('video light ON');
+        // console.log('video light ON');
         axios.get("http://"+this.captureIP+":3001/lights/up");
         break
       case 'OFF':
-        console.log('video light OFF');
+        // console.log('video light OFF');
         axios.get("http://"+this.captureIP+":3001/lights/down");
         break
       default:
@@ -205,7 +205,7 @@ class App extends Component {
 
   //get autocomplete suggestion
   handleLocationQuery (string) {
-    console.log(string);
+    // console.log(string);
     if (string.length>0){
       axios.get('http://10.0.61.18/locate', { params: { name: string, limit: 1 }})
         .then(response =>
@@ -222,7 +222,7 @@ class App extends Component {
 
   getSessionId () {
     // should point to internal server address ** just for testing
-    //axios.get('https://www.uuidgenerator.net/api/version1')
+    // axios.get('https://www.uuidgenerator.net/api/version1')
     axios.put("http://"+this.captureIP+":3000/session")
       .then(response =>
         this.setState({
@@ -233,62 +233,59 @@ class App extends Component {
 
   submitData () {
     console.log('submitting data');
-    let memoriam = null;
-    let remembrance = null;
-    if (this.state.remembrance){
-      memoriam = "In Memoriam";
-      remembrance = "Remembrance";
-    }
-    // const data = {
-    //   uuid: this.state.sessionId,
-    //   params: {
-    //     firstname: this.state.firstname,
-    //     lastname: this.state.lastname,
-    //     email: this.state.email,
-    //     geonameid: this.state.geonameid,
-    //     place: this.state.location,
-    //     legal_selected: this.state.age,
-    //     legal: this.state.age,
-    //     uuid: this.state.sessionId,
-    //     exhibition: memoriam,
-    //     remembrance: remembrance
-    //   }};
 
-      const header = "firstname,lastname, email, geonameid, place, legal_selected, legal, uuid, exhibition, remembrance";
+    let exhibition = null;
+    let remembrance = null;
+    let now = new Date();
+
+    if (this.state.remembrance){
+      exhibition = "In Memoriam";
+      remembrance = "Remembrance";
+    } else {
+      exhibition = "Reflecting on 9/11";
+    }
+    const data = {
+      uuid: this.state.sessionId,
+      params: {
+        firstname: this.state.firstname,
+        lastname: this.state.lastname,
+        email: this.state.email,
+        geonameid: this.state.geonameid,
+        place: this.state.location,
+        legal_selected: this.state.age,
+        legal: this.state.age,
+        uuid: this.state.sessionId,
+        exhibition: exhibition,
+        remembrance: remembrance
+      }
+    };
+
+      const header = "uuid, datetime, language, eyesfree, firstname, lastname, email, geonameid, location, usage, age, exhibiiton, remembrance";
 
       let values =
-        this.state.sessionId+ ', ' +
-        this.state.firstname+ ', ' +
-        this.state.lastname+ ', ' +
-        this.state.email+ ', ' +
-        this.state.geonameid+ ', ' +
-        this.state.location+ ', ' +
-        this.state.age+ ', ' +
-        this.state.age+ ', ' +
-        this.state.sessionId+ ', ' +
-        memoriam+ ', ' +
-        remembrance
+        this.state.sessionId + ', ' +
+        now + ', ' +
+        this.state.language + ', ' +
+        this.state.eyesFree + ', ' +
+        this.state.firstname + ', ' +
+        this.state.lastname + ', ' +
+        this.state.email + ', ' +
+        this.state.geonameid + ', ' +
+        this.state.location + ', ' +
+        this.state.age + ', ' +
+        this.state.age + ', ' +
+        (exhibition ? exhibition : null) + ', ' +
+        (remembrance ? remembrance : null)
       ;
 
-      // const data = {
-      //   header: header,
-      //   values: values
-      // }
-
-
-      // const replacer = (key, value) => value === null ? '' : value // specify how you want to handle null values here
-      // const header = Object.keys(data[0])
-      // let csv = items.map(row => header.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(','))
-      // csv.unshift(header.join(','))
-      // csv = csv.join('\r\n')
-
-      console.log(values);
-      // axios.post("http://"+this.interactiveIP+":8080/", { values })
+      axios.post("http://"+this.captureIP+":3000/session/" + this.state.sessionId, { data })
+        .then(response => {
+          console.log(response)
+        });
       axios.post("http://localhost:8080/", { values })
         .then(response => {
           console.log(response)
-        }
-    )
+        });
   }
 
   fadeScreen () {
@@ -318,7 +315,7 @@ class App extends Component {
         });
       }
     }.bind(this), 1000);
-    console.log('transition triggered');
+    // console.log('transition triggered');
   }
 
 
@@ -373,7 +370,7 @@ class App extends Component {
       }
       this.getSessionId();
       this.inUseLightToggle('OFF');
-      //_paq.push(category, action, [name], [value])
+      // _paq.push(category, action, [name], [value])
       return {
         firstname: '',
         lastname: '',
@@ -389,7 +386,7 @@ class App extends Component {
 
       case 'welcome':
       // testing uuid generation
-      console.log(this.state.sessionId);
+      // console.log(this.state.sessionId);
       this.inUseLightToggle('ON');
       if (this.state.currentState === 'attract'){
         _paq.push(['trackEvent', 'Screen-Attract', 'Start', this.state.sessionId]);
@@ -626,7 +623,7 @@ class App extends Component {
       let email = this.state.email;
       let location = this.state.location;
       if (this.state.eyesFree){
-        console.log('eyes free to normal data');
+        // console.log('eyes free to normal data');
         firstname = this.state.eyesfreefirstname;
         lastname = this.state.eyesfreelastname;
         email = this.state.eyesfreeemail;
@@ -676,7 +673,7 @@ class App extends Component {
   renderLanguageSelect(state) {
     if(state === "language"){
       var languages = jsonData.languages;
-      console.log(languages);
+      // console.log(languages);
       return (
         <LanguageSelect
         language={this.state.language}
@@ -697,7 +694,7 @@ class App extends Component {
         const questionId = this.state.nextQuestionId;
         var prevArray = this.state.prevQuestionArray.slice();
         prevArray.push(this.state.questionId);
-        console.log(quizQuestions[questionId].question.audio);
+        // console.log(quizQuestions[questionId].question.audio);
         this.setState({
           prevQuestionArray: prevArray,
           counter: counter,
@@ -723,7 +720,7 @@ class App extends Component {
         var prevArray = this.state.prevQuestionArray.slice();
         const counter = this.state.counter - 1;
         const questionId = prevArray.pop();
-        console.log(questionId);
+        // console.log(questionId);
         this.setState({
           prevQuestionArray: prevArray,
           counter: counter,
@@ -829,8 +826,9 @@ class App extends Component {
       }
     }
     if (state === 'location'){
-      //if (this.state.locationSuggestion){
-        if (state){
+      // To disable location suggestion for validation
+      // if (this.state.locationSuggestion){
+      if (state){
         return(
           <ReflectingButton class="next-button-small" language={this.state.language} buttonData={this.state.data.buttons['next']} onClicked={this.handleLocationEntry} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
         )
@@ -1092,7 +1090,7 @@ class App extends Component {
 
 
   setNext(nextStep) {
-    console.log(nextStep);
+    // console.log(nextStep);
     if (nextStep === 'record'){
 
       this.setState({
@@ -1121,7 +1119,7 @@ class App extends Component {
   }
 
   handleAnswerHover(audio) {
-    console.log("button pressed");
+    // console.log("button pressed");
     this.setState({
       sound: audio,
 
@@ -1278,11 +1276,11 @@ class App extends Component {
     if (state === 'record-intro-1'){
       let fadeArray = jsonData.steps['record-intro-1']["instructions"][this.state.language];
       let endDelay = 5000;
-      console.log(fadeArray);
+      // console.log(fadeArray);
       if (!this.state.remembrance){
         let remembrance = fadeArray.pop();
         endDelay = 0;
-        console.log(fadeArray);
+        // console.log(fadeArray);
       }
       return (
         <Fade delay={1500} loop={false}
