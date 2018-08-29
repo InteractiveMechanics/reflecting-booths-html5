@@ -33,7 +33,7 @@ class App extends Component {
 
     this.state = {
       data: jsonData,
-      currentState: 'location', //change this to skip around
+      currentState: 'attract', //change this to skip around
       language: 'english',
       eyesFree: false,
       firstname: '',
@@ -827,8 +827,8 @@ class App extends Component {
     }
     if (state === 'location'){
       // To disable location suggestion for validation
-      // if (this.state.locationSuggestion){
-      if (state){
+      if (this.state.locationSuggestion){
+      // if (state){
         return(
           <ReflectingButton class="next-button-small" language={this.state.language} buttonData={this.state.data.buttons['next']} onClicked={this.handleLocationEntry} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
         )
