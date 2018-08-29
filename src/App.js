@@ -19,8 +19,11 @@ import Chime from './Assets/audio/chime-re.mp3';
 import jsonData from './data.json';
 import AnswerOptionYesNo from './components/AnswerOptionYesNo';
 const _paq = window._paq;
+//for debugging axios requests, install axios-debug
+//require('axios-debug')(axios);
 
 const quizQuestions = jsonData.questions;
+
 
 
 
@@ -278,7 +281,18 @@ class App extends Component {
         (remembrance ? remembrance : null)
       ;
 
-      axios.post("http://"+this.captureIP+":3000/session/" + this.state.sessionId, { data })
+      axios.post("http://"+this.captureIP+":3000/session/" + this.state.sessionId, { params: {
+      firstname: this.state.firstname,
+      lastname: this.state.lastname,
+      email: this.state.email,
+      geonameid: this.state.geonameid,
+      place: this.state.location,
+      legal_selected: this.state.age,
+      legal: this.state.age,
+      uuid: this.state.sessionId,
+      exhibition: exhibition,
+      remembrance: remembrance
+    } })
         .then(response => {
           console.log(response)
         });
