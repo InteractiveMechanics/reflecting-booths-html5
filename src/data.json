@@ -84,6 +84,16 @@
 			"german": "ÜBERMITTELN"
 		}
 	},
+	"eyesup": {
+			"english": "Instructions appear above on the teleprompter",
+			"spanish": "(SP) Instructions appear above on the teleprompter",
+			"japanese": "(JP) Instructions appear above on the teleprompter",
+			"portuguese": "(PT) Instructions appear above on the teleprompter",
+			"french": "(FR) Instructions appear above on the teleprompter",
+			"italian": "(IT) Instructions appear above on the teleprompter",
+			"mandarin": "(MN) Instructions appear above on the teleprompter",
+			"german": "(DT) Instructions appear above on the teleprompter"
+	},
 	"steps": {
 		"attract": {
 			"teleprompter": {
@@ -129,7 +139,7 @@
 				}
 			},
 			"buttonclass": "large",
-			"next": "about-1",
+			"next": "about",
 			"language": "language",
 			"audio": "/audio/WELCOME-CLIP1/WELCOME-CLIP1.mp3"
 		},
@@ -150,7 +160,7 @@
 			"buttonclass": "small",
 			"audio": "/audio/WELCOME-CLIP2/WELCOME-CLIP2.mp3"
 		},
-		"about-1": {
+		"about": {
 			"teleprompter": {
 				"heading": {
 					"english": "Make a recording",
@@ -174,47 +184,18 @@
 				}
 			},
 			"buttonclass": "large",
-			"next": "about-2",
+			"next": "questions",
 			"back": "welcome",
 			"defaultaudio": "",
 			"audio": "/audio/ABOUT-CLIP1/ABOUT-CLIP1.mp3"
 
-		},
-		"about-2": {
-			"teleprompter": {
-				"heading": {
-					"english": "Make a recording",
-					"spanish": "Haga una grabación",
-					"japanese": "録画を行う",
-					"portuguese": "Fazer uma gravação",
-					"french": "Faire un enregistrement",
-					"italian": "Effettua una registrazione",
-					"mandarin": "录制视频",
-					"german": "Eine Aufnahme machen"
-				},
-				"paragraph": {
-					"english": "You may choose to delete your video at any time during the recording process. Your video will only be saved once you press “Submit” after you have finished recording.",
-					"spanish": "Puede eliminar su vídeo después de grabarlo, si lo desea. Su vídeo solo quedará grabado si pulsa Enviar.",
-					"japanese": "録画後に、ビデオを消去いただくこともできます。ビデオは、あなたが[送信]ボタンをクリックした場合のみ保存されます。",
-					"portuguese": "Pode optar por apagar o seu vídeo depois da gravação. O seu vídeo só será gravado depois de clicar em Submeter.",
-					"french": "Vous aurez l’option de supprimer votre vidéo après l’enregistrement. Votre vidéo ne sera sauvegardée qu’après avoir appuyé sur Envoyer.",
-					"italian": "Puoi scegliere di cancellare il video dopo la registrazione. Il video sarà salvato solo dopo aver premuto “Invia” una volta terminata la registrazione.",
-					"mandarin": "您可以选择删除录制的视频。按“提交”才会保存视频。",
-					"german": "Sie können Ihr Video nach der Aufnahme löschen. Ihr Video wird nur gespeichert, wenn Sie „Übermitteln“ drücken."
-				}
-			},
-			"buttonclass": "large",
-			"next": "questions",
-			"back": "about-1",
-			"defaultaudio": "",
-			"audio": "/audio/ABOUT-CLIP2/ABOUT-CLIP2.mp3"
 		},
 		"questions": {
 			"teleprompter": {},
 			"touchscreen": {},
 			"buttonclass": "small",
 			"next": "record-intro-1",
-			"back": "about-2",
+			"back": "about",
 			"audio": "/audio/QUESTIONSINTRO-CLIP1/QUESTIONSINTRO-CLIP1.mp3"
 		},
 
@@ -303,6 +284,7 @@
 			"audio": "/audio/RECORD1-CLIP1/RECORD1-CLIP1.mp3",
       "remembranceAudio": "/audio/RECORD2-CLIP1/RECORD2-CLIP1.mp3"
 		},
+		
 		"recording": {
 			"timer": {
 				"timerStart": {

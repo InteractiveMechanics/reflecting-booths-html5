@@ -18,6 +18,7 @@ import ReactKeyboard from './components/ReactKeyboard';
 import Chime from './Assets/audio/chime-re.mp3';
 import jsonData from './data.json';
 import AnswerOptionYesNo from './components/AnswerOptionYesNo';
+import EyesUpPrompt from './components/EyesUpPrompt';
 const _paq = window._paq;
 //for debugging axios requests, install axios-debug
 //require('axios-debug')(axios);
@@ -405,11 +406,11 @@ class App extends Component {
       if (this.state.currentState === 'attract'){
         _paq.push(['trackEvent', 'Screen-Attract', 'Start', this.state.sessionId]);
       }
-      if (this.state.currentState === 'about-1'){
-        _paq.push(['trackEvent', 'Screen-About-1', 'Back-to-welcome', this.state.sessionId]);
+      if (this.state.currentState === 'about'){
+        _paq.push(['trackEvent', 'Screen-About', 'Back-to-welcome', this.state.sessionId]);
       }
       if (this.state.currentState === 'end'){
-        _paq.push(['trackEvent', 'Screen-About-1', 'Back-to-welcome', this.state.sessionId]);
+        _paq.push(['trackEvent', 'Screen-About', 'Back-to-welcome', this.state.sessionId]);
       }
 
 
@@ -432,47 +433,28 @@ class App extends Component {
         mainSound: this.state.data.steps['language']["audio"]
       };
 
-      case 'about-1':
+      case 'about':
       if (this.state.currentState === 'welcome'){
-      _paq.push(['trackEvent', 'Screen-Welcome', 'About-1', this.state.sessionId])
+      _paq.push(['trackEvent', 'Screen-Welcome', 'About', this.state.sessionId])
       }
-      if (this.state.currentState === 'about-2'){
-      _paq.push(['trackEvent', 'Screen-About-2', 'Back-to-About-1', this.state.sessionId])
+      if (this.state.currentState === 'questions'){
+      _paq.push(['trackEvent', 'Screen-Questions', 'Back-to-About', this.state.sessionId])
       }
-      let aboutsound1 = this.state.data.steps['about-1']["defaultaudio"]
+      let aboutsound1 = this.state.data.steps['about']["defaultaudio"]
       if (this.state.eyesFree){
-        aboutsound1 = this.state.data.steps['about-1']["audio"]
+        aboutsound1 = this.state.data.steps['about']["audio"]
       }
       return {
-        teleprompter: jsonData.steps['about-1']["teleprompter"],
-        touchscreen: jsonData.steps['about-1']["touchscreen"],
-        buttonClass: jsonData.steps['about-1']["buttonclass"],
+        teleprompter: jsonData.steps['about']["teleprompter"],
+        touchscreen: jsonData.steps['about']["touchscreen"],
+        buttonClass: jsonData.steps['about']["buttonclass"],
         sound: aboutsound1,
         mainSound: aboutsound1
       };
 
-      case 'about-2':
-      if (this.state.currentState === 'about-1'){
-      _paq.push(['trackEvent', 'Screen-About-1', 'About-2', this.state.sessionId])
-      }
-      if (this.state.currentState === 'questions'){
-        _paq.push(['trackEvent', 'Screen-Questions', 'Back-to-About-2', this.state.sessionId])
-      }
-      let aboutsound2 = this.state.data.steps['about-2']["defaultaudio"]
-      if (this.state.eyesFree){
-        aboutsound2 = this.state.data.steps['about-2']["audio"]
-      }
-      return {
-        teleprompter: jsonData.steps['about-2']["teleprompter"],
-        touchscreen: jsonData.steps['about-2']["touchscreen"],
-        buttonClass: jsonData.steps['about-2']["buttonclass"],
-        sound: aboutsound2,
-        mainSound: aboutsound2
-      };
-
       case 'questions':
-      if (this.state.currentState === 'about-2'){
-        _paq.push(['trackEvent', 'Screen-About-2', 'Continue-to-questions', this.state.sessionId])
+      if (this.state.currentState === 'about'){
+        _paq.push(['trackEvent', 'Screen-About', 'Continue-to-questions', this.state.sessionId])
       }
       if (this.state.currentState === 'end'){
         this.getSessionId()
@@ -764,7 +746,7 @@ class App extends Component {
   }
 
   renderNextButton(state, buttonclass) {
-    if (state === 'about-2'){
+    if (state === 'about'){
       return(
         <ReflectingButton class="next-button" language={this.state.language} buttonData={this.state.data.buttons['next-to-questions']} onClicked={() => this.transition({ type: 'next' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree} />
       )
@@ -900,7 +882,7 @@ class App extends Component {
     }
 
     }
-    if (state === "about-1"){
+    if (state === "about"){
       return (
       <ReflectingButton class={btnClass} language={this.state.language} buttonData={this.state.data.buttons['back-to-home']} onClicked={() => this.transition({ type: 'back' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
       );
@@ -1379,7 +1361,7 @@ class App extends Component {
 
 
   renderMainAudio(sound) {
-    if ((this.state.currentState === 'attract' || this.state.currentState === 'welcome' || this.state.currentState ==='about-1' || this.state.currentState ==='about-2' || (this.state.sound && this.state.eyesFree)) && this.state.language === 'english') {
+    if ((this.state.currentState === 'attract' || this.state.currentState === 'welcome' || this.state.currentState ==='about' || (this.state.sound && this.state.eyesFree)) && this.state.language === 'english') {
 
       if(sound.length > 0){
         return (
@@ -1564,6 +1546,13 @@ class App extends Component {
     }
   }
 
+  renderEyesUpPrompt(state){
+    if (state === "about" || state === "remembrance"){
+      console.log(state);
+      return <EyesUpPrompt content={this.state.data.eyesup[this.state.language]}></EyesUpPrompt>
+    }
+  }
+
 
   render() {
     const currentState = this.state.currentState;
@@ -1577,6 +1566,7 @@ class App extends Component {
 
          <div id="touchscreen" className="flipped">
          <div id="fadewrap" className={this.state.touchscreenClass}>
+           {this.renderEyesUpPrompt(currentState)}
          {this.renderAttract(currentState)}
          {this.renderFirstNameKeyboard(keyboardInput, this.state.eyesFree)}
          {this.renderLastNameKeyboard(keyboardInput, this.state.eyesFree)}
