@@ -1034,3 +1034,7 @@ div[data-state='age'] .answerOption {
   font-family: "ScalaSans", sans-serif;
   font-size:26px;
 }
+
+.remembrance-instruction{
+  padding:0 60px 0px 60px;
+}

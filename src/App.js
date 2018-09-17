@@ -484,7 +484,7 @@ class App extends Component {
         _paq.push(['trackEvent', 'Screen-Questions', 'Continue-to-Record-Intro-1', this.state.sessionId])
       }
       if (this.state.currentState === 'review'){
-        _paq.push(['trackEvent', 'Screen-Record-Intro-2', 'Back-to-Record-Intro-1', this.state.sessionId])
+        _paq.push(['trackEvent', 'Screen-Record-Intro-1', 'Back-to-Record-Intro-1', this.state.sessionId])
       }
       return {
         teleprompter: jsonData.steps['record-intro-1']["teleprompter"],
@@ -495,35 +495,28 @@ class App extends Component {
         mainSound: this.state.data.steps['record-intro-1']["audio"]
       };
 
-      case 'record-intro-2':
+      case 'remembrance':
       if (this.state.currentState === 'record-intro-1'){
-        _paq.push(['trackEvent', 'Screen-Record-Intro-1', 'Continue-to-Record-Intro-2', this.state.sessionId])
-      }
-      if (this.state.currentState === 'review'){
-        _paq.push(['trackEvent', 'Screen-Review', 'Retake-video', this.state.sessionId])
+        _paq.push(['trackEvent', 'Screen-Questions', 'Continue-to-Remembrance-Instruction', this.state.sessionId])
       }
       return {
-        teleprompter: jsonData.steps['record-intro-2']["teleprompter"],
-        touchscreen: jsonData.steps['record-intro-2']["touchscreen"],
-        buttonClass: jsonData.steps['record-intro-2']["buttonclass"],
-        sound: this.state.data.steps['record-intro-2']["audio"],
-        mainSound: this.state.data.steps['record-intro-1']["audio"]
+        teleprompter: jsonData.steps['remembrance']["teleprompter"],
+        touchscreen: jsonData.steps['remembrance']["touchscreen"],
+        buttonClass: jsonData.steps['remembrance']["buttonclass"],
+        sound: this.state.data.steps['remembrance']["audio"],
+        mainSound: this.state.data.steps['remembrance']["audio"]
       };
 
       case 'recording':
       _paq.push(['trackEvent', 'Screen-Recording', 'Recording-started', this.state.sessionId])
       this.startRecording();
       this.videoLightToggle('ON');
-      let audio = this.state.data.steps['recording']["audio"];
-      if (this.state.remembrance){
-        audio = this.state.data.steps['recording'].remembranceAudio;
-      }
       return {
         teleprompter: {
         },
         touchscreen: jsonData.steps['recording']["touchscreen"],
-        sound: audio,
-        mainSound: audio,
+        sound: this.state.data.steps['recording']["audio"],
+        mainSound: this.state.data.steps['recording']["audio"],
         videoLight: true
 
       };
@@ -781,9 +774,21 @@ class App extends Component {
     }
 
     if (state === 'record-intro-1') {
-      return(
-      <ReflectingButton class="next-button" language={this.state.language} buttonData={this.state.data.buttons['record']} onClicked={() => this.transition({ type: 'skip' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
-      )
+      if (this.state.remembrance) {
+        return(
+        <ReflectingButton class="next-button" language={this.state.language} buttonData={this.state.data.buttons['next']} onClicked={() => this.transition({ type: 'remembrance' })} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
+        )
+      } else{
+        return(
+        <ReflectingButton class="record-button" language={this.state.language} buttonData={this.state.data.buttons['record']} onClicked={this.startRecording} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
+        )
+      }
+    }
+
+    if (state === 'remembrance') {
+        return(
+        <ReflectingButton class="record-button" language={this.state.language} buttonData={this.state.data.buttons['record']} onClicked={this.startRecording} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
+        )
     }
 
     //dirty
@@ -900,13 +905,13 @@ class App extends Component {
     }
   }
 
-  renderRecordButton(state) {
-    if (this.state.currentState === 'record-intro-1'){
-      return (
-        <ReflectingButton class="record-button" language={this.state.language} buttonData={this.state.data.buttons['record']} onClicked={this.startRecording} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
-      );
-    }
-  }
+  // renderRecordButton(state) {
+  //   if (this.state.currentState === 'record-intro-1' && ){
+  //     return (
+  //       <ReflectingButton class="record-button" language={this.state.language} buttonData={this.state.data.buttons['record']} onClicked={this.startRecording} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
+  //     );
+  //   }
+  // }
 
   renderRecordStop(state) {
     if (this.state.currentState === 'recording'){
@@ -1245,15 +1250,29 @@ class App extends Component {
   }
 
   renderRemembrance() {
-    if(this.state.remembrance && (this.state.currentState === 'recording')){
-      return (
-        <Fade delay={10000} loop={false}
-        duration={5400} stop={true}
-          class='prompt'
-            array={jsonData.steps.recording.remembranceText[this.state.language]}
-        />
-      );
+    if (this.state.currentState === "remembrance"){
+      return(
+        <div className="remembrance-instruction">
+          <p>
+            {this.state.data.steps.remembrance.instructions[this.state.language][0]}
+          </p>
+          <p>
+            {this.state.data.steps.remembrance.instructions[this.state.language][1]}
+          </p>
+        </div>
+      )
     }
+
+    // was initially used for showing rotating remembrance instruction on the record screen
+    // if(this.state.remembrance && (this.state.currentState === 'recording')){
+    //   return (
+    //     <Fade delay={10000} loop={false}
+    //     duration={5400} stop={true}
+    //       class='prompt'
+    //         array={jsonData.steps.recording.remembranceText[this.state.language]}
+    //     />
+    //   );
+    // }
   }
 
   renderProgress(state) {
@@ -1586,7 +1605,6 @@ class App extends Component {
          {this.renderHomeButton(currentState)}
          {this.renderBackButton(currentState, buttonClass)}
          {this.renderNextButton(currentState, buttonClass)}
-         {this.renderRecordButton(currentState)}
          {this.renderRecordStop(currentState)}
          </div>
          </div>

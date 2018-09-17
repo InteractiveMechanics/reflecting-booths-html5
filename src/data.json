@@ -280,11 +280,54 @@
 			"buttonclass": "large",
 			"next": "recording",
 			"recording": "recording",
+			"remembrance": "remembrance",
 			"back": "questions",
 			"audio": "/audio/RECORD1-CLIP1/RECORD1-CLIP1.mp3",
       "remembranceAudio": "/audio/RECORD2-CLIP1/RECORD2-CLIP1.mp3"
 		},
-		
+		"remembrance": {
+			"teleprompter": {},
+			"instructions": {
+				"english": [
+					"1. Record your loved one’s name and your relationship to that person. For example, my cousin, Rachel Anna Green.",
+					"2. Share a memory of your loved one such as a favorite anecdote about them, something about their personality traits or hobbies, or a shared time together."
+				],
+				"spanish": [
+					"(SP) 1. Record your loved one’s name and your relationship to that person. For example, my cousin, Rachel Anna Green.",
+					"(SP) 2. Share a memory of your loved one such as a favorite anecdote about them, something about their personality traits or hobbies, or a shared time together."
+				],
+				"japanese": [
+					"(JP) 1. Record your loved one’s name and your relationship to that person. For example, my cousin, Rachel Anna Green.",
+					"(JP) 2. Share a memory of your loved one such as a favorite anecdote about them, something about their personality traits or hobbies, or a shared time together."
+				],
+				"portuguese": [
+					"(PT) 1. Record your loved one’s name and your relationship to that person. For example, my cousin, Rachel Anna Green.",
+					"(PT) 2. Share a memory of your loved one such as a favorite anecdote about them, something about their personality traits or hobbies, or a shared time together."
+				],
+				"french": [
+					"(FR) 1. Record your loved one’s name and your relationship to that person. For example, my cousin, Rachel Anna Green.",
+					"(FR) 2. Share a memory of your loved one such as a favorite anecdote about them, something about their personality traits or hobbies, or a shared time together."
+				],
+				"italian": [
+					"(IT) 1. Record your loved one’s name and your relationship to that person. For example, my cousin, Rachel Anna Green.",
+					"(IT) 2. Share a memory of your loved one such as a favorite anecdote about them, something about their personality traits or hobbies, or a shared time together."
+				],
+				"mandarin": [
+					"(MN) 1. Record your loved one’s name and your relationship to that person. For example, my cousin, Rachel Anna Green.",
+					"(MN) 2. Share a memory of your loved one such as a favorite anecdote about them, something about their personality traits or hobbies, or a shared time together."
+				],
+				"german": [
+					"(DT) 1. Record your loved one’s name and your relationship to that person. For example, my cousin, Rachel Anna Green.",
+					"(DT) 2. Share a memory of your loved one such as a favorite anecdote about them, something about their personality traits or hobbies, or a shared time together."
+				]
+			},
+			"buttonclass": "large",
+			"next": "recording",
+			"recording": "recording",
+			"back": "record-intro-1",
+			"audio": ""
+		},
+
 		"recording": {
 			"timer": {
 				"timerStart": {
