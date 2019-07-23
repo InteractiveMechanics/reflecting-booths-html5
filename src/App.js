@@ -118,7 +118,7 @@ class App extends Component {
 
   componentWillMount() {
     let startState = this.state.currentState;
-    this.getSessionId(); //this session id may not be needed
+    //this.getSessionId(); //this session id may not be needed
     this.setState({
       touchscreen: jsonData.steps[startState].touchscreen,
       teleprompter: jsonData.steps[startState].teleprompter
@@ -227,12 +227,14 @@ class App extends Component {
   getSessionId () {
     // should point to internal server address ** just for testing
     // axios.get('https://www.uuidgenerator.net/api/version1')
+
     axios.put("http://"+this.captureIP+":3000/session")
       .then(response =>
         this.setState({
         sessionId: response.data.uuid
       })
     )
+
   }
 
   submitData () {
@@ -383,7 +385,7 @@ class App extends Component {
           _paq.push(['trackEvent', 'Step-End', 'Back-to-home', this.state.sessionId]);
 
       }
-      this.getSessionId();  //this may be the only one needed
+
       this.inUseLightToggle('OFF');
       // _paq.push(category, action, [name], [value])
       return {
@@ -401,6 +403,8 @@ class App extends Component {
 
       case 'welcome':
       // testing uuid generation
+      this.getSessionId();  //this may be the only one needed, but doesn't make sense for PIWIK?
+      console.log("got session ID: " + this.state.sessionId); //this will never be fast enough to log the sessionid before axios fetches
       // console.log(this.state.sessionId);
       this.inUseLightToggle('ON');
       if (this.state.currentState === 'attract'){
@@ -457,7 +461,7 @@ class App extends Component {
         _paq.push(['trackEvent', 'Screen-About', 'Continue-to-questions', this.state.sessionId])
       }
       if (this.state.currentState === 'end'){
-        this.getSessionId() //this session id may not be needed
+        //this.getSessionId() //this session id may not be needed
         _paq.push(['trackEvent', 'Screen-End', 'Record-another', this.state.sessionId])
       }
       this.clearAudioTimeouts();
@@ -1574,7 +1578,7 @@ class App extends Component {
 
   renderEyesUpPrompt(state){
     if (state === "about" || state === "remembrance"){
-      console.log(state);
+
       return <EyesUpPrompt content={this.state.data.eyesup[this.state.language]}></EyesUpPrompt>
     }
   }
