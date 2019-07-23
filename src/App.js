@@ -108,6 +108,8 @@ class App extends Component {
     this.captureIP = "10.0.94.50";
     this.interactiveIP = "10.0.94.49";
 
+    this.cmsIP = "10.0.61.35";
+
     //dev addresses
     // this.captureIP = "192.168.1.12";
     // this.interactiveIP = "192.168.29.239";
@@ -127,19 +129,25 @@ class App extends Component {
   }
 
   cameraOn () {
-    axios.get("http://"+this.captureIP+":3000/activate-video");
+    axios.get("http://"+this.captureIP+":3000/activate-video").then(response => {
+      console.log(response)
+    });;
     // console.log('activated video');
   }
 
   startRecording () {
-    axios.put("http://"+this.captureIP+":3000/video/"+ this.state.sessionId);
+    axios.put("http://"+this.captureIP+":3000/video/"+ this.state.sessionId).then(response => {
+      console.log(response)
+    });
     this.transition({ type: 'recording' });
     // console.log('start recording');
   }
 
   stopRecording(){
     // console.log(this.state.sessionId);
-    axios.post("http://"+this.captureIP+":3000/video/"+ this.state.sessionId);
+    axios.post("http://"+this.captureIP+":3000/video/"+ this.state.sessionId).then(response => {
+      console.log(response)
+    });
     this.transition({ type: 'stop' });
     // console.log('stop recording');
   }
@@ -157,7 +165,9 @@ class App extends Component {
   }
 
   deleteRecording(){
-    axios.delete("http://"+this.captureIP+":3000/video/"+ this.state.sessionId);
+    axios.delete("http://"+this.captureIP+":3000/video/"+ this.state.sessionId).then(response => {
+      console.log(response)
+    });;
     // console.log('delete recording');
   }
 
@@ -276,7 +286,7 @@ class App extends Component {
         this.state.lastname + ', ' +
         this.state.email + ', ' +
         this.state.geonameid + ', ' +
-        this.state.location.replace(/,/g, '-') + ', ' + //replace commas with dashes for csv legibility
+        this.state.location + ', ' + //replace commas with dashes for csv legibility? possibly
         this.state.age + ', ' +
         this.state.age + ', ' +
         (exhibition ? exhibition : null) + ', ' +
@@ -284,7 +294,7 @@ class App extends Component {
       ;
 
       //post data to the cms with the requested uuid
-      axios.post("http://"+this.captureIP+":3000/session/" + this.state.sessionId, { params: {
+      axios.post("http://"+this.cmsIP+":3000/session/" + this.state.sessionId, { params: {
       firstname: this.state.firstname,
       lastname: this.state.lastname,
       email: this.state.email,
