@@ -102,7 +102,7 @@ class App extends Component {
     this.onEyesFreeLastNameInputChanged = this.onEyesFreeLastNameInputChanged.bind(this);
     this.onEyesFreeEmailInputChanged = this.onEyesFreeEmailInputChanged.bind(this);
     this.onEyesFreeLocationInputChanged = this.onEyesFreeLocationInputChanged.bind(this);
-    //this.renderMainAudio = this.renderMainAudio.bind(this);
+    //this.renderMainAudio = this.renderMainAudio.bind(this);  // this was commented out as of aug 2018
 
     //booth 1 install addresses
     this.captureIP = "10.0.94.50";
