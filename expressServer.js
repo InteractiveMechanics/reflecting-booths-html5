@@ -19,7 +19,7 @@ app.post('/', function(request, respond) {
     console.log(request.body.values);
 
     var body = '';
-    var header = "uuid, datetime, language, eyesfree, firstname, lastname, email, geonameid, location, usage, age, exhibiiton, remembrance";
+    var header = "uuid, datetime, language, eyesfree, firstname, lastname, email, geonameid, city, state/prov, country, usage, age, exhibition, remembrance";
 
     filePath = '../data.csv';
     if (fs.existsSync(filePath)) {

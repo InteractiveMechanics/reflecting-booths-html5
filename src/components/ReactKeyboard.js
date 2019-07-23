@@ -16,7 +16,8 @@ class ReactKeyboard extends Component {
       onChange: props.onChange,
       audio: props.audioData,
       audioFunc: props.audioFunc,
-      eyesFreeOnChange: props.eyesFreeOnChange
+      eyesFreeOnChange: props.eyesFreeOnChange,
+      autoCaps: props.autoCaps
     };
   }
 
@@ -28,6 +29,10 @@ class ReactKeyboard extends Component {
     this.keyboard.interface.keyaction.enter = (base) => {
     base.insertText('.com'); // textarea
     };
+
+    //remove autospellcheck
+    this.input = ReactDOM.findDOMNode(this.keyboard).getElementsByTagName('input');
+    this.input[0].setAttribute("spellCheck", "false");
 
     //below for eyes free
     if (this.state.eyesFree) {
@@ -44,13 +49,14 @@ class ReactKeyboard extends Component {
           //add double tap input
           this.hammers[i] = Hammer(this.buttons[i]);
           this.hammers[i].on('doubletap', () => this.state.eyesFreeOnChange(char));
-    }
-  }
+        }
+      }
+
   }
 
 
   componentWillUnmount() {
-    //remove manually added event lsiteners
+    //remove manually added event listeners
     if (this.state.eyesFree) {
       for (var i = 0; i < this.buttons.length; i++) {
           this.buttons[i].onmouseover = null;
@@ -116,6 +122,7 @@ ReactKeyboard.propTypes = {
   onChange: PropTypes.func.isRequired,
   audioData: PropTypes.object.isRequired,
   audioFunc: PropTypes.func.isRequired,
+  autoCaps: PropTypes.bool
 };
 
 export default ReactKeyboard;

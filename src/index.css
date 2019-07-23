@@ -1038,3 +1038,7 @@ div[data-state='age'] .answerOption {
 .remembrance-instruction{
   padding:0 60px 0px 60px;
 }
+
+.capitalize input{
+  text-transform:capitalize;
+}

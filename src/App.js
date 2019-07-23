@@ -109,8 +109,8 @@ class App extends Component {
     this.interactiveIP = "10.0.94.49";
 
     //dev addresses
-    //this.captureIP = "192.168.1.12";
-    //this.interactiveIP = "192.168.29.126";
+    // this.captureIP = "192.168.1.12";
+    // this.interactiveIP = "192.168.29.239";
     //dev captureIP
     //this.captureIP = "10.10.0.53";
   }
@@ -118,7 +118,7 @@ class App extends Component {
 
   componentWillMount() {
     let startState = this.state.currentState;
-    this.getSessionId();
+    this.getSessionId(); //this session id may not be needed
     this.setState({
       touchscreen: jsonData.steps[startState].touchscreen,
       teleprompter: jsonData.steps[startState].teleprompter
@@ -264,7 +264,6 @@ class App extends Component {
       }
     };
 
-      const header = "uuid, datetime, language, eyesfree, firstname, lastname, email, geonameid, location, usage, age, exhibiiton, remembrance";
 
       let values =
         this.state.sessionId + ', ' +
@@ -275,13 +274,14 @@ class App extends Component {
         this.state.lastname + ', ' +
         this.state.email + ', ' +
         this.state.geonameid + ', ' +
-        this.state.location + ', ' +
+        this.state.location.replace(/,/g, '-') + ', ' + //replace commas with dashes for csv legibility
         this.state.age + ', ' +
         this.state.age + ', ' +
         (exhibition ? exhibition : null) + ', ' +
         (remembrance ? remembrance : null)
       ;
 
+      //post data to the cms with the requested uuid
       axios.post("http://"+this.captureIP+":3000/session/" + this.state.sessionId, { params: {
       firstname: this.state.firstname,
       lastname: this.state.lastname,
@@ -383,7 +383,7 @@ class App extends Component {
           _paq.push(['trackEvent', 'Step-End', 'Back-to-home', this.state.sessionId]);
 
       }
-      this.getSessionId();
+      this.getSessionId();  //this may be the only one needed
       this.inUseLightToggle('OFF');
       // _paq.push(category, action, [name], [value])
       return {
@@ -457,7 +457,7 @@ class App extends Component {
         _paq.push(['trackEvent', 'Screen-About', 'Continue-to-questions', this.state.sessionId])
       }
       if (this.state.currentState === 'end'){
-        this.getSessionId()
+        this.getSessionId() //this session id may not be needed
         _paq.push(['trackEvent', 'Screen-End', 'Record-another', this.state.sessionId])
       }
       this.clearAudioTimeouts();
@@ -827,9 +827,9 @@ class App extends Component {
       }
     }
     if (state === 'location'){
-      // To disable location suggestion for validation
+
       if (this.state.locationSuggestion){
-      // if (state){
+      //if (state){ // To disable location validation for offsite testing
         return(
           <ReflectingButton class="next-button-small" language={this.state.language} buttonData={this.state.data.buttons['next']} onClicked={this.handleLocationEntry} eyesFreeHover={this.handleEyesFreeHover} eyesFreeRelease={this.handleEyesFreeRelease} eyesFree={this.state.eyesFree}/>
         )
@@ -1396,7 +1396,8 @@ class App extends Component {
   }
 
   onFirstNameInputChanged = (data) => {
-    this.setState({ firstname: data });
+    let first = data.charAt(0).toUpperCase() + data.slice(1);
+    this.setState({ firstname: first });
   }
 
   onEyesFreeFirstNameInputChanged(char){
@@ -1415,27 +1416,32 @@ class App extends Component {
   }
 
   renderFirstNameKeyboard(keyboardInput, eyesfree) {
-    if(this.state.currentState === 'first-name'){
-      let eyesFreeFirstNameInput = null;
-      let eyesFreeClass = null
-      if (eyesfree) {
-        eyesFreeClass = "eyes-free-keyboard"
-        eyesFreeFirstNameInput = <input value={this.state.eyesfreefirstname} className='eyes-free-input' type="text" disabled/>;
 
-      }
+
+    if(this.state.currentState === 'first-name'){
+    let eyesFreeFirstNameInput = null;
+    let eyesFreeClass = null
+    if (eyesfree) {
+      eyesFreeClass = "eyes-free-keyboard"
+      eyesFreeFirstNameInput = <input value={this.state.eyesfreefirstname} className='eyes-free-input' type="text" disabled/>;
+
+    }
+    var keyboardClasses = (eyesFreeClass == null ? "" : eyesFreeClass) + ' capitalize';
+
       return(
 
-        <div className={eyesFreeClass}>
+        <div className={keyboardClasses}>
         <InputSuggestion class='suggestion' content={jsonData.steps['first-name'].suggestion[this.state.language]}  input={this.state.firstname}/>
         {eyesFreeFirstNameInput}
-        <ReactKeyboard eyesFree={this.state.eyesFree} value={this.state.firstname} layout={this.state.data.keyboards[this.state.language]} onChange={this.onFirstNameInputChanged} eyesFreeOnChange={this.onEyesFreeFirstNameInputChanged} audioData={this.state.data.keyboards.keys} audioFunc={this.setAudio}/>
+        <ReactKeyboard  eyesFree={this.state.eyesFree} value={this.state.firstname} layout={this.state.data.keyboards[this.state.language]} onChange={this.onFirstNameInputChanged} eyesFreeOnChange={this.onEyesFreeFirstNameInputChanged} audioData={this.state.data.keyboards.keys} audioFunc={this.setAudio} autoCaps={true}/>
         </div>
       )
     }
   }
 
   onLastNameInputChanged = (data) => {
-    this.setState({ lastname: data });
+    let last = data.charAt(0).toUpperCase() + data.slice(1);
+    this.setState({ lastname: last });
   }
 
   onEyesFreeLastNameInputChanged(char){
@@ -1461,12 +1467,13 @@ class App extends Component {
         eyesFreeLastNameInput = <input value={this.state.eyesfreelastname} className='eyes-free-input' type="text" disabled/>;
 
       }
+      var keyboardClasses = (eyesFreeClass == null ? "" : eyesFreeClass) + ' capitalize';
       return(
 
-        <div className={eyesFreeClass}>
+        <div className={keyboardClasses}>
         <InputSuggestion class='suggestion' content={jsonData.steps['last-name'].suggestion[this.state.language]}  input={this.state.lastname}/>
         {eyesFreeLastNameInput}
-        <ReactKeyboard eyesFree={this.state.eyesFree} value={this.state.lastname} layout={this.state.data.keyboards[this.state.language]} onChange={this.onLastNameInputChanged} eyesFreeOnChange={this.onEyesFreeLastNameInputChanged} audioData={this.state.data.keyboards.keys} audioFunc={this.setAudio}/>
+        <ReactKeyboard className="capitalize" eyesFree={this.state.eyesFree} value={this.state.lastname} layout={this.state.data.keyboards[this.state.language]} onChange={this.onLastNameInputChanged} eyesFreeOnChange={this.onEyesFreeLastNameInputChanged} audioData={this.state.data.keyboards.keys} audioFunc={this.setAudio}/>
         </div>
       )
     }
@@ -1503,7 +1510,7 @@ class App extends Component {
       return(
 
         <div className={eyesFreeClass}>
-        <InputSuggestion class='suggestion' content={jsonData.steps['email'].suggestion[this.state.language]}  input={this.state.lastname}/>
+        <InputSuggestion class='suggestion' content={jsonData.steps['email'].suggestion[this.state.language]}  input={this.state.email}/>
         {eyesFreeEmailInput}
         <ReactKeyboard eyesFree={this.state.eyesFree} value={this.state.email} layout={this.state.data.keyboards[this.state.language]} onChange={this.onEmailInputChanged} eyesFreeOnChange={this.onEyesFreeEmailInputChanged} audioData={this.state.data.keyboards.keys} audioFunc={this.setAudio}/>
         </div>
