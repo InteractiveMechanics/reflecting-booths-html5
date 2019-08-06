@@ -286,7 +286,7 @@ class App extends Component {
         this.state.lastname + ', ' +
         this.state.email + ', ' +
         this.state.geonameid + ', ' +
-        this.state.location + ', ' + //replace commas with dashes for csv legibility? possibly
+        this.state.location + ', ' +
         this.state.age + ', ' +
         this.state.age + ', ' +
         (exhibition ? exhibition : null) + ', ' +
@@ -294,7 +294,7 @@ class App extends Component {
       ;
 
       //post data to the cms with the requested uuid
-      axios.post("http://"+this.cmsIP+":3000/session/" + this.state.sessionId, { params: {
+      axios.post("http://"+this.captureIP+":3000/session/" + this.state.sessionId, { params: {
       firstname: this.state.firstname,
       lastname: this.state.lastname,
       email: this.state.email,
