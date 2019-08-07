@@ -37,7 +37,7 @@ class App extends Component {
 
     this.state = {
       data: jsonData,
-      currentState: 'location', //change this to skip around
+      currentState: 'attract', //change this to skip around, attract default
       language: 'english',
       eyesFree: false,
       firstname: '',
