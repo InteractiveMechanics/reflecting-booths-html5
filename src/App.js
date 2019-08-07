@@ -37,7 +37,7 @@ class App extends Component {
 
     this.state = {
       data: jsonData,
-      currentState: 'attract', //change this to skip around
+      currentState: 'location', //change this to skip around
       language: 'english',
       eyesFree: false,
       firstname: '',
@@ -68,7 +68,7 @@ class App extends Component {
       mainSound: "",
       timeout: 180000,
       attractFade: 0,
-      locationSuggestions: [],
+      locationSuggestion: {},
       touchscreenClass: "fade fade-enter",
       teleprompterClass: "fade fade-enter",
       remembrance: false,
@@ -102,6 +102,7 @@ class App extends Component {
     this.onEyesFreeLastNameInputChanged = this.onEyesFreeLastNameInputChanged.bind(this);
     this.onEyesFreeEmailInputChanged = this.onEyesFreeEmailInputChanged.bind(this);
     this.onEyesFreeLocationInputChanged = this.onEyesFreeLocationInputChanged.bind(this);
+    this.acceptLocation = this.acceptLocation.bind(this);
     //this.renderMainAudio = this.renderMainAudio.bind(this);  // this was commented out as of aug 2018
 
     //booth 1 install addresses
@@ -219,12 +220,12 @@ class App extends Component {
 
   //get autocomplete suggestion
   handleLocationQuery (string) {
-    // console.log(string);
+    console.log(string);
     if (string.length>0){
       axios.get('http://10.0.61.18/locate', { params: { name: string, limit: 1 }})
         .then(response =>
           this.setState({
-          locationSuggestion: response.data.data[0],
+          locationSuggestion: response.data.data[0]
         }))
     } else {
         this.setState({
@@ -378,7 +379,7 @@ class App extends Component {
       mainSound: "",
       timeout: 180000,
       attractFade: 0,
-      locationSuggestions: [],
+      locationSuggestion: {},
       touchscreenClass: "fade fade-enter",
       teleprompterClass: "fade fade-enter",
       remembrance: false,
@@ -1534,6 +1535,7 @@ class App extends Component {
 
   //location
   onLocationInputChanged = (data) => {
+    this.setState({ location: data});
     if(!this.state.eyesFree){
       this.handleLocationQuery(data);
     }
@@ -1554,13 +1556,29 @@ class App extends Component {
     this.handleLocationQuery(this.state.eyesfreelocation);
   }
 
+  acceptLocation () {
+    let location = this.state.locationSuggestion;
+    if (location){
+      this.setState({
+        locationObject: this.state.locationSuggestion,
+        location: location.name+ ', ' + location.admin1_name + ', ' + location.country_name
+      })
+    }
+  }
+
   renderLocationKeyboard(keyboardInput, eyesfree) {
     let location = this.state.locationSuggestion;
     let suggestionClass = 'suggestion';
+    let inputActive = "";
     if(this.state.currentState === 'location'){
       //
       let locationSuggestion = jsonData.steps['location']['suggestion'][this.state.language];
-      if ( location ) {
+      if ( location && this.state.locationObject && (this.state.location === location.name+ ', ' + location.admin1_name + ', ' + location.country_name)){
+      console.log(location.length);
+        suggestionClass = 'suggestion suggestion-normal suggestion-accepted';
+        locationSuggestion = location.name+ ', ' + location.admin1_name + ', ' + location.country_name;
+        inputActive = "hidden-input";
+      }else if ( location) {
         suggestionClass = 'suggestion suggestion-normal';
         locationSuggestion = location.name+ ', ' + location.admin1_name + ', ' + location.country_name;
       } else {
@@ -1578,9 +1596,13 @@ class App extends Component {
       return(
 
         <div className={eyesFreeClass}>
-        <InputSuggestion class='suggestion' content={locationSuggestion}  input={this.state.location}/>
+        <InputSuggestion class={suggestionClass} content={locationSuggestion}/>
         {eyesFreeLocationInput}
-        <ReactKeyboard eyesFree={this.state.eyesFree} value={this.state.location} layout={this.state.data.keyboards[this.state.language]} onChange={this.onLocationInputChanged} eyesFreeOnChange={this.onEyesFreeLocationInputChanged} audioData={this.state.data.keyboards.keys} audioFunc={this.setAudio}/>
+        <button className='location-button' onClick={this.acceptLocation}></button>
+        <div className={inputActive}>
+        <ReactKeyboard  eyesFree={this.state.eyesFree} value={this.state.location} layout={this.state.data.keyboards[this.state.language]} onChange={this.onLocationInputChanged} eyesFreeOnChange={this.onEyesFreeLocationInputChanged} audioData={this.state.data.keyboards.keys} audioFunc={this.setAudio}/>
+        </div>
+
         </div>
       )
     }

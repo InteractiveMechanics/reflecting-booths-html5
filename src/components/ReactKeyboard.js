@@ -122,7 +122,8 @@ ReactKeyboard.propTypes = {
   onChange: PropTypes.func.isRequired,
   audioData: PropTypes.object.isRequired,
   audioFunc: PropTypes.func.isRequired,
-  autoCaps: PropTypes.bool
+  autoCaps: PropTypes.bool,
+  inputActive: PropTypes.bool
 };
 
 export default ReactKeyboard;
