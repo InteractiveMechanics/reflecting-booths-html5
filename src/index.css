@@ -1057,7 +1057,7 @@ div[data-state='age'] .answerOption {
   position: absolute;
   top: 18px;
   right: 18px;
-  background: #002843 url(./Assets/forward-arrow.png) no-repeat;
+  background: #002843 url(./Assets/check.png) no-repeat;
   background-size:contain;
   border: none;
 }

@@ -13,6 +13,7 @@ import ReflectingButton from './components/ReflectingButton';
 import EyesFreeButton from './components/EyesFreeButton';
 import LanguageButton from './components/LanguageButton';
 import InputSuggestion from './components/InputSuggestion';
+import LocationSuggestion from './components/LocationSuggestion';
 import Fade from './components/Fade';
 import ReactKeyboard from './components/ReactKeyboard';
 import Chime from './Assets/audio/chime-re.mp3';
@@ -106,8 +107,8 @@ class App extends Component {
     //this.renderMainAudio = this.renderMainAudio.bind(this);  // this was commented out as of aug 2018
 
     //booth 1 install addresses
-    this.captureIP = "10.0.94.50";
-    this.interactiveIP = "10.0.94.49";
+    this.captureIP = "10.0.94.52";
+    this.interactiveIP = "10.0.94.51";
 
     this.cmsIP = "10.0.61.35";
 
@@ -229,7 +230,7 @@ class App extends Component {
         }))
     } else {
         this.setState({
-      locationSuggestion: null
+      locationSuggestion: {}
       })
     }
 
@@ -295,18 +296,18 @@ class App extends Component {
       ;
 
       //post data to the cms with the requested uuid
-      axios.post("http://"+this.captureIP+":3000/session/" + this.state.sessionId, { params: {
+      axios.post("http://"+this.captureIP+":3000/session/" + this.state.sessionId,  {
       firstname: this.state.firstname,
       lastname: this.state.lastname,
       email: this.state.email,
       geonameid: this.state.geonameid,
       place: this.state.location,
-      legal_selected: this.state.age,
-      legal: this.state.age,
+      legal_selected: (this.state.age === "yes"),
+      legal: (this.state.age === "yes"),
       uuid: this.state.sessionId,
       exhibition: exhibition,
       remembrance: remembrance
-    } })
+     })
         .then(response => {
           console.log(response)
         });
@@ -1572,15 +1573,17 @@ class App extends Component {
     let inputActive = "";
     if(this.state.currentState === 'location'){
       //
+      let acceptButton;
       let locationSuggestion = jsonData.steps['location']['suggestion'][this.state.language];
-      if ( location && this.state.locationObject && (this.state.location === location.name+ ', ' + location.admin1_name + ', ' + location.country_name)){
-      console.log(location.length);
+      if ( location && this.state.locationObject && this.state.location === (location.name+ ', ' + location.admin1_name + ', ' + location.country_name)){
         suggestionClass = 'suggestion suggestion-normal suggestion-accepted';
         locationSuggestion = location.name+ ', ' + location.admin1_name + ', ' + location.country_name;
         inputActive = "hidden-input";
-      }else if ( location) {
+
+      }else if ( !this.isEmpty(location) ) {
         suggestionClass = 'suggestion suggestion-normal';
         locationSuggestion = location.name+ ', ' + location.admin1_name + ', ' + location.country_name;
+        acceptButton = <button className='location-button' onClick={this.acceptLocation}></button>
       } else {
         suggestionClass = 'suggestion';
         locationSuggestion = jsonData.steps['location']['suggestion'][this.state.language];
@@ -1596,9 +1599,9 @@ class App extends Component {
       return(
 
         <div className={eyesFreeClass}>
-        <InputSuggestion class={suggestionClass} content={locationSuggestion}/>
+        <LocationSuggestion class={suggestionClass} content={locationSuggestion}/>
         {eyesFreeLocationInput}
-        <button className='location-button' onClick={this.acceptLocation}></button>
+        {acceptButton}
         <div className={inputActive}>
         <ReactKeyboard  eyesFree={this.state.eyesFree} value={this.state.location} layout={this.state.data.keyboards[this.state.language]} onChange={this.onLocationInputChanged} eyesFreeOnChange={this.onEyesFreeLocationInputChanged} audioData={this.state.data.keyboards.keys} audioFunc={this.setAudio}/>
         </div>
@@ -1613,6 +1616,14 @@ class App extends Component {
 
       return <EyesUpPrompt content={this.state.data.eyesup[this.state.language]}></EyesUpPrompt>
     }
+  }
+
+  isEmpty(obj) {
+    for(var key in obj) {
+        if(obj.hasOwnProperty(key))
+            return false;
+    }
+    return true;
   }
 
 
