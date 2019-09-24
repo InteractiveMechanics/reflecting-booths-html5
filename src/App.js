@@ -107,8 +107,8 @@ class App extends Component {
     //this.renderMainAudio = this.renderMainAudio.bind(this);  // this was commented out as of aug 2018
 
     //booth 1 install addresses
-    this.captureIP = "10.0.94.52";
-    this.interactiveIP = "10.0.94.51";
+    this.captureIP = "10.0.94.54";
+    this.interactiveIP = "10.0.94.53";
 
     this.cmsIP = "10.0.61.35";
 
@@ -473,7 +473,7 @@ class App extends Component {
         _paq.push(['trackEvent', 'Screen-About', 'Continue-to-questions', this.state.sessionId])
       }
       if (this.state.currentState === 'end'){
-        //this.getSessionId() //this session id may not be needed
+        this.getSessionId(); //needed for "make another recording"
         _paq.push(['trackEvent', 'Screen-End', 'Record-another', this.state.sessionId])
       }
       this.clearAudioTimeouts();

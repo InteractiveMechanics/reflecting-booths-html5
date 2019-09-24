@@ -1043,7 +1043,7 @@ div[data-state='age'] .answerOption {
   padding:0 60px 0px 60px;
 }
 
-.capitalize input{
+.capitalize input:not(.suggestion){
   text-transform:capitalize;
 }
 
